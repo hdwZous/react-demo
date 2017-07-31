@@ -12,7 +12,10 @@ const Component = React.createClass({
 
     render () {
         return (
-            <div>Hello world</div>
+            <div>
+                <h1>标题</h1>
+                <h2>副标题</h2>
+            </div>
         )
     },
 });

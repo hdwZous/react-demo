@@ -7,7 +7,7 @@ module.exports = {
   childRoutes: [{
     path: 'h5',
     childRoutes: [
-      require('./activity'),
+      // require('./activity'),
       require('./product'),
     ]
   }
