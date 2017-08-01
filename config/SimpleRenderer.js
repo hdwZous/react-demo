@@ -3,12 +3,13 @@ var path = require('path')
 var minify = require('html-minifier').minify
 
 function SimpleRenderer (options, fileName) {
-  var templatePath = '../app/' + (fileName === 'react' ? 'index' : 'simple') + '.html'
+  console.log(fileName)
+  var templatePath = '../app/' + (fileName === 'react' && 'index') + '.html'
 
   var html = fs.readFileSync(path.resolve(__dirname, templatePath), 'utf-8')
-    .replace('SCRIPT_URL', options.scriptUrl)
-    .replace('STYLE_URL', options.styleUrl)
-    .replace('COMMON_URL', options.commonsUrl)
+        .replace('SCRIPT_URL', options.scriptUrl)
+        .replace('STYLE_URL', options.styleUrl)
+        .replace('COMMON_URL', options.commonsUrl)
   this.html = minify(html, {
     removeComments: true,
     collapseWhitespace: true,

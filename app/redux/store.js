@@ -1,23 +1,23 @@
 /**
  * Created by chaiqing on 2017/7/26.
  */
-'use strict';
+'use strict'
 
-var {createStore, combineReducers} = require('redux');
-var visitor = require('./reducers/visitor');
-var vars = require('./reducers/vars');
-var objs = require('./reducers/objs');
-var lists = require('./reducers/lists');
-var banners = require('./reducers/banners');
-var map = require('./reducers/map');
+var {createStore, combineReducers} = require('redux')
+// var visitor = require('./reducers/visitor');
+var vars = require('./reducers/vars')
+// var objs = require('./reducers/objs');
+// var lists = require('./reducers/lists');
+// var banners = require('./reducers/banners');
+var map = require('./reducers/map')
 
 var mainReducer = combineReducers({
-  visitor,
+  // visitor,
   vars,
-  banners,
-  lists,
-  objs,
+  // banners,
+  // lists,
+  // objs,
   map
-});
+})
 
-export default module.exports = createStore(mainReducer);
+export default module.exports = createStore(mainReducer)

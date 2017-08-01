@@ -2,3 +2,4 @@ templates_cache
 logs
 .idea
 node_modules
+build
