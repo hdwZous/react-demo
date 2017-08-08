@@ -5,10 +5,10 @@ module.exports = {
   name: 'app',
   path: '/',
   childRoutes: [{
-    path: 'h5',
+    // path: 'h5',
     childRoutes: [
       // require('./activity'),
-      require('./product'),
+      require('./product')
     ]
   }
   ]
