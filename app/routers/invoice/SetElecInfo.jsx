@@ -1,6 +1,7 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import styles from "./MainPage.scss";
+import React from 'react';
+import {connect} from 'react-redux';
+import styles from "./SetElecInfo.scss";
+import Header from './comps/Header';
 
 const Component = React.createClass({
     componentDidMount () {
@@ -13,8 +14,7 @@ const Component = React.createClass({
     render () {
         return (
             <div className={styles.this}>
-                <h1>标题</h1>
-                <h2>副标题</h2>
+                <Header title="录入信息"/>
             </div>
         )
     }

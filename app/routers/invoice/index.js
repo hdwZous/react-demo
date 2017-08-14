@@ -5,10 +5,17 @@ module.exports = {
     path: 'invoice/',
     childRoutes: [
         {
-            path: 'mainpage',
+            path: 'setelecinfo',
             getComponent (nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('./MainPage.jsx'))
+                    cb(null, require('./SetElecInfo.jsx'))
+                })
+            }
+        }, {
+            path: 'setnormalinfo',
+            getComponent (nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('./SetNormalInfo.jsx'))
                 })
             }
         },
