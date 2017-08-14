@@ -1,0 +1,19 @@
+ul{
+  list-style:none;
+  background:#fff;
+  margin-top:0.2rem;
+  height:1.08rem;
+  width:100%;
+  padding:0;
+
+    li{
+      width:2.5rem;
+      box-sizing:border-box;
+      float:left;
+      text-align: center;
+      line-height:1.08rem;
+    }
+}
+.current{
+
+}
