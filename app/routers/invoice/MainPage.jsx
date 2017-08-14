@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import styles from "./Home.scss";
+import styles from "./MainPage.scss";
 
 const Component = React.createClass({
     componentDidMount () {

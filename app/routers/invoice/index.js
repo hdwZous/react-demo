@@ -2,13 +2,13 @@
  * Created by chaiqing on 2017/7/26.
  */
 module.exports = {
-    path: 'product/',
+    path: 'invoice/',
     childRoutes: [
         {
-            path: 'home',
+            path: 'mainpage',
             getComponent (nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('./Home.jsx'))
+                    cb(null, require('./MainPage.jsx'))
                 })
             }
         },
