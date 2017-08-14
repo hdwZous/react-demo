@@ -14,7 +14,7 @@ const Component = React.createClass({
     render () {
         return (
             <div className={styles.this}>
-                <Header title="录入普票信息信息"/>
+                123123123123123
             </div>
         )
     }

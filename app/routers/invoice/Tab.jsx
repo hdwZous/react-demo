@@ -3,7 +3,8 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
-import styles from "./tab.scss";
+import styles from "./Tab.scss";
+import {browserHistory} from 'react-router';
 
 const Component = React.createClass({
     componentDidMount () {
@@ -14,14 +15,25 @@ const Component = React.createClass({
     },
 
     render () {
-        {/*��ʾtab�б�����text�жϸ���*/}
-    let arr =['电子发票','普通发票','专用发票'];
-    let {title} =this.props;
+        let arr = [{
+            key: 'elec',
+            title: '电子发票'
+        }, {
+            key: 'pt',
+            title: '普通发票'
+        }, {
+            key: 'zy',
+            title: '专用发票'
+        }];
+        let {active} = this.props;
+        console.log(active);
         return (
             <ul>
                 {
-                    arr.map(function(name){
-                        return <li title={name}>{name}</li>
+                    arr.map((item, key) => {
+                        return <li key={key} className={item.key === active ? styles.active : ''} onClick={() => {
+                            browserHistory.push('/invoice/setelecinfo/' + item.key)
+                        }}>{item.title}</li>
                     })
                 }
             </ul>
