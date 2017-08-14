@@ -13,7 +13,7 @@ const Component = React.createClass({
     render () {
         return (
             <div className={styles.this}>
-                <h1>标题111</h1>
+                <h1>标题</h1>
                 <h2>副标题</h2>
             </div>
         )
