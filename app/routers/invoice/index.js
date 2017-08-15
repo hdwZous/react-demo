@@ -5,7 +5,7 @@ module.exports = {
     path: 'invoice/',
     childRoutes: [
         {
-            path: 'setelecinfo',
+            path: 'setelecinfo/:tab',
             getComponent (nextState, cb) {
                 require.ensure([], (require) => {
                     cb(null, require('./SetElecInfo.jsx'))
