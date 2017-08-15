@@ -13,7 +13,7 @@ const Component = React.createClass({
     render () {
         let {title, back} = this.props;
         return (
-            <div className={styles.header}>
+            <div className={styles.Header}>
                 <img src={backIcon} onClick={() => back()}/>
                 {title}
             </div>

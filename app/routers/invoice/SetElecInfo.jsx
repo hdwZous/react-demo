@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import styles from "./SetElecInfo.scss";
 import Header from './comps/Header';
 import Tab from './Tab';
+import SetElecInfoText from './SetElecInfoText';
 import SetNormalInfo from './SetNormalInfo';
 
 const Component = React.createClass({
@@ -20,12 +21,16 @@ const Component = React.createClass({
                 <Header title="录入信息"/>
                 <Tab active={tab}/>
                 {
-                    tab === 'pt' && <SetNormalInfo/>
+                    tab === 'elec' && <SetElecInfoText/>
                 }
                 {
-                    tab === 'elec' && <SetNormalInfo/>
+                    tab === 'pt' &&  <SetNormalInfo/>
+                }
+                {
+                    tab === 'zy' &&  <SetNormalInfo/>
                 }
             </div>
+
 
         )
     }

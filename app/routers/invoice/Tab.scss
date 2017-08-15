@@ -5,20 +5,29 @@ ul {
   height: 1.08rem;
   width: 100%;
   padding: 0;
+  box-sizing: border-box;
+  border-bottom:2px solid #e5e5e5;
 
   li {
     width: 2.5rem;
     box-sizing: border-box;
     float: left;
     text-align: center;
-    line-height: 1.08rem;
+      span{
+        height:1.08rem;
+        line-height: 1.08rem;
+        color:#999;
+        font-size:0.28rem;
+        display:inline-block;
+        box-sizing: border-box;
+      }
+
+
   }
 }
 
-.current {
 
-}
-
-.active {
-  background-color: red;
+li.active span {
+  border-bottom:2px solid #333;
+  color:#333;
 }
