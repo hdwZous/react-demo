@@ -53,8 +53,6 @@
     "md5": "2.2.1",
     "mkdirp": "^0.5.1",
     "moment": "^2.10.6",
-    "node-sass": "^4.5.3",
-    "npm-zepto": "^1.1.7",
     "null-loader": "^0.1.0",
     "odometer": "^0.4.7",
     "postcss-loader": "^0.9.1",

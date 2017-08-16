@@ -18,6 +18,13 @@ module.exports = {
                     cb(null, require('./SetNormalInfo.jsx'))
                 })
             }
+        }, {
+            path: 'sy',
+            getComponent (nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('./Sy.jsx'))
+                })
+            }
         },
     ],
 }
