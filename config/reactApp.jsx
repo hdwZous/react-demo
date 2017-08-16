@@ -37,7 +37,7 @@ function flex (baseFontSize, fontscale) {
   doc.documentElement.style.fontSize = _baseFontSize / 2 * dpr * _fontscale + 'px'
 };
 
-flex(100, 1)
+// flex(100, 1)
 ReactDom.render((
   <Provider store={store}>
     <Router history={browserHistory} routes={routes} />
