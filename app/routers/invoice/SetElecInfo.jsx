@@ -5,7 +5,6 @@ import Tab from './Tab';
 import SetElecInfoText from './SetElecInfoText';
 import SetNormalInfo from './SetNormalInfo';
 //import SetNormalInfo from './SetSpecialInfo';
-import FixedContent from "../../components/common/FixedContent";
 
 const Component = React.createClass({
     componentDidMount () {
@@ -18,7 +17,6 @@ const Component = React.createClass({
     render () {
         let {tab} = this.props.params;
         return (
-        <FixedContent>
             <div>
                 <Header title="录入信息"/>
                 <Tab active={tab}/>
@@ -32,7 +30,6 @@ const Component = React.createClass({
                     tab === 'zy' &&  <SetNormalInfo/>
                 }
             </div>
-</FixedContent>
 
         )
     }
