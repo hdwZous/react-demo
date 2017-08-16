@@ -30,7 +30,7 @@ let BottomPopup = React.createClass({
       <div className={`${styles.ml20} ${styles.line}`}>
         <div className={styles.text}>{title}</div>
         <div className={styles.choose} onClick={() => this.showPopup()}>
-          {text || '请选择'}
+          {text || '请选择111'}
         </div>
       </div>
     )
