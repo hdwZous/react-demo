@@ -60,10 +60,11 @@ const Component = React.createClass({
                 {/*表单组件*/}
                 {
                     aInput.map((item, key) => {
+                        console.log(item.value);
                         return  <div key={key} style={{backgroundColor:item.color ? item.color : '#fff'}}>
                                     {item.icon ? <img src={InputIcon}/>:''}
                                     <span>{item.title}</span>
-                                    <input type="text" placeholder={item.text?item.title:'请输入'} value={item.value?'￥110.00':''} />
+                                    <input type="text" placeholder={item.text?item.title:'请输入'} />
                                     {item.btn ? <a href="#">获取验证码</a>:''}
                                </div>
 

@@ -4,7 +4,6 @@ import Header from './comps/Header';
 import Tab from './Tab';
 import SetElecInfoText from './SetElecInfoText';
 import SetNormalInfo from './SetNormalInfo';
-//import SetNormalInfo from './SetSpecialInfo';
 import FixedContent from "../../components/common/FixedContent";
 
 const Component = React.createClass({
