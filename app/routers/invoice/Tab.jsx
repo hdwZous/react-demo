@@ -5,6 +5,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import styles from "./Tab.scss";
 import {browserHistory} from 'react-router';
+import LocalState from './localState';
+
 
 const Component = React.createClass({
     componentDidMount () {
@@ -26,17 +28,24 @@ const Component = React.createClass({
             title: '专用发票'
         }];
         let {active} = this.props;
-        console.log(active);
+        //console.log(active);
         return (
+            <div>
+                <div className={styles.invoiceTab}>
             <ul>
                 {
                     arr.map((item, key) => {
                         return <li key={key} className={item.key === active ? styles.active : ''} onClick={() => {
                             browserHistory.push('/invoice/setelecinfo/' + item.key)
-                        }}>{item.title}</li>
+                        }}><span>{item.title}</span></li>
                     })
                 }
             </ul>
+                    </div>
+                <LocalState />
+            </div>
+
+
         )
     }
 })
@@ -48,9 +57,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: () => {
-        },
-        tabLight: (text) => {
-
         }
     }
 }

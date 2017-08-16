@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Header from './comps/Header';
-import InvoiceInput from './InvoiceInput';
 
 const Component = React.createClass({
     componentDidMount () {
@@ -14,7 +13,7 @@ const Component = React.createClass({
     render () {
         return (
             <div>
-                <InvoiceInput />
+               hahahha
             </div>
         )
     }

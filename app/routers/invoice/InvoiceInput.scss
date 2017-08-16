@@ -1,0 +1,33 @@
+.invoiceInput{
+  margin-top:0.2rem;
+ div{
+      width:100%;
+      height:1.08rem;
+      border-bottom:2px solid #f6f6f6;
+      background-color:#fff;
+   img{
+     width:0.12rem;
+     height:0.12rem;
+     margin-left:0.3rem;
+     margin-right:0.1rem;
+     position:absolute;
+     //vertical-align:middle;
+     margin-top:0.48rem;
+   }
+     span{
+       width:2.94rem;
+       line-height:1.08rem;
+       box-sizing:border-box;
+       padding-left:0.52rem;
+       font-size:0.28rem;
+       color:#333;
+       display:inline-block;
+     }
+   input{
+     border:0;
+     background:none;
+     outline:none;
+
+   }
+  }
+}
