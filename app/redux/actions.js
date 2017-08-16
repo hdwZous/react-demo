@@ -80,21 +80,21 @@ export function setVars (key, value) {
 //   }
 // }
 
-// export function setObjs(key, value) {
-//   return {
-//     type: SET_OBJS,
-//     key,
-//     value
-//   }
-// }
+export function setObjs(key, value) {
+  return {
+    type: SET_OBJS,
+    key,
+    value
+  }
+}
 
-// export function appendObjs(key, objKey, objValue) {
-//   return {
-//     type: APPEND_OBJS,
-//     key,
-//     value: (typeof objKey === 'object') ? objKey : _.object([[objKey, objValue]])
-//   }
-// }
+export function appendObjs(key, objKey, objValue) {
+  return {
+    type: APPEND_OBJS,
+    key,
+    value: (typeof objKey === 'object') ? objKey : _.object([[objKey, objValue]])
+  }
+}
 
 export function mapSet (...keyPath) {
   let value = keyPath.pop()
