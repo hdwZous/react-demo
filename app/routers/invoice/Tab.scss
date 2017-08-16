@@ -7,10 +7,10 @@
     width: 100%;
     padding: 0;
     box-sizing: border-box;
-    border-bottom: 2px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 
     li {
-      width: 2.5rem;
+      width: 33.33333%;
       box-sizing: border-box;
       float: left;
       text-align: center;
@@ -28,7 +28,7 @@
   }
 
     li.active span {
-    border-bottom: 2px solid #333;
+    border-bottom: 0.02rem solid #333;
     color: #333;
   }
 }

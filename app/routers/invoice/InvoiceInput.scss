@@ -5,6 +5,7 @@
       height:1.08rem;
       border-bottom:2px solid #f6f6f6;
       background-color:#fff;
+      position:relative;
    img{
      width:0.12rem;
      height:0.12rem;
@@ -25,9 +26,57 @@
      }
    input{
      border:0;
-     background:none;
+     padding:0;
+     background:transparent;
      outline:none;
-
+     line-height:0.72rem;
+     height:0.72rem;
+     width:4.36rem;
+     margin:0.18rem 0;
+     font-size:24px;
+     color:#999;
    }
+   .yzmInput{
+     width:2.16rem;
+   }
+   .yzmBtn{
+     position:absolute;
+     right:0.3rem;
+     width:1.8rem;
+     height:0.72rem;
+     font-size:0.24rem;
+     padding:0;
+     margin:0;
+     outline:none;
+     color:#ffbe23;
+     border:1px solid #ffbe23;
+     border-radius:0.36rem;
+     background:transparent;
+     top:0.19rem;
+   }
+
+  }
+  .submitBtn{
+    width:100%;
+    padding:1.2rem 0.3rem;
+    box-sizing:border-box;
+    border-bottom: 0;
+    background: transparent;
+    height: 3.28rem;
+    button{
+      padding:0;
+      margin:0;
+      border:0;
+      outline:none;
+      width:100%;
+      height:0.88rem;
+      color:#fff;
+      font-size:32px;
+      border-radius:0.44rem;
+      background: linear-gradient(to bottom, #ffcb32, #ff9b01);
+      background: -webkit-linear-gradient( to bottom, #ffcb32, #ff9b01);
+
+
+    }
   }
 }

@@ -17,7 +17,7 @@ const aInput = [
         title: '纳税人识别号',
         icon: true,
         text: true,
-        id: 'CompanyCode',
+        id: 'CompanyCode'
     },
     {
 
@@ -73,8 +73,8 @@ const Component = React.createClass({
                             {item.icon ? <img src={InputIcon}/> : ''}
                             <span>{item.title}</span>
                             <input type="text" placeholder={item.text ? item.title : '请输入'}
-                                   onChange={(e) => bindData(item.id, e.target.value)}/>
-                            {item.btn ? <a href="#">获取验证码</a> : ''}
+                                   onChange={(e) => bindData(item.id, e.target.value)} className={ item.id =='MessageCode' ? styles.yzmInput:styles.input}/>
+                            {item.btn ? <button className={styles.yzmBtn}>点击获取</button> : ''}
                         </div>
 
                     })
@@ -88,7 +88,7 @@ const Component = React.createClass({
                         bankNameAndAccount: bankNameAndAccount,
                         mobileNumber: mobileNumber,
                         messageCode: messageCode,
-                        email: email,
+                        email: email
                     })}>提交
                     </button>
                 </div>
@@ -107,7 +107,7 @@ const mapStateToProps = (state) => {
         bankNameAndAccount: state.vars.invoiceBankNameAndAccount,
         mobileNumber: state.vars.invoiceMobileNumber,
         messageCode: state.vars.invoiceMessageCode,
-        email: state.vars.invoiceEmail,
+        email: state.vars.invoiceEmail
     }
 }
 
