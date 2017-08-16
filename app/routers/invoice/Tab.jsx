@@ -7,6 +7,7 @@ import styles from "./Tab.scss";
 import {browserHistory} from 'react-router';
 import LocalState from './localState';
 
+
 const Component = React.createClass({
     componentDidMount () {
         this.props.init()
@@ -30,6 +31,7 @@ const Component = React.createClass({
         //console.log(active);
         return (
             <div>
+                <div className={styles.invoiceTab}>
             <ul>
                 {
                     arr.map((item, key) => {
@@ -39,8 +41,11 @@ const Component = React.createClass({
                     })
                 }
             </ul>
-            <LocalState />
+                    </div>
+                <LocalState />
             </div>
+
+
         )
     }
 })
