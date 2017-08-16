@@ -3,10 +3,11 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
-import styles from './LocalState.scss'
+import styles from './LocalState.scss';
 import inputInfo from './img/inputInfo.png';
 import DefaultAudit from './img/default-audit.png';
 import DefaultApproval from './img/default-approval.png';
+import ProgressLine from './img/progress-line.png';
 
 
 const Component = React.createClass({
@@ -16,13 +17,14 @@ const Component = React.createClass({
 
     render () {
         return (
-            <div className={styles.LocalState}>
+            <div className={styles.localstate}>
                 <ul>
-                    <li><img src={inputInfo}/></li>
-                        <li><img src={DefaultAudit}/></li>
-                            <li><img src={DefaultApproval}/></li>
-                            </ul>
-                        </div>
+                    <li><img src={ProgressLine} className={styles.stateLine}/><img src={inputInfo}/><span className={styles.currentColor}>录入信息</span></li>
+                    <li><img src={ProgressLine} className={styles.stateLine}/><img src={DefaultAudit}/><span>审核信息</span></li>
+                    <li><img src={DefaultApproval}/><span>审核通过</span></li>
+                </ul>
+            </div>
+
         )
 
 

@@ -30,6 +30,7 @@ const Component = React.createClass({
         //console.log(active);
         return (
             <div>
+                <div className={styles.invoiceTab}>
             <ul>
                 {
                     arr.map((item, key) => {
@@ -39,8 +40,11 @@ const Component = React.createClass({
                     })
                 }
             </ul>
-            <LocalState />
+                    </div>
+                <LocalState />
             </div>
+
+
         )
     }
 })
