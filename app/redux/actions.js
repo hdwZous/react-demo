@@ -13,7 +13,7 @@ export const SET_VARS = 'SET_VARS'
 // export const UPDATE_LIST_ITEM = 'UPDATE_LIST_ITEM';
 
 export const SET_OBJS = 'SET_OBJS';
-// export const APPEND_OBJS = 'APPEND_OBJS';
+export const APPEND_OBJS = 'APPEND_OBJS';
 
 // export function setVisitor(visitor) {
 //   return {
