@@ -4,6 +4,7 @@ import Header from './comps/Header';
 import Tab from './Tab';
 import SetElecInfoText from './SetElecInfoText';
 import SetNormalInfo from './SetNormalInfo';
+import SetSspecialInfo from './SetSpecialInfo';
 
 const Component = React.createClass({
     componentDidMount () {
@@ -23,10 +24,10 @@ const Component = React.createClass({
                     tab === 'elec' && <SetElecInfoText/>
                 }
                 {
-                    tab === 'pt' &&  <SetNormalInfo/>
+                    tab === 'pt' && <SetNormalInfo/>
                 }
                 {
-                    tab === 'zy' &&  <SetNormalInfo/>
+                    tab === 'zy' && <SetSspecialInfo/>
                 }
             </div>
 
