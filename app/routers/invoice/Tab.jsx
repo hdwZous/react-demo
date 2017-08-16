@@ -7,6 +7,7 @@ import styles from "./Tab.scss";
 import {browserHistory} from 'react-router';
 import LocalState from './localState';
 
+
 const Component = React.createClass({
     componentDidMount () {
         this.props.init()
