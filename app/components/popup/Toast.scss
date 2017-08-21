@@ -1,0 +1,46 @@
+.this {
+
+  @keyframes bounce {
+    0% {
+      opacity: 1;
+      transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+    }
+    10% {
+      opacity: 1;
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+    }
+    80% {
+      opacity: 1;
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+    }
+  }
+  .promptBox {
+    &.bounce {
+      animation: bounce 2.5s ease-in-out forwards;
+      -webkit-animation: bounce 2.5s ease-in-out forwards;
+    }
+
+    position: fixed;
+    z-index: 99;
+    width: 7.5rem;
+    top: 30%;
+    text-align: center;
+    p {
+      background: rgba(0, 0, 0, 0.9);;
+      color: #fff;
+      padding: 0.3rem .4rem;
+      display: inline-block;
+      margin: 0 auto;
+      border-radius: 0.1rem;
+      max-width: 4rem;
+    }
+  }
+}

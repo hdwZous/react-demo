@@ -4,8 +4,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import styles from './InvoiceInput.scss';
-import InputIcon from './img/input-icon.png';
-import actions from '../../redux/actions';
+import InputIcon from '../img/input-icon.png';
+import actions from '../../../redux/actions';
+import fromConfig from '../config/from.config';
 
 const aInput = [
     {
@@ -25,7 +26,8 @@ const aInput = [
         icon: true,
         color: '#f6f6f6',
         value: true,
-        id: 'CompanyTotal'
+        id: 'CompanyTotal',
+        text: '1',
     },
     {
 
@@ -63,17 +65,18 @@ const Component = React.createClass({
     },
 
     render () {
-        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email} = this.props;
+        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab} = this.props;
         return (
             <div className={styles.invoiceInput}>
                 {/*表单组件*/}
                 {
-                    aInput.map((item, key) => {
+                    fromConfig && fromConfig[tab].map((item, key) => {
                         return <div key={key} style={{backgroundColor: item.color ? item.color : '#fff'}}>
                             {item.icon ? <img src={InputIcon}/> : ''}
                             <span>{item.title}</span>
                             <input type="text" placeholder={item.text ? item.title : '请输入'}
-                                   onChange={(e) => bindData(item.id, e.target.value)} className={ item.id =='MessageCode' ? styles.yzmInput:styles.input}/>
+                                   onChange={(e) => bindData(item.id, e.target.value)}
+                                   className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                             {item.btn ? <button className={styles.yzmBtn}>点击获取</button> : ''}
                         </div>
 
