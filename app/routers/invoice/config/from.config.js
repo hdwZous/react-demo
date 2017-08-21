@@ -3,7 +3,8 @@ module.exports = {
         {
             title: '单位名称',
             icon: true,
-            id: 'CompanyName'
+            id: 'CompanyName',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '纳税人识别号',
@@ -33,7 +34,8 @@ module.exports = {
         {
             title: '手机号',
             icon: true,
-            id: 'MobileNumber'
+            id: 'MobileNumber',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '短信验证码',

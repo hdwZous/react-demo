@@ -7,65 +7,15 @@ import styles from './InvoiceInput.scss';
 import InputIcon from '../img/input-icon.png';
 import actions from '../../../redux/actions';
 import fromConfig from '../config/from.config';
-
-const aInput = [
-    {
-        title: '单位名称',
-        icon: true,
-        id: 'CompanyName'
-    },
-    {
-        title: '纳税人识别号',
-        icon: true,
-        text: true,
-        id: 'CompanyCode'
-    },
-    {
-
-        title: '价税合计（小写）',
-        icon: true,
-        color: '#f6f6f6',
-        value: true,
-        id: 'CompanyTotal',
-        text: '1',
-    },
-    {
-
-        title: '地址、电话',
-        icon: false,
-        id: 'AddAndPhoneNumber'
-    },
-    {
-
-        title: '开户行及账号',
-        icon: false,
-        id: 'BankNameAndAccount'
-    },
-    {
-        title: '手机号',
-        icon: true,
-        id: 'MobileNumber'
-    },
-    {
-        title: '短信验证码',
-        icon: false,
-        btn: true,
-        id: 'MessageCode'
-    },
-    {
-        title: '邮箱',
-        icon: false,
-        id: 'Email'
-    },
-]
+import {toast} from '../../../components/popup';
 
 const Component = React.createClass({
     componentDidMount () {
-        this.props.init()
+        this.props.init(this.props.tab);
     },
 
     render () {
-        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab} = this.props;
+        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab, toRegInput} = this.props;
         return (
             <div className={styles.invoiceInput}>
                 {/*表单组件*/}
@@ -75,7 +25,7 @@ const Component = React.createClass({
                             {item.icon ? <img src={InputIcon}/> : ''}
                             <span>{item.title}</span>
                             <input type="text" placeholder={item.text ? item.title : '请输入'}
-                                   onChange={(e) => bindData(item.id, e.target.value)}
+                                   onChange={(e) => bindData(item, e.target.value)}
                                    className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                             {item.btn ? <button className={styles.yzmBtn}>点击获取</button> : ''}
                         </div>
@@ -83,16 +33,16 @@ const Component = React.createClass({
                     })
                 }
                 <div className={styles.submitBtn}>
-                    <button onClick={() => callBack({
-                        companyName: companyName,
-                        companyCode: companyCode,
-                        companyTotal: companyTotal,
-                        addAndPhoneNumber: addAndPhoneNumber,
-                        bankNameAndAccount: bankNameAndAccount,
-                        mobileNumber: mobileNumber,
-                        messageCode: messageCode,
-                        email: email
-                    })}>提交
+                    <button onClick={() => toRegInput(callBack, [
+                        companyName,
+                        companyCode,
+                        companyTotal,
+                        addAndPhoneNumber,
+                        bankNameAndAccount,
+                        mobileNumber,
+                        messageCode,
+                        email
+                    ])}>提交
                     </button>
                 </div>
             </div>
@@ -116,10 +66,36 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        init: () => {
+        init: (tab) => {
+            fromConfig && fromConfig[tab].map((item) => {
+                dispatch(actions.setVars('invoice' + item.id, item));
+            })
         },
-        bindData: (id, value) => {
-            dispatch(actions.setVars('invoice' + id, value));
+        bindData: (item, value) => {
+            item.value = value;
+            dispatch(actions.setVars('invoice' + item.id, item));
+        },
+        toRegInput: (cb, data) => {
+            let jsonData = '{';
+            data && data.map((item) => {
+                if (item) {
+                    if (item.reg) {
+                        if (item.value) {
+                            if (!item.reg.test(item.value)) {
+                                toast('请输入正确的' + item.title);
+                                return false
+                            }
+                        } else {
+                            toast('请输入正确的' + item.title);
+                            return false
+                        }
+                    }
+                    jsonData += '"' + item.id + '":"' + item.value + '"' + ",";
+                }
+            });
+            jsonData = jsonData.substring(0, jsonData.length - 1);
+            jsonData += '}';
+            cb(JSON.parse(jsonData));
         }
     }
 }

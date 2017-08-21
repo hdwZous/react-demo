@@ -18,7 +18,9 @@ const Component = React.createClass({
             <div>
                 <Header title="录入信息"/>
                 <Tab active={tab} flag={flag}/>
-                <InvoiceInput tab={tab}/>
+                <InvoiceInput tab={tab} callBack={(data) => {
+                    console.log(data);
+                }}/>
             </div>
 
         )

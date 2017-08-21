@@ -32,7 +32,6 @@ const Home = React.createClass({
 const mapDispatchToProps = (dispatch) => {
     return {
         init: (time) => {
-            console.log(1);
             setTimeout(() => {
                 dispatch(actions.setVars('fuiToast', ''))
             }, time)
