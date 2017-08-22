@@ -1,0 +1,94 @@
+.this {
+  @-webkit-keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+  }
+  .main {
+    width: 7.5rem;
+    z-index: 9999;
+    height: 100%;
+    background: #fff;
+    text-align: center;
+    border-radius: 0.1rem;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+    -webkit-animation: fadeIn 0.5s ease-in-out forwards;
+    .title {
+      font-size: 0.36rem;
+      line-height: 400%;
+      height: 10%;
+    }
+
+    .content {
+      font-size: .32rem;
+      color: #333;
+      height: 70%;
+      overflow-x: auto;
+      padding: 0 .5rem .5rem;
+      text-align: left;
+    }
+    .button {
+      position: fixed;
+      width: 7.5rem;
+      bottom: 0;
+      height: 20%;
+      color: #666;
+      font-size: 0.24rem;
+      .closeImg{
+        width: 1rem;
+        padding-top: .8rem;
+      }
+      .cancel {
+        position: relative;
+        i {
+          position: absolute;
+          right: 0;
+          top: -0.2rem;
+          bottom: -0.25rem;
+          width: 1px;
+          background: #ddd;
+        }
+      }
+      div {
+        width: 50%;
+        text-align: center;
+        display: inline-block;
+      }
+      button {
+        width: 50%;
+        background: #fff;
+        height: 100%;
+        border: 0;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        padding: 0;
+      }
+      button:nth-child(1) {
+        border-bottom-right-radius: 0;
+        border-right: 1px solid #ddd;
+      }
+    }
+  }
+}

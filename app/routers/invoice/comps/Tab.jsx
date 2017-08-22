@@ -5,7 +5,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import styles from "./Tab.scss";
 import {browserHistory} from 'react-router';
-import LocalState from './localState';
+import LocalState from './LocalState';
+import {toast} from '../../../components/popup';
 
 
 const Component = React.createClass({
@@ -21,28 +22,26 @@ const Component = React.createClass({
             key: 'elec',
             title: '电子发票'
         }, {
-            key: 'pt',
+            key: 'normal',
             title: '普通发票'
         }, {
-            key: 'zy',
+            key: 'special',
             title: '专用发票'
         }];
-        let {active} = this.props;
-        //console.log(active);
+        let {active, flag, toPage} = this.props;
         return (
             <div>
                 <div className={styles.invoiceTab}>
-            <ul>
-                {
-                    arr.map((item, key) => {
-                        return <li key={key} className={item.key === active ? styles.active : ''} onClick={() => {
-                            browserHistory.push('/invoice/setelecinfo/' + item.key)
-                        }}><span>{item.title}</span></li>
-                    })
-                }
-            </ul>
-                    </div>
-                <LocalState />
+                    <ul>
+                        {
+                            arr.map((item, key) => {
+                                return <li key={key} className={item.key === active ? styles.active : ''}
+                                           onClick={() => toPage(item.key)}><span>{item.title}</span></li>
+                            })
+                        }
+                    </ul>
+                </div>
+                <LocalState flag={flag}/>
             </div>
 
 
@@ -57,6 +56,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: () => {
+        },
+        toPage: (key) => {
+            if (key) {
+                browserHistory.push('/invoice/setinfo/' + key + '/set');
+            } else {
+                toast('123123');
+            }
         }
     }
 }

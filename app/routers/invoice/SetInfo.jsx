@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Header from './comps/Header';
+import Tab from './comps/Tab';
+import InvoiceInput from './comps/InvoiceInput';
 
 const Component = React.createClass({
     componentDidMount () {
@@ -11,10 +13,16 @@ const Component = React.createClass({
     },
 
     render () {
+        let {tab, flag} = this.props.params;
         return (
             <div>
-               hahahha
+                <Header title="录入信息"/>
+                <Tab active={tab} flag={flag}/>
+                <InvoiceInput tab={tab} callBack={(data) => {
+                    console.log(data);
+                }}/>
             </div>
+
         )
     }
 })

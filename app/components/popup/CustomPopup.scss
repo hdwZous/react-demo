@@ -1,0 +1,24 @@
+.this {
+  .fixed {
+    position: fixed;
+  }
+  .fixedBox {
+    position: fixed;
+    width: 100%;
+    maxWidth: 450;
+    height: 100%;
+    top: 0;
+    background: rgba(0, 0, 0, .6);
+    zIndex: 5;
+  }
+
+  @keyframes showModel {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  animation: showModel 0.3s ease-in-out forwards;
+}
