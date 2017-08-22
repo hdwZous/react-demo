@@ -5,7 +5,7 @@ import SyInput1 from './comps/SyInput.jsx';
 import SyInput2 from './comps/SyInput.jsx';
 import SyInput4 from './comps/SyInput.jsx';
 import SySelect from './comps/SySelect';
-import {SelectInput} from "../../components/form";
+import {SelectInput} from '../../components/form'
 import SySearch from './comps/SySearch.jsx';
 import actions from '../../redux/actions';
 import styles from './Sy.scss';

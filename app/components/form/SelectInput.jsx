@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Select.scss'
+import styles from './SelectInput.scss'
 let _ = require('lodash')
 require('jquery.cookie')
 import closeimg from './images/gb.png'
@@ -27,11 +27,8 @@ let BottomPopup = React.createClass({
     let {title} = this.props
 
     return (
-      <div className={`${styles.ml20} ${styles.line}`}>
-        <div className={styles.text}>{title}</div>
-        <div className={styles.choose} onClick={() => this.showPopup()}>
-          {text || '请选择111'}
-        </div>
+      <div className={text ? styles.choosen : styles.choose} onClick={() => this.showPopup()}>
+        {text || '请选择'}
       </div>
     )
   },
@@ -59,7 +56,7 @@ let BottomPopup = React.createClass({
 
         {isShowSelect &&
         <div className={styles.chooseBox}
-          style={{height: this.setHeight(list.length) + 1.1 + 'rem'}}>
+          style={{height: this.setHeight(list.length) + 0.5 + 'rem'}}>
           <div className={styles.chooseTop}>
             <div className={styles.titleCenter}>
               {'请选择'}

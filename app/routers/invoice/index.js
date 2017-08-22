@@ -21,10 +21,17 @@ module.exports = {
         }, {
             path: 'sy',
             getComponent (nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('./Sy.jsx'))
-                })
+              require.ensure([], (require) => {
+                cb(null, require('./Sy.jsx'))
+              })
             }
-        },
-    ],
+          }, {
+            path: 'claim',
+            getComponent (nextState, cb) {
+              require.ensure([], (require) => {
+                cb(null, require('./ClaimInvoice.jsx'))
+              })
+            }
+        }
+    ]
 }

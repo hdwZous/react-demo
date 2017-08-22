@@ -3,6 +3,7 @@
  */
 module.exports = {
   devPort: 80,
-  serviceBaseUrl: 'https://api.95303.com',
+  // serviceBaseUrl: 'https://api.95303.com',
+  serviceBaseUrl: 'https://api.95303.com'
 }
 

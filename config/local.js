@@ -3,5 +3,6 @@
  */
 module.exports = {
   devPort: 9090,
-  serviceBaseUrl: 'https://127.0.0.1/'
+  serviceBaseUrl: 'http://freezem.95303.com'
+  // serviceBaseUrl: 'http://192.168.42.151:9000'
 }
