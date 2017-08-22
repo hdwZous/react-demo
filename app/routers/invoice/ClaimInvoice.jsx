@@ -6,46 +6,11 @@ import {SelectInput} from '../../components/form'
 import banner from './img/banner.png'
 import styles from './ClaimInvoice.scss'
 import apiClient from '../../lib/apiClient'
-import {broswerRoute} from 'react-router'
-const inputConfig = [
-  {
-    placeHolder: '请输入保单号',
-    id: 'insureNumber',
-    type: 'input',
-    title: '保单号'
-  }, {
-    placeHolder: '请输入被保险人姓名',
-    id: 'insureName',
-    type: 'input',
-    title: '保险人姓名'
-  }, {
-    placeHolder: '请选择证件类型',
-    id: 'cardType',
-    type: 'select',
-    title: '证件类型'
-  }, {
-    placeHolder: '请输入证件号码',
-    id: 'cardNumber',
-    type: 'input',
-    reg: new RegExp('^[0-9]*$'),
-    title: '证件号码'
-  }
-]
-const cardTypeList = [
-  {value: '120001', text: '身份证'},
-  {value: '120002', text: '护照'},
-  {value: '110001', text: '组织机构代码'},
-  {value: '100112', text: '统一社会信息代码'},
-  {value: '120009', text: '其他'}
-]
+import {browserRouter} from 'react-router'
+import inputConfig from './config/input.config'
+import cardTypeList from './config/card.config'
 
 class ClaimInvoice extends Component {
-  componentWillMount () {
-
-  }
-  componentDidMount () {
-
-  }
   render () {
     const {
       bindData,
@@ -129,7 +94,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         if (invoiceInfo.cinvoiceBS === '03') {
           console.log('我公司为本保险产品提供定额发票，您无需填写发票信息！')
         } else if (invoiceInfo.cinvoiceBS === '02') {
-          broswerRoute.push('setinfo/' + type + '/' + status)
+          browserRouter.push('setinfo/' + type + '/' + status)
         }
       }
     })
