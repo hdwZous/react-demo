@@ -6,12 +6,15 @@ import {SelectInput} from '../../components/form'
 import banner from './img/banner.png'
 import styles from './ClaimInvoice.scss'
 import apiClient from '../../lib/apiClient'
-import {browserRouter} from 'react-router'
+import { browserHistory} from 'react-router';
 import inputConfig from './config/input.config'
 import cardTypeList from './config/card.config'
 import {toast} from '../../components/popup'
 
 class ClaimInvoice extends Component {
+  componentWillMount () {
+    document.documentElement.style.backgroundColor = '#ffffff'
+  }
   render () {
     const {
       bindData,
@@ -20,7 +23,8 @@ class ClaimInvoice extends Component {
       insureName,
       cardNumber,
       cardType,
-      validate
+      validate,
+      isHidden
     } = this.props
     return (
       <FixedContent>
@@ -54,7 +58,9 @@ class ClaimInvoice extends Component {
             cardType
           }, getTxCode)} >查询</button>
         </div>
-        <div className={styles.TXCode} id='TXCode'></div>
+        <div className={styles.mask} style={{display: isHidden === true ? 'none' : 'block'}} >
+          <div className={styles.TXCode} id='TXCode'></div>
+        </div>
       </FixedContent>
     )
   }
@@ -65,7 +71,8 @@ const mapStateToProps = (state) => {
     insureNumber: state.vars.insureNumber,
     insureName: state.vars.insureName,
     cardNumber: state.vars.cardNumber,
-    cardType: state.vars.cardType
+    cardType: state.vars.cardType,
+    isHidden: state.vars.isHidden || false
   }
 }
 /**
@@ -86,16 +93,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       ticket: obj.ticket
     }
     apiClient.post('/My/Query_invoice', data).then((result) => {
-      console.log(result)
-      if (!!result && result.code === 0) {
-        let invoiceInfo = result.data.invoice
+      if (result) {
+        console.log(result.invoice.cinvoiceBS)
+        let invoiceInfo = result.invoice;
         let status = invoiceInfo.cstatus === 0 ? 'set' : (invoiceInfo.cstatus === 7 || invoiceInfo.cstatus === 9 ? 'finish' : 'wait')
         let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
         dispatch(actions.setVars('invoiceInfo', invoiceInfo))
         if (invoiceInfo.cinvoiceBS === '03') {
           toast('我公司为本保险产品提供定额发票，您无需填写发票信息！')
         } else if (invoiceInfo.cinvoiceBS === '02') {
-          browserRouter.push('setinfo/' + type + '/' + status)
+          console.log('跳转到下一个页面')
+          browserHistory.push('/invoice/setinfo/' + type + '/' + status)
         }
       }
     })
@@ -111,21 +119,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     validate: (data, cb) => {
       let obj = {}
       let flag = true
-      console.log(inputConfig)
-      inputConfig.map((item) => {
+      for (let item of inputConfig) {
         if (!item.value) {
           if (item.type === 'select') {
             toast('请选择' + item.title)
             flag = false
-            return
+            return false
           } else {
             toast(item.title + '不能为空')
             flag = false
-            return
+            return false
           }
         }
         obj[item.id] = data[item.id]
-      })
+      }
       if (obj.cardType === '120001') {
         const idCardTest = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/
         if (!idCardTest.test(obj.cardNumber)) {
@@ -139,6 +146,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       }
     },
     getTxCode: (obj) => {
+      dispatch(actions.setVars('isHidden', false))
       apiClient.post('/Sms/Get_slider_captcha_h5').then((result) => {
         $('body').append(`<script src=${result.jsUrl} class="captcha_lib" id="txcode"></script>`)
         let timer = setInterval(() => {
@@ -152,7 +160,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {
           if (retJson.ret === 0) {
-            $('#TXCode').hide();
+            dispatch(actions.setVars('isHidden', true))
             obj.ticket = retJson.ticket
             // 用户验证成功
             doSearch(obj)

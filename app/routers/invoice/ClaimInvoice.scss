@@ -47,16 +47,23 @@
     border: none;
   }
 }
-.TXCode {
-  //background-color: black;
-  //height: 300px;
-  //width: 375px;
-  //position: absolute;
-  //top: 50%;
-  //margin-top: -150px;
-  //display: none;
-  .iframe{
-    height: 3rem !important;
-    width: 3.75rem;
+/*.mask{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.5;
+  .TXCode {
+    position: fixed;
+    height: 3rem;
+    width: 7.5rem;
+    top: 50%;
+    margin-top: -1.5rem;
+    .iframe{
+      height: 3rem !important;
+      width: 3.75rem;
+    }
   }
-}
+}*/

@@ -27,9 +27,9 @@ function parseResponse (jqResult, url) {
 }
 
 export default {
-
   post (url, data) {
-    return parseResponse($.ajax(baseUrl + url, {
+    return parseResponse($.ajax({
+      url: baseUrl + url,
       contentType: 'application/x-www-form-urlencoded',
       // contentType: 'application/json',
       dataType: 'json',
@@ -38,6 +38,17 @@ export default {
       timeout: 1000 * 30
     }), url)
   },
+
+  /*post (url, data) {
+    return parseResponse($.ajax(baseUrl + url, {
+      contentType: 'application/x-www-form-urlencoded',
+      // contentType: 'application/json',
+      dataType: 'json',
+      type: 'POST',
+      data: data,
+      timeout: 1000 * 30
+    }), url)
+  },*/
 
   get (url, data) {
     return parseResponse($.ajax(baseUrl + url, {
