@@ -47,7 +47,16 @@
     border: none;
   }
 }
-#TXCode iframe {
-  height: 1rem;
-  width: 1rem;
+.TXCode {
+  //background-color: black;
+  //height: 300px;
+  //width: 375px;
+  //position: absolute;
+  //top: 50%;
+  //margin-top: -150px;
+  //display: none;
+  .iframe{
+    height: 3rem !important;
+    width: 3.75rem;
+  }
 }

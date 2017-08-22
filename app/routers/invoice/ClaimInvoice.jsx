@@ -9,6 +9,7 @@ import apiClient from '../../lib/apiClient'
 import {browserRouter} from 'react-router'
 import inputConfig from './config/input.config'
 import cardTypeList from './config/card.config'
+import {toast} from '../../components/popup'
 
 class ClaimInvoice extends Component {
   render () {
@@ -53,7 +54,7 @@ class ClaimInvoice extends Component {
             cardType
           }, getTxCode)} >查询</button>
         </div>
-        <div id='TXCode'></div>
+        <div className={styles.TXCode} id='TXCode'></div>
       </FixedContent>
     )
   }
@@ -92,7 +93,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
         dispatch(actions.setVars('invoiceInfo', invoiceInfo))
         if (invoiceInfo.cinvoiceBS === '03') {
-          console.log('我公司为本保险产品提供定额发票，您无需填写发票信息！')
+          toast('我公司为本保险产品提供定额发票，您无需填写发票信息！')
         } else if (invoiceInfo.cinvoiceBS === '02') {
           browserRouter.push('setinfo/' + type + '/' + status)
         }
@@ -110,21 +111,25 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     validate: (data, cb) => {
       let obj = {}
       let flag = true
+      console.log(inputConfig)
       inputConfig.map((item) => {
         if (!item.value) {
-          if (item.type === 'select'){
-            console.log('请选择' + item.title)
+          if (item.type === 'select') {
+            toast('请选择' + item.title)
+            flag = false
+            return
           } else {
-            console.log(item.title + '不能为空')
+            toast(item.title + '不能为空')
+            flag = false
+            return
           }
-          flag = false
         }
         obj[item.id] = data[item.id]
       })
-      if (obj.cardType === '120001'){
+      if (obj.cardType === '120001') {
         const idCardTest = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/
         if (!idCardTest.test(obj.cardNumber)) {
-          console.log('请输入正确的身份证号')
+          toast('请输入正确的身份证号')
           flag = false
           return false
         }
@@ -136,10 +141,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getTxCode: (obj) => {
       apiClient.post('/Sms/Get_slider_captcha_h5').then((result) => {
         $('body').append(`<script src=${result.jsUrl} class="captcha_lib" id="txcode"></script>`)
-        // $('body').append('<script src="' + result.jsUrl + '" class="captcha_lib" id="txcode"><\/script>');
         let timer = setInterval(() => {
           if (capInit) {
             clearInterval(timer)
+            $('#TXCode').show()
             let capOption = {callback: cbfn, showHeader: false}
             capInit(document.getElementById('TXCode'), capOption)
           }
@@ -147,6 +152,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {
           if (retJson.ret === 0) {
+            $('#TXCode').hide();
             obj.ticket = retJson.ticket
             // 用户验证成功
             doSearch(obj)
