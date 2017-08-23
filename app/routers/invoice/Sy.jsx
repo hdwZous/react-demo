@@ -22,9 +22,8 @@ const Component = React.createClass({
 })
 
 const mapStateToProps = (state) => {
-    return {
-      // isActive: state.vars.isActive
-    }
+  // console.log(state)
+    return state.vars
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

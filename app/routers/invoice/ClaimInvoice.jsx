@@ -8,10 +8,15 @@ import styles from './ClaimInvoice.scss'
 import apiClient from '../../lib/apiClient'
 import { browserHistory} from 'react-router'
 import inputConfig from './config/input.config'
-import cardTypeList from './config/card.config'
 import {toast, alert, loading} from '../../components/popup'
 
 class ClaimInvoice extends Component {
+  componentWillMount () {
+    document.documentElement.style.backgroundColor = '#ffffff'
+  }
+  componentWillUnmount () {
+    document.documentElement.style.backgroundColor = ''
+  }
   render () {
     const {
       bindData,
@@ -21,7 +26,8 @@ class ClaimInvoice extends Component {
       cardNumber,
       cardType,
       validate,
-      isHidden
+      isHidden,
+      isCarInsure
     } = this.props
     // console.log(isHidden)
     return (
@@ -42,7 +48,11 @@ class ClaimInvoice extends Component {
                       title='请选择证件类型'
                       name='cardType'
                       value={cardType}
-                      list={cardTypeList}
+                      list={[{value: '120001', text: '居民身份证'},
+                        {value: '100112', text: '统一社会信用代码'},
+                        {value: isCarInsure === 'true' ? '100114' : '100111', text: '税务登记证'},
+                        {value: '110001', text: '组织机构代码'},
+                        {value: '110009', text: '其他'}]}
                     />
                   }
                 </div>
@@ -70,7 +80,8 @@ const mapStateToProps = (state) => {
     insureName: state.vars.insureName,
     cardNumber: state.vars.cardNumber,
     cardType: state.vars.cardType,
-    isHidden: state.vars.isHidden || 'true'
+    isHidden: state.vars.isHidden,
+    isCarInsure: state.vars.isCarInsure
   }
 }
 /**
@@ -98,7 +109,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
         dispatch(actions.setVars('invoiceInfo', invoiceInfo))
         if (invoiceInfo.cinvoiceBS === '03') {
-          toast('我公司为本保险产品提供定额发票，您无需填写发票信息！')
+          alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
         /*} else if (invoiceInfo.cinvoiceBS === '02') {
           console.log('跳转到下一个页面')
           browserHistory.push('/invoice/setinfo/' + type + '/' + status)*/
@@ -115,7 +126,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       // dispatch(actions.setObjs('values', {cardType: ''}))
     },
     bindData: (item, value) => {
+      const isCarInsure = value.substring(9, 11) === '03' ? 'true' : 'false'
       item.value = value
+      dispatch(actions.setVars('isCarInsure', isCarInsure))
       dispatch(actions.setVars(item.id, value))
     },
     validate: (data, cb) => {
