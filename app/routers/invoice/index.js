@@ -11,19 +11,14 @@ module.exports = {
                     cb(null, require('./SetInfo.jsx'))
                 })
             }
-        }, {
-            path: 'sy',
-            getComponent (nextState, cb) {
-              require.ensure([], (require) => {
-                cb(null, require('./Sy.jsx'))
-              })
-            }
-          }, {
+        },
+        {
             path: 'claim',
-            getComponent (nextState, cb) {
-              require.ensure([], (require) => {
-                cb(null, require('./ClaimInvoice.jsx'))
-              })
+            getComponent(nextState, cb)
+            {
+                require.ensure([], (require) => {
+                    cb(null, require('./ClaimInvoice.jsx'))
+                })
             }
         }
     ]
