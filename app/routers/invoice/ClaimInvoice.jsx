@@ -8,13 +8,9 @@ import styles from './ClaimInvoice.scss'
 import apiClient from '../../lib/apiClient'
 import { browserHistory} from 'react-router'
 import inputConfig from './config/input.config'
-import cardTypeList from './config/card.config'
-import {toast} from '../../components/popup'
-
-class ClaimInvoice extends Component {
-  componentWillMount () {
-    document.documentElement.style.backgroundColor = '#ffffff'
-  }
+import {toast, alert, loading} from '../../components/popup'
+let ClaimInvoice = React.createClass({
+  mixins: [require('mixin/background')('#fff')],
   render () {
     const {
       bindData,
@@ -24,7 +20,8 @@ class ClaimInvoice extends Component {
       cardNumber,
       cardType,
       validate,
-      isHidden
+      isHidden,
+      isCarInsure
     } = this.props
     // console.log(isHidden)
     return (
@@ -45,7 +42,11 @@ class ClaimInvoice extends Component {
                       title='请选择证件类型'
                       name='cardType'
                       value={cardType}
-                      list={cardTypeList}
+                      list={[{value: '120001', text: '居民身份证'},
+                        {value: '100112', text: '统一社会信用代码'},
+                        {value: isCarInsure === 'true' ? '100114' : '100111', text: '税务登记证'},
+                        {value: '110001', text: '组织机构代码'},
+                        {value: '110009', text: '其他'}]}
                     />
                   }
                 </div>
@@ -65,7 +66,7 @@ class ClaimInvoice extends Component {
       </FixedContent>
     )
   }
-}
+})
 
 const mapStateToProps = (state) => {
   return {
@@ -73,7 +74,8 @@ const mapStateToProps = (state) => {
     insureName: state.vars.insureName,
     cardNumber: state.vars.cardNumber,
     cardType: state.vars.cardType,
-    isHidden: state.vars.isHidden || 'true'
+    isHidden: state.vars.isHidden,
+    isCarInsure: state.vars.isCarInsure
   }
 }
 /**
@@ -93,28 +95,34 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       appCertCode: obj.cardNumber,
       ticket: obj.ticket
     }
-    apiClient.post('/My/Query_invoice', data).then((result) => {
+    loading(apiClient.post('/My/Query_invoice', data).then((result) => {
       console.log(result)
       if (result) {
         let invoiceInfo = result.invoice;
-        let status = invoiceInfo.cstatus === 0 ? 'set' : (invoiceInfo.cstatus === 7 || invoiceInfo.cstatus === 9 ? 'finish' : 'wait')
+        // let status = invoiceInfo.cstatus === 0 ? 'set' : (invoiceInfo.cstatus === 7 || invoiceInfo.cstatus === 9 ? 'finish' : 'wait')
         let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
         dispatch(actions.setVars('invoiceInfo', invoiceInfo))
         if (invoiceInfo.cinvoiceBS === '03') {
-          toast('我公司为本保险产品提供定额发票，您无需填写发票信息！')
-        } else if (invoiceInfo.cinvoiceBS === '02') {
+          alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
+        /*} else if (invoiceInfo.cinvoiceBS === '02') {
           console.log('跳转到下一个页面')
-          browserHistory.push('/invoice/setinfo/' + type + '/' + status)
+          browserHistory.push('/invoice/setinfo/' + type + '/' + status)*/
+        } else {
+          browserHistory.push('/invoice/setinfo/' + type + '/set')
         }
+      } else {
+        alert('查询信息失败，请稍后再试')
       }
-    })
+    }), '正在查询，请稍等')
   }
   return {
     init: () => {
       // dispatch(actions.setObjs('values', {cardType: ''}))
     },
     bindData: (item, value) => {
+      const isCarInsure = value.substring(9, 11) === '03' ? 'true' : 'false'
       item.value = value
+      dispatch(actions.setVars('isCarInsure', isCarInsure))
       dispatch(actions.setVars(item.id, value))
     },
     validate: (data, cb) => {
@@ -148,7 +156,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     getTxCode: (obj) => {
       dispatch(actions.setVars('isHidden', 'false'))
-      apiClient.post('/Sms/Get_slider_captcha_h5').then((result) => {
+      loading(apiClient.post('/Sms/Get_slider_captcha_h5').then((result) => {
         if (!$('body').find('script').hasClass('captcha_lib')) {
           $('body').append(`<script src=${result.jsUrl} class="captcha_lib" id="txcode"></script>`)
         }
@@ -171,7 +179,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             //用户关闭验证码页面，没有验证
           }
         }
-      })
+      }), '请稍候')
+
     }
   }
 }
