@@ -6,7 +6,7 @@ import {SelectInput} from '../../components/form'
 import banner from './img/banner.png'
 import styles from './ClaimInvoice.scss'
 import apiClient from '../../lib/apiClient'
-import { browserHistory} from 'react-router';
+import { browserHistory} from 'react-router'
 import inputConfig from './config/input.config'
 import cardTypeList from './config/card.config'
 import {toast} from '../../components/popup'
@@ -26,6 +26,7 @@ class ClaimInvoice extends Component {
       validate,
       isHidden
     } = this.props
+    // console.log(isHidden)
     return (
       <FixedContent>
         <div className={styles.content}>
@@ -58,7 +59,7 @@ class ClaimInvoice extends Component {
             cardType
           }, getTxCode)} >查询</button>
         </div>
-        <div className={styles.mask} style={{display: isHidden === true ? 'none' : 'block'}} >
+        <div className={styles.mask} style={{display: isHidden === 'true' ? 'none' : 'block'}} >
           <div className={styles.TXCode} id='TXCode'></div>
         </div>
       </FixedContent>
@@ -72,7 +73,7 @@ const mapStateToProps = (state) => {
     insureName: state.vars.insureName,
     cardNumber: state.vars.cardNumber,
     cardType: state.vars.cardType,
-    isHidden: state.vars.isHidden || false
+    isHidden: state.vars.isHidden || 'true'
   }
 }
 /**
@@ -93,8 +94,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       ticket: obj.ticket
     }
     apiClient.post('/My/Query_invoice', data).then((result) => {
+      console.log(result)
       if (result) {
-        console.log(result.invoice.cinvoiceBS)
         let invoiceInfo = result.invoice;
         let status = invoiceInfo.cstatus === 0 ? 'set' : (invoiceInfo.cstatus === 7 || invoiceInfo.cstatus === 9 ? 'finish' : 'wait')
         let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
@@ -146,21 +147,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       }
     },
     getTxCode: (obj) => {
-      dispatch(actions.setVars('isHidden', false))
+      dispatch(actions.setVars('isHidden', 'false'))
       apiClient.post('/Sms/Get_slider_captcha_h5').then((result) => {
-        $('body').append(`<script src=${result.jsUrl} class="captcha_lib" id="txcode"></script>`)
+        if (!$('body').find('script').hasClass('captcha_lib')) {
+          $('body').append(`<script src=${result.jsUrl} class="captcha_lib" id="txcode"></script>`)
+        }
         let timer = setInterval(() => {
           if (capInit) {
             clearInterval(timer)
-            $('#TXCode').show()
             let capOption = {callback: cbfn, showHeader: false}
             capInit(document.getElementById('TXCode'), capOption)
           }
         }, 100)
         //回调函数：验证码页面关闭时回调
-        function cbfn(retJson) {
+        function cbfn (retJson) {
           if (retJson.ret === 0) {
-            dispatch(actions.setVars('isHidden', true))
+            dispatch(actions.setVars('isHidden', 'true'))
             obj.ticket = retJson.ticket
             // 用户验证成功
             doSearch(obj)

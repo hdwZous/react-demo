@@ -53,14 +53,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: black;
-  opacity: 0.5;
+  background-color: rgba(0,0,0,0.5);
   .TXCode {
     position: fixed;
-    height: 3rem;
+    height: 4rem;
     width: 7.5rem;
-    top: 50%;
-    margin-top: -1.5rem;
+    top: 40%;
+    //margin-top: -1.5rem;
+    background-color: red;
     .iframe{
       height: 3rem !important;
       width: 3.75rem;
