@@ -8,7 +8,6 @@ import {browserHistory} from 'react-router';
 import LocalState from './LocalState';
 import {toast} from '../../../components/popup';
 
-
 const Component = React.createClass({
     componentDidMount () {
         this.props.init()
@@ -36,7 +35,7 @@ const Component = React.createClass({
                         {
                             arr.map((item, key) => {
                                 return <li key={key} className={item.key === active ? styles.active : ''}
-                                           onClick={() => toPage(item.key)}><span>{item.title}</span></li>
+                                           onClick={() => toPage(item.key, flag)}><span>{item.title}</span></li>
                             })
                         }
                     </ul>
@@ -57,11 +56,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: () => {
         },
-        toPage: (key) => {
-            if (key) {
+        toPage: (key, flag) => {
+            if (key && flag === 'set') {
                 browserHistory.push('/invoice/setinfo/' + key + '/set');
             } else {
-                toast('123123');
+                toast('操作失败');
             }
         }
     }
