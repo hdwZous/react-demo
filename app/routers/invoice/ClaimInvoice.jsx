@@ -9,14 +9,8 @@ import apiClient from '../../lib/apiClient'
 import { browserHistory} from 'react-router'
 import inputConfig from './config/input.config'
 import {toast, alert, loading} from '../../components/popup'
-
-class ClaimInvoice extends Component {
-  componentWillMount () {
-    document.documentElement.style.backgroundColor = '#ffffff'
-  }
-  componentWillUnmount () {
-    document.documentElement.style.backgroundColor = ''
-  }
+let ClaimInvoice = React.createClass({
+  mixins: [require('mixin/background')('#fff')],
   render () {
     const {
       bindData,
@@ -72,7 +66,7 @@ class ClaimInvoice extends Component {
       </FixedContent>
     )
   }
-}
+})
 
 const mapStateToProps = (state) => {
   return {
