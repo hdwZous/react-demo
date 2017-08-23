@@ -1,0 +1,29 @@
+.mainBox {
+  .invoiceStatus {
+    text-align: center;
+    height: 1.08rem;
+    font-size: 0.28rem;
+    line-height: 1.08rem;
+    color: #333333;
+  }
+  .detailBox {
+    background-color: #ffffff;
+    padding: 0.8rem 0 0.48rem;
+    .item {
+      line-height: 100%;
+      font-size: 0.28rem;
+      color: #333333;
+      overflow: hidden;
+      padding: 0rem 0 0.32rem;
+      .title {
+        float: left;
+        width: 2.68rem;
+        padding-left: 0.52rem;
+      }
+      .content {
+        float: left;
+        width: 4.3rem;
+      }
+    }
+  }
+}
