@@ -29,7 +29,6 @@ const Component = React.createClass({
                                    className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                             {item.btn ? <button className={styles.yzmBtn}>点击获取</button> : ''}
                         </div>
-
                     })
                 }
                 <div className={styles.submitBtn}>
