@@ -180,7 +180,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }
         }
       }), '请稍候')
-
     }
   }
 }
