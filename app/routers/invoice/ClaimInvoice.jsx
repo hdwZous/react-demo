@@ -119,6 +119,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
         }), '正在查询，请稍等')
     }
+
     return {
         init: () => {
             // dispatch(actions.setObjs('values', {cardType: ''}))
@@ -184,7 +185,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     }
                 }
             }), '请稍候')
-
         }
     }
 }
