@@ -7,6 +7,7 @@ import DefaultLine from '../img/default-line.png';
 import activeCheck from '../img/active-check.png';
 import activeFinish from '../img/active-finish.png';
 import ProgressLine from '../img/progress-line.png';
+import activeOk from '../img/active-ok.png';
 
 const Component = React.createClass({
     render () {
@@ -15,8 +16,13 @@ const Component = React.createClass({
             <div className={styles.localstate}>
                 <ul>
                     <li>
+                        {
+                            flag === 'set' && <img src={inputInfo}/>
+                        }
+                        {
+                            flag !== 'set' && <img src={activeOk}/>
+                        }
                         <img src={ProgressLine} className={styles.stateLine}/>
-                        <img src={inputInfo}/>
                         <span className={styles.currentColor}>录入信息</span>
                     </li>
                     <li>
@@ -24,13 +30,16 @@ const Component = React.createClass({
                             flag === 'set' && <img src={DefaultLine} className={styles.stateLine}/>
                         }
                         {
-                            flag === 'wait' && <img src={ProgressLine} className={styles.stateLine}/>
+                            flag !== 'set' && <img src={ProgressLine} className={styles.stateLine}/>
                         }
                         {
                             flag === 'set' && <img src={DefaultAudit}/>
                         }
                         {
-                            flag !== 'set' && <img src={activeCheck}/>
+                            flag === 'wait' && <img src={activeCheck}/>
+                        }
+                        {
+                            flag === 'finish' && <img src={activeOk}/>
                         }
                         <span className={flag === 'set' ? '' : styles.currentColor}>审核信息</span>
                     </li>

@@ -96,7 +96,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       ticket: obj.ticket
     }
     loading(apiClient.post('/My/Query_invoice', data).then((result) => {
-      console.log(result)
       if (result) {
         let invoiceInfo = result.invoice;
         // let status = invoiceInfo.cstatus === 0 ? 'set' : (invoiceInfo.cstatus === 7 || invoiceInfo.cstatus === 9 ? 'finish' : 'wait')

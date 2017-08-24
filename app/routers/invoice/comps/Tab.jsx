@@ -27,7 +27,7 @@ const Component = React.createClass({
             key: 'special',
             title: '专用发票'
         }];
-        let {active, flag, toPage} = this.props;
+        let {active, flag, toPage, invoiceInfo} = this.props;
         return (
             <div>
                 <div className={styles.invoiceTab}>
@@ -35,7 +35,8 @@ const Component = React.createClass({
                         {
                             arr.map((item, key) => {
                                 return <li key={key} className={item.key === active ? styles.active : ''}
-                                           onClick={() => toPage(item.key, flag)}><span>{item.title}</span></li>
+                                           onClick={() => toPage(item.key, flag, invoiceInfo)}><span>{item.title}</span>
+                                </li>
                             })
                         }
                     </ul>
@@ -49,16 +50,22 @@ const Component = React.createClass({
 })
 
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        invoiceInfo: state.vars.invoiceInfo,
+    }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: () => {
         },
-        toPage: (key, flag) => {
+        toPage: (key, flag, invoiceInfo) => {
             if (key && flag === 'set') {
-                browserHistory.push('/invoice/setinfo/' + key + '/set');
+                if (invoiceInfo.cinvoiceBS === '02' && key !== 'normal') {
+                    toast('操作失败');
+                } else {
+                    browserHistory.push('/invoice/setinfo/' + key + '/set');
+                }
             } else {
                 toast('操作失败');
             }

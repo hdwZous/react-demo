@@ -78,7 +78,7 @@ module.exports = function (options) {
   var root = path.join(__dirname, 'app')
   var publicPath = options.devServer
         ? 'http://' + getIp() + ':1818/_assets/'
-        : 'http://' + getIp() + ':1818/answern/'
+        : options.pathLink
   var output = {
     path: path.join(buildPath, options.prerender ? 'prerender' : 'public'),
     publicPath: publicPath,

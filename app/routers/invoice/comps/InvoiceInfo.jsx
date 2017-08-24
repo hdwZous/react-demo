@@ -4,6 +4,8 @@ import styles from './InvoiceInfo.scss';
 import {browserHistory} from 'react-router';
 import actions from '../../../redux/actions';
 import FixedContent from '../../../components/common/FixedContent';
+import iconPhone from '../img/phone.png';
+import method from './method';
 
 const Component = React.createClass({
     componentWillMount () {
@@ -12,12 +14,17 @@ const Component = React.createClass({
     },
 
     render () {
-        let {invoiceInfo, infoList} = this.props;
+        let {infoList, changeMaskShow, maskShowFlag, messageFlag} = this.props;
         return (
             <FixedContent>
                 <div className={styles.mainBox}>
                     <div className={styles.invoiceStatus}>
-                        您提交的信息正在审核中，请耐心等待...
+                        {
+                            messageFlag && method.getMessage[messageFlag]
+                        }
+                        {
+                            messageFlag === 2 && <span className={styles.downLoadInovice}>立即打印</span>
+                        }
                     </div>
                     <div className={styles.detailBox}>
                         {
@@ -31,6 +38,16 @@ const Component = React.createClass({
                             })
                         }
                     </div>
+                    <img src={iconPhone} className={styles.iconPhone} onClick={() => changeMaskShow(maskShowFlag)}/>
+                    {
+                        maskShowFlag && <div className={styles.butnMask} onClick={() => changeMaskShow(maskShowFlag)}/>
+                    }
+                    {
+                        maskShowFlag && <div className={styles.butnList}>
+                            <a className={styles.butn} href='tel:95303'>呼叫</a>
+                            <div className={styles.arrow}/>
+                        </div>
+                    }
                 </div>
             </FixedContent>
         )
@@ -40,47 +57,25 @@ const Component = React.createClass({
 const mapStateToProps = (state) => {
     return {
         infoList: state.vars.invoiceInfoList,
+        maskShowFlag: state.vars.invoiceCallMaskShowFlag,
+        messageFlag: state.vars.invoiceMessageFlag
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-    let getInfo = function (invoiceInfo) {
-        let infoList = [];
-        infoList.push({
-            title: '单位名称：',
-            content: invoiceInfo.cinsuredNme
-        });
-        infoList.push({
-            title: '价税合计（小写）：',
-            content: '¥' + (+invoiceInfo.nprice / 100).toFixed(2)
-        });
-        infoList.push({
-            title: '发票号码：',
-            content: invoiceInfo.CFphm
-        });
-        infoList.push({
-            title: '发票代码：',
-            content: invoiceInfo.CFpdm
-        });
-        infoList.push({
-            title: '手机号：',
-            content: invoiceInfo.cmobile
-        });
-        infoList.push({
-            title: '邮箱：',
-            content: invoiceInfo.cemail
-        });
-        return infoList;
-    };
+const mapDispatchToProps = (dispatch) => {
+
     return {
         init: (invoiceInfo) => {
             if (invoiceInfo) {
-                console.log(invoiceInfo);
-                dispatch(actions.setVars('invoiceInfoList', getInfo(invoiceInfo)));
+                dispatch(actions.setVars('invoiceMessageFlag', method.checkMessageStaus(invoiceInfo.cstatus)))
+                dispatch(actions.setVars('invoiceInfoList', method.getInfo(invoiceInfo)));
             } else {
                 browserHistory.push('/invoice/claim');
             }
         },
+        changeMaskShow: (flag) => {
+            dispatch(actions.setVars('invoiceCallMaskShowFlag', !flag));
+        }
     }
 }
 

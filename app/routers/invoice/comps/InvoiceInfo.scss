@@ -5,6 +5,16 @@
     font-size: 0.28rem;
     line-height: 1.08rem;
     color: #333333;
+    .downLoadInovice {
+      line-height: 0.72rem;
+      display: inline-block;
+      border: 1px solid #ffbe23;
+      font-size: 0.24rem;
+      color: #ffbe23;
+      width: 1.8rem;
+      margin-left: 0.8rem;
+      border-radius: 0.36rem;
+    }
   }
   .detailBox {
     background-color: #ffffff;
@@ -24,6 +34,50 @@
         float: left;
         width: 4.3rem;
       }
+    }
+  }
+  .iconPhone {
+    position: fixed;
+    z-index: 999;
+    bottom: 0.02rem;
+    right: 0.02rem;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .butnMask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    opacity: 0.8;
+  }
+  .butnList {
+    position: absolute;
+    z-index: 999;
+    background-color: #ffffff;
+    width: 6.5rem;
+    left: 0.5rem;
+    bottom: 1.8rem;
+    .butn {
+      height: 1rem;
+      text-align: center;
+      line-height: 1rem;
+      font-size: 0.28rem;
+      font-weight: inherit;
+      display: block;
+      color: #333333;
+    }
+    .arrow {
+      width: 0;
+      height: 0;
+      right: 0.2rem;
+      bottom: -0.14rem;
+      position: absolute;
+      border-left: 0.12rem solid transparent;
+      border-right: 0.12rem solid transparent;
+      border-top: 0.14rem solid #ffffff;
     }
   }
 }
