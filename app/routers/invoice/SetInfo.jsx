@@ -8,6 +8,8 @@ import {browserHistory} from 'react-router';
 import InvoiceInfo from './comps/InvoiceInfo';
 import styles from './SetInfo.scss';
 import apiClient from '../../lib/apiClient';
+import {loading} from '../../components/popup';
+import method from './comps/method';
 
 const Component = React.createClass({
     mixins: [require('mixin/background')('#ffffff')],
@@ -24,7 +26,8 @@ const Component = React.createClass({
                 <Header title="录入信息"/>
                 <Tab active={tab} flag={flag}/>
                 {
-                    flag === 'set' && <InvoiceInput tab={tab} callBack={(data) => getInvoice(invoiceInfo, data)}/>
+                    flag === 'set' && <InvoiceInput tab={tab} callBack={(data) => getInvoice(invoiceInfo, data)}
+                                                    invoiceInfo={invoiceInfo}/>
                 }
                 {
                     flag !== 'set' && <InvoiceInfo invoiceInfo={invoiceInfo}/>
@@ -38,6 +41,7 @@ const Component = React.createClass({
 const mapStateToProps = (state) => {
     return {
         invoiceInfo: state.vars.invoiceInfo,
+        fuiToast: state.vars.fuiToast,
     }
 }
 
@@ -47,7 +51,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(actions.setVars('invoiceInfo', invoiceInfo));
             if (invoiceInfo && invoiceInfo.cstatus === '7') {
                 browserHistory.push('/invoice/setinfo/' + ownProps.params.tab + '/finish')
-            } else if (invoiceInfo.cstatus === '8') {
+            } else if (invoiceInfo && invoiceInfo.cstatus === '8') {
 
             } else if (invoiceInfo && invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
                 browserHistory.push('/invoice/setinfo/' + ownProps.params.tab + '/wait')
@@ -56,32 +60,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
         },
         getInvoice: (invoiceInfo, data) => {
-            apiClient.post('/My/Issue_invoice', {
-                cplyNo: invoiceInfo.cplyNo,
-                cinsuredNme: invoiceInfo.cinsuredNme,
-                ccertfCls: invoiceInfo.ccertfCls,
-                ccertfCde: invoiceInfo.ccertfCde,
-                cappNo: invoiceInfo.cappNo,
-                nprm: invoiceInfo.nprm,
-                ctrate: invoiceInfo.ctrate,
-                nvat: invoiceInfo.nvat,
-                nprice: invoiceInfo.nprice,
-                cappNme: invoiceInfo.cappNme,//普票必传
-                cemail: invoiceInfo.cemail,//非必传
-                cmobile: invoiceInfo.cmobile,
-                cpostAddress: invoiceInfo.cpostAddress,//邮寄地址
-                cinvoiceType: '026' || invoiceInfo.cinvoiceType,//发票类型
-                cinvoiceBS: invoiceInfo.cinvoiceBS,
-                cbuyDeptCde: invoiceInfo.cbuyDeptCde,
-                cchannel: invoiceInfo.cchannel,
-                NInvoicePrice: invoiceInfo.NInvoicePrice,//待查看
-                CBuyDeptCnm: invoiceInfo.CBuyDeptCnm,
-                BankNameAndAccount: invoiceInfo.BankNameAndAccount,
-                CprodCnm: invoiceInfo.CprodCnm,
-                TPlyCrtTm: invoiceInfo.TPlyCrtTm
-            }).then((result) => {
+            loading(apiClient.post('/My/Issue_invoice', method.getFormatData(invoiceInfo, data, ownProps.params.tab)).then((result) => {
                 console.log(result);
-            })
+            }))
         }
     }
 }

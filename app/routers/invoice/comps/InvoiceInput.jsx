@@ -8,6 +8,7 @@ import InputIcon from '../img/input-icon.png';
 import actions from '../../../redux/actions';
 import fromConfig from '../config/from.config';
 import {toast} from '../../../components/popup';
+import apiClient from '../../../lib/apiClient';
 
 const Component = React.createClass({
     componentDidMount () {
@@ -15,21 +16,39 @@ const Component = React.createClass({
     },
 
     render () {
-        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab, toRegInput} = this.props;
+        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab, toRegInput, checkFlag, sendMessage, sendFlag, invoiceInfo} = this.props;
         return (
             <div className={styles.invoiceInput}>
                 {/*表单组件*/}
                 {
                     fromConfig && fromConfig[tab].map((item, key) => {
-                        return <div key={key} style={{backgroundColor: item.color ? item.color : '#fff'}}>
-                            {item.icon ? <img src={InputIcon}/> : ''}
-                            <span>{item.title}</span>
-                            <input type="text" placeholder={item.text ? item.title : '请输入'}
-                                   onChange={(e) => bindData(item, e.target.value)}
-                                   className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
-                            {item.btn ? <button className={styles.yzmBtn}>点击获取</button> : ''}
-                        </div>
-
+                        if(invoiceInfo && invoiceInfo.isWeatherPerson === '1') {
+                            if(item.id !== 'CompanyCode') {
+                                return <div key={key} style={{backgroundColor: item.color ? item.color : '#fff'}}>
+                                    {item.icon ? <img src={InputIcon}/> : ''}
+                                    <span>{item.title}</span>
+                                    <input type="text" placeholder={item.text ? item.title : '请输入'}
+                                           onChange={(e) => bindData(item, e.target.value)}
+                                           disabled={item.unEdit ? 'disable' : ''}
+                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(1) : invoiceInfo[item.bindData])}
+                                           className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
+                                    {item.btn ? <button className={styles.yzmBtn}
+                                                        onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
+                                </div>
+                            }
+                        } else {
+                            return <div key={key} style={{backgroundColor: item.color ? item.color : '#fff'}}>
+                                {item.icon ? <img src={InputIcon}/> : ''}
+                                <span>{item.title}</span>
+                                <input type="text" placeholder={item.text ? item.title : '请输入'}
+                                       onChange={(e) => bindData(item, e.target.value)}
+                                       disabled={item.unEdit ? 'disable' : ''}
+                                       value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(1) : invoiceInfo[item.bindData])}
+                                       className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
+                                {item.btn ? <button className={styles.yzmBtn}
+                                                    onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
+                            </div>
+                        }
                     })
                 }
                 <div className={styles.submitBtn}>
@@ -42,7 +61,7 @@ const Component = React.createClass({
                         mobileNumber,
                         messageCode,
                         email
-                    ])}>提交
+                    ], invoiceInfo)}>提交
                     </button>
                 </div>
             </div>
@@ -60,7 +79,9 @@ const mapStateToProps = (state) => {
         bankNameAndAccount: state.vars.invoiceBankNameAndAccount,
         mobileNumber: state.vars.invoiceMobileNumber,
         messageCode: state.vars.invoiceMessageCode,
-        email: state.vars.invoiceEmail
+        email: state.vars.invoiceEmail,
+        checkFlag: state.vars.invoiceFromCheckFlag,
+        sendFlag: state.vars.invoiceSendFlag,
     }
 }
 
@@ -72,22 +93,40 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             })
         },
         bindData: (item, value) => {
+            console.log(item);
             item.value = value;
             dispatch(actions.setVars('invoice' + item.id, item));
         },
-        toRegInput: (cb, data) => {
+        toRegInput: (cb, data, invoiceInfo) => {
+            let checkFlag = false;
             let jsonData = '{';
             data && data.map((item) => {
                 if (item) {
-                    if (item.reg) {
+                    if (item.reg && item.id !== 'CompanyCode') {
                         if (item.value) {
                             if (!item.reg.test(item.value)) {
                                 toast('请输入正确的' + item.title);
+                                checkFlag = true;
                                 return false
                             }
                         } else {
                             toast('请输入正确的' + item.title);
+                            checkFlag = true;
                             return false
+                        }
+                    } else if(item.reg && item.id === 'CompanyCode'){
+                        if (invoiceInfo && invoiceInfo.isWeatherPerson === '0') {
+                            if (item.value) {
+                                if (!item.reg.test(item.value)) {
+                                    toast('请输入正确的' + item.title);
+                                    checkFlag = true;
+                                    return false
+                                }
+                            } else {
+                                toast('请输入正确的' + item.title);
+                                checkFlag = true;
+                                return false
+                            }
                         }
                     }
                     jsonData += '"' + item.id + '":"' + item.value + '"' + ",";
@@ -95,8 +134,33 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             });
             jsonData = jsonData.substring(0, jsonData.length - 1);
             jsonData += '}';
-            cb(JSON.parse(jsonData));
-        }
+            if (!checkFlag) {
+                cb(JSON.parse(jsonData));
+            }
+        },
+        sendMessage: (mobileNumber, sendFlag) => {
+            if (mobileNumber.value && new RegExp(/^1\d{10}$/).test(mobileNumber.value)) {
+                if (!sendFlag || sendFlag === 0) {
+                    apiClient.get('/User/Send_tel_identifying', {
+                        tel: '18088881386',
+                        type: 1
+                    });
+                    let i = 60;
+                    let timmer = setInterval(() => {
+                        if (i > 0) {
+                            dispatch(actions.setVars('invoiceSendFlag', i--));
+                        } else {
+                            clearInterval(timmer);
+                            dispatch(actions.setVars('invoiceSendFlag', 0));
+                        }
+                    }, 1000);
+                } else {
+                    toast('请稍后！');
+                }
+            } else {
+                toast('请输入手机号码！');
+            }
+        },
     }
 }
 
