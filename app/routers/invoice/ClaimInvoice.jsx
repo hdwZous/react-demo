@@ -110,9 +110,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         if (invoiceInfo.cinvoiceBS === '03') {
           alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
         } else if (invoiceInfo.cinvoiceBS === '02') {
-          browserHistory.push('h5/invoice/setinfo/pt/set')
+          browserHistory.push('/h5/invoice/setinfo/normal/set')
         } else {
-          browserHistory.push('h5/invoice/setinfo/' + type + '/set')
+          // browserHistory.push('/h5/invoice/setinfo/normal/set')
+          browserHistory.push('/h5/invoice/setinfo/' + type + '/set')
         }
       } else {
         alert('查询信息失败，请稍后再试')

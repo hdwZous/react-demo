@@ -50,13 +50,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         init: (invoiceInfo) => {
             dispatch(actions.setVars('invoiceInfo', invoiceInfo));
             if (invoiceInfo && invoiceInfo.cstatus === '7') {
-                browserHistory.push('/invoice/setinfo/' + ownProps.params.tab + '/finish')
+                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
             } else if (invoiceInfo && invoiceInfo.cstatus === '8') {
 
             } else if (invoiceInfo && invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
-                browserHistory.push('/invoice/setinfo/' + ownProps.params.tab + '/wait')
+                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
             } else {
-                browserHistory.push('/invoice/claim')
+                browserHistory.push('/h5/invoice/claim')
             }
         },
         getInvoice: (invoiceInfo, data) => {
