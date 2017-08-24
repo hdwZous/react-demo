@@ -6,7 +6,7 @@ import BaseApplication from './base/BaseApplication'
 
 module.exports = {
     name: 'app',
-    path: '/',
+    path: '/h5',
     component: BaseApplication,
     childRoutes: [{
         childRoutes: [

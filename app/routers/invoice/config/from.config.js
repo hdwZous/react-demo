@@ -5,11 +5,16 @@ module.exports = {
             icon: true,
             id: 'CompanyName',
             reg: new RegExp('^[\\S]+$'),
+            unEdit: true,
+            bindData: 'cinsuredNme',
         },
         {
             title: '纳税人识别号',
             text: true,
-            id: 'CompanyCode'
+            id: 'CompanyCode',
+            reg: new RegExp('^[a-zA-Z0-9]{8,15}$'),
+            unEdit: true,
+            bindData: 'cbuyDeptCde',
         },
         {
 
@@ -18,6 +23,8 @@ module.exports = {
             value: true,
             id: 'CompanyTotal',
             text: '1',
+            unEdit: true,
+            bindData: 'nprice',
         },
         {
 
@@ -35,12 +42,13 @@ module.exports = {
             title: '手机号',
             icon: true,
             id: 'MobileNumber',
-            reg: new RegExp('^[\\S]+$'),
+            reg: new RegExp(/^1\d{10}$/),
         },
         {
             title: '短信验证码',
-            icon: false,
             btn: true,
+            icon: true,
+            reg: new RegExp('^[\\S]+$'),
             id: 'MessageCode'
         },
         {
@@ -53,13 +61,15 @@ module.exports = {
         {
             title: '单位名称',
             icon: true,
-            id: 'CompanyName'
+            id: 'CompanyName',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '纳税人识别号',
             icon: true,
             text: true,
-            id: 'CompanyCode'
+            id: 'CompanyCode',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
 
@@ -73,7 +83,8 @@ module.exports = {
 
             title: '地址、电话',
             icon: false,
-            id: 'AddAndPhoneNumber'
+            id: 'AddAndPhoneNumber',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
 
@@ -84,23 +95,27 @@ module.exports = {
         {
             title: '收件人姓名',
             icon: true,
-            id: 'Username'
+            id: 'Username',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '收件人地址',
             icon: true,
-            id: 'UserLoaction'
+            id: 'UserLoaction',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '手机号',
             icon: true,
-            id: 'MobileNumber'
+            id: 'MobileNumber',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '短信验证码',
             icon: true,
             btn: true,
-            id: 'MessageCode'
+            id: 'MessageCode',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '邮箱',
