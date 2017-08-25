@@ -103,8 +103,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
     loading(apiClient.post('/My/Query_invoice', data).then((result) => {
       if (result) {
-        let invoiceInfo = result.invoice;
-        // let status = invoiceInfo.cstatus === 0 ? 'set' : (invoiceInfo.cstatus === 7 || invoiceInfo.cstatus === 9 ? 'finish' : 'wait')
+        let invoiceInfo = result.invoice
+        let status = invoiceInfo.cstatus
         let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
         dispatch(actions.setVars('invoiceInfo', invoiceInfo))
         if (invoiceInfo.cinvoiceBS === '03') {

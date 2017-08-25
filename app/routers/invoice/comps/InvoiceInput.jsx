@@ -142,7 +142,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             if (mobileNumber.value && new RegExp(/^1\d{10}$/).test(mobileNumber.value)) {
                 if (!sendFlag || sendFlag === 0) {
                     apiClient.get('/User/Send_tel_identifying', {
-                        tel: mobileNumber,
+                        tel: mobileNumber.value,
                         type: 1
                     });
                     let i = 60;
