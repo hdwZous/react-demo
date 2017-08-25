@@ -165,6 +165,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       loading(apiClient.post('/Sms/Get_slider_captcha_h5').then((result) => {
         if (!$('body').find('script').hasClass('captcha_lib')) {
           $('body').append(`<script src=${result.jsUrl} class="captcha_lib" id="txcode"></script>`)
+        } else {
+          $('body').find('script.captcha_lib').attr('src', '').attr('src', result.jsUrl)
         }
         let timer = setInterval(() => {
           if (capInit) {
@@ -172,7 +174,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             let capOption = {callback: cbfn, showHeader: false}
             capInit(document.getElementById('TXCode'), capOption)
           }
-        }, 100)
+        }, 0)
 
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {
@@ -181,9 +183,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             obj.ticket = retJson.ticket
             // 用户验证成功
             doSearch(obj)
-          }
-          else {
+          } else {
             //用户关闭验证码页面，没有验证
+            toast('验证失败，请重新验证')
           }
         }
       }), '请稍候')

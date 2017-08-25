@@ -30,7 +30,7 @@ const Component = React.createClass({
                                     <input type="text" placeholder={item.text ? item.title : '请输入'}
                                            onChange={(e) => bindData(item, e.target.value)}
                                            disabled={item.unEdit ? 'disable' : ''}
-                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(1) : invoiceInfo[item.bindData])}
+                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + invoiceInfo[item.bindData].toFixed(1) : invoiceInfo[item.bindData])}
                                            className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                                     {item.btn ? <button className={styles.yzmBtn}
                                                         onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
@@ -142,7 +142,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             if (mobileNumber.value && new RegExp(/^1\d{10}$/).test(mobileNumber.value)) {
                 if (!sendFlag || sendFlag === 0) {
                     apiClient.get('/User/Send_tel_identifying', {
-                        tel: '18088881386',
+                        tel: mobileNumber,
                         type: 1
                     });
                     let i = 60;

@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(actions.setVars('invoiceMessageFlag', method.checkMessageStaus(invoiceInfo.cstatus)))
                 dispatch(actions.setVars('invoiceInfoList', method.getInfo(invoiceInfo)));
             } else {
-                browserHistory.push('/invoice/claim');
+                browserHistory.push('/h5/invoice/claim');
             }
         },
         changeMaskShow: (flag) => {
