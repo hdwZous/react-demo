@@ -7,14 +7,14 @@ require('jquery.cookie')
 
 function parseResponse (jqResult, url) {
   return Promise.resolve(jqResult).then(function (result) {
-    const originError = result.error
-
+    const originError = result.code != 0 && true
+    console.log(result);
     if (!originError) {
       return result.data
     }
 
-    let error = new Error(originError.message)
-    error.code = originError.code
+    let error = new Error(result.message)
+    error.code = result.code
 
     throw error
   }, function (error) {

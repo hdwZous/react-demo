@@ -118,7 +118,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       } else {
         alert('查询信息失败，请稍后再试')
       }
-    }), '正在查询，请稍等')
+    }), '正在查询，请稍等').catch((error) => {
+      alert(error.message)
+    })
   }
 
   return {
@@ -188,7 +190,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             toast('验证失败，请重新验证')
           }
         }
-      }), '请稍候')
+      }), '请稍候').catch((error)=>{
+        alert(error.message)
+      })
     }
   }
 }
