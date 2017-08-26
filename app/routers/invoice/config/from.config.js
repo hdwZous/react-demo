@@ -53,7 +53,9 @@ module.exports = {
         {
             title: '邮箱',
             icon: false,
-            id: 'Email'
+            id: 'Email',
+            icon: true,
+            reg: new RegExp('^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$')
         },
     ],
     normal: [

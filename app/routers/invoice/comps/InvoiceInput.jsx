@@ -30,7 +30,7 @@ const Component = React.createClass({
                                     <input type="text" placeholder={item.text ? item.title : '请输入'}
                                            onChange={(e) => bindData(item, e.target.value)}
                                            disabled={item.unEdit ? 'disable' : ''}
-                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + invoiceInfo[item.bindData].toFixed(1) : invoiceInfo[item.bindData])}
+                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
                                            className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                                     {item.btn ? <button className={styles.yzmBtn}
                                                         onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
@@ -43,7 +43,7 @@ const Component = React.createClass({
                                 <input type="text" placeholder={item.text ? item.title : '请输入'}
                                        onChange={(e) => bindData(item, e.target.value)}
                                        disabled={item.unEdit ? 'disable' : ''}
-                                       value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + invoiceInfo[item.bindData].toFixed(1) : invoiceInfo[item.bindData])}
+                                       value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
                                        className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                                 {item.btn ? <button className={styles.yzmBtn}
                                                     onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
