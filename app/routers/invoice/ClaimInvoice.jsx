@@ -36,6 +36,7 @@ let ClaimInvoice = React.createClass({
                                     {
                                         item.type === 'input' &&
                                         <input placeholder={item.placeHolder}
+                                               className={styles.input}
                                                onChange={(e) => bindData(item, e.target.value)}/>
                                     }
                                     {
@@ -102,19 +103,27 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             ticket: obj.ticket
         }
         loading(apiClient.post('/My/Query_invoice', data).then((result) => {
+          console.log(result)
             if (result) {
-                let invoiceInfo = result.invoice
-                let status = invoiceInfo.cstatus
-                let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
-                dispatch(actions.setVars('invoiceInfo', invoiceInfo))
-                if (invoiceInfo.cinvoiceBS === '03') {
-                    alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
-                } else if (invoiceInfo.cinvoiceBS === '02') {
-                    browserHistory.push('/h5/invoice/setinfo/normal/set')
+              let invoiceInfo = result.invoice
+              let status = invoiceInfo.cstatus
+              let type = invoiceInfo.cinvoiceType
+              let bs = invoiceInfo.cinvoiceBS
+              dispatch(actions.setVars('invoiceInfo', invoiceInfo))
+              if (status === '0') {
+                if (bs === '03') {
+                  alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
                 } else {
-                    // browserHistory.push('/h5/invoice/setinfo/normal/set')
-                    browserHistory.push('/h5/invoice/setinfo/elec/set')
+                  browserHistory.push('/h5/invoice/setinfo/elec/set')
                 }
+              } else {
+                if (type === '000') {
+                  alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
+                } else {
+                  type = type === '004' ? 'special' : (type === '007' ? 'normal' : 'elec')
+                  browserHistory.push('/h5/invoice/setinfo/' + type + '/set')
+                }
+              }
             } else {
                 alert('查询信息失败，请稍后再试')
             }
