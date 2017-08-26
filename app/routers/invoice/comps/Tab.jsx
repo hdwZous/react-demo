@@ -59,13 +59,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: () => {
         },
-        toPage: (key, flag, invoiceInfo) => {
+        toPage: (key, flag) => {
             if (key && flag === 'set') {
-                if (invoiceInfo.cinvoiceBS === '02' && key !== 'normal') {
-                    toast('操作失败');
-                } else {
-                    browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
-                }
+                browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
             } else {
                 toast('操作失败');
             }
