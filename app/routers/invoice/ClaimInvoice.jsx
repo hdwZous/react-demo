@@ -93,36 +93,33 @@ const mapStateToProps = (state) => {
  * 发票信息存储字段名：invoiceInfo
  */
 const mapDispatchToProps = (dispatch, ownProps) => {
-  let doSearch = (obj) => {
-    let data = {
-      cplyNo: obj.insureNumber,
-      appName: obj.insureName,
-      appCertType: obj.cardType,
-      appCertCode: obj.cardNumber,
-      ticket: obj.ticket
-    }
-    loading(apiClient.post('/My/Query_invoice', data).then((result) => {
-      if (result) {
-        let invoiceInfo = result.invoice
-        let status = invoiceInfo.cstatus
-        let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
-        dispatch(actions.setVars('invoiceInfo', invoiceInfo))
-        if (invoiceInfo.cinvoiceBS === '03') {
-          alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
-        } else if (invoiceInfo.cinvoiceBS === '02') {
-          browserHistory.push('/h5/invoice/setinfo/normal/set')
-        } else {
-          // browserHistory.push('/h5/invoice/setinfo/normal/set')
-          browserHistory.push('/h5/invoice/setinfo/' + type + '/set')
-        }
-      } else {
-        alert('查询信息失败，请稍后再试')
+    let doSearch = (obj) => {
+      let data = {
+          cplyNo: obj.insureNumber,
+          appName: obj.insureName,
+          appCertType: obj.cardType,
+          appCertCode: obj.cardNumber,
+          ticket: obj.ticket
       }
-    }), '正在查询，请稍等').catch((error) => {
-      alert(error.message)
-    })
+      loading(apiClient.post('/My/Query_invoice', data).then((result) => {
+        if (result) {
+          let invoiceInfo = result.invoice
+          let status = invoiceInfo.cstatus
+          let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
+          dispatch(actions.setVars('invoiceInfo', invoiceInfo))
+          if (invoiceInfo.cinvoiceBS === '03') {
+            alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
+          } else {
+            // browserHistory.push('/h5/invoice/setinfo/normal/set')
+            browserHistory.push('/h5/invoice/setinfo/elec/set')
+          }
+        } else {
+          alert('查询信息失败，请稍后再试')
+        }
+      }), '正在查询，请稍等').catch((error) => {
+        alert(error.message)
+      })
   }
-
   return {
     init: () => {
       // dispatch(actions.setObjs('values', {cardType: ''}))
