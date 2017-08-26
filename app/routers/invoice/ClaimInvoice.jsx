@@ -9,9 +9,10 @@ import apiClient from '../../lib/apiClient'
 import {browserHistory} from 'react-router'
 import inputConfig from './config/input.config'
 import {toast, alert, loading} from '../../components/popup'
+
 let ClaimInvoice = React.createClass({
     mixins: [require('mixin/background')('#fff')],
-    render () {
+    render() {
         const {
             bindData,
             getTxCode,
@@ -80,7 +81,7 @@ const mapStateToProps = (state) => {
         cardNumber: state.vars.cardNumber,
         cardType: state.vars.cardType,
         isHidden: state.vars.isHidden,
-        isCarInsure: state.vars.isCarInsure,
+        isCarInsure: state.vars.isCarInsure
     }
 }
 /**
@@ -102,22 +103,24 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         }
         loading(apiClient.post('/My/Query_invoice', data).then((result) => {
             if (result) {
-                let invoiceInfo = result.invoice;
-                // let status = invoiceInfo.cstatus === 0 ? 'set' : (invoiceInfo.cstatus === 7 || invoiceInfo.cstatus === 9 ? 'finish' : 'wait')
+                let invoiceInfo = result.invoice
+                let status = invoiceInfo.cstatus
                 let type = invoiceInfo.cinvoiceType === '004' ? 'special' : (invoiceInfo.cinvoiceType === '007' ? 'normal' : 'elec')
                 dispatch(actions.setVars('invoiceInfo', invoiceInfo))
                 if (invoiceInfo.cinvoiceBS === '03') {
                     alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
-                    /*} else if (invoiceInfo.cinvoiceBS === '02') {
-                     console.log('跳转到下一个页面')
-                     browserHistory.push('/invoice/setinfo/' + type + '/' + status)*/
+                } else if (invoiceInfo.cinvoiceBS === '02') {
+                    browserHistory.push('/h5/invoice/setinfo/normal/set')
                 } else {
+                    // browserHistory.push('/h5/invoice/setinfo/normal/set')
                     browserHistory.push('/h5/invoice/setinfo/' + type + '/set')
                 }
             } else {
                 alert('查询信息失败，请稍后再试')
             }
-        }), '正在查询，请稍等')
+        }), '正在查询，请稍等').catch((error) => {
+            alert(error.message)
+        })
     }
 
     return {
@@ -164,6 +167,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             loading(apiClient.post('/Sms/Get_slider_captcha_h5').then((result) => {
                 if (!$('body').find('script').hasClass('captcha_lib')) {
                     $('body').append(`<script src=${result.jsUrl} class="captcha_lib" id="txcode"></script>`)
+                } else {
+                    $('body').find('script.captcha_lib').attr('src', '').attr('src', result.jsUrl)
                 }
                 let timer = setInterval(() => {
                     if (capInit) {
@@ -171,7 +176,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                         let capOption = {callback: cbfn, showHeader: false}
                         capInit(document.getElementById('TXCode'), capOption)
                     }
-                }, 100)
+                }, 0)
+
                 //回调函数：验证码页面关闭时回调
                 function cbfn(retJson) {
                     if (retJson.ret === 0) {
@@ -179,12 +185,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                         obj.ticket = retJson.ticket
                         // 用户验证成功
                         doSearch(obj)
-                    }
-                    else {
+                    } else {
                         //用户关闭验证码页面，没有验证
+                        toast('验证失败，请重新验证')
                     }
                 }
-            }), '请稍候')
+            }), '请稍候').catch((error) => {
+                alert(error.message)
+            })
         }
     }
 }

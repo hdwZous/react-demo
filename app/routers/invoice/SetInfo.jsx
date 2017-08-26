@@ -8,7 +8,7 @@ import {browserHistory} from 'react-router';
 import InvoiceInfo from './comps/InvoiceInfo';
 import styles from './SetInfo.scss';
 import apiClient from '../../lib/apiClient';
-import {loading} from '../../components/popup';
+import {loading, toast} from '../../components/popup';
 import method from './comps/method';
 
 const Component = React.createClass({
@@ -50,13 +50,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         init: (invoiceInfo) => {
             dispatch(actions.setVars('invoiceInfo', invoiceInfo));
             if (invoiceInfo && invoiceInfo.cstatus === '7') {
-                browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
+                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
             } else if (invoiceInfo && invoiceInfo.cstatus === '0') {
-
-            } else if (invoiceInfo && invoiceInfo.cstatus === '8' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
-                browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
+                toast('发票正在生成中，请耐心等待30秒后再重新索要发票')
+            } else if (invoiceInfo && invoiceInfo.cstatus === '8' && invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
+                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
             } else {
-                browserHistory.replace('/h5/invoice/claim')
+                browserHistory.push('/h5/invoice/claim')
             }
         },
         getInvoice: (invoiceInfo, data) => {
