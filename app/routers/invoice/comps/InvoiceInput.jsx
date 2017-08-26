@@ -96,7 +96,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 if(item.id==='CompanyTotal'){
                     item.value = info.nprice;
                 }
-                // item.value=
                 console.log(item)
                 dispatch(actions.setVars('invoice' + item.id, item));
             })
