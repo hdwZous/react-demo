@@ -49,10 +49,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: (invoiceInfo) => {
             dispatch(actions.setVars('invoiceInfo', invoiceInfo));
-            if (invoiceInfo && invoiceInfo.cstatus === '7') {
+            if (invoiceInfo && invoiceInfo.cstatus === '0') {
                 browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
-            } else if (invoiceInfo && invoiceInfo.cstatus === '0') {
-                toast('发票正在生成中，请耐心等待30秒后再重新索要发票')
+            } else if (invoiceInfo && invoiceInfo.cstatus === '7') {
+
             } else if (invoiceInfo && invoiceInfo.cstatus === '8' && invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
                 browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
             } else {

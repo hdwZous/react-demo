@@ -9,6 +9,7 @@ import actions from '../../../redux/actions';
 import fromConfig from '../config/from.config';
 import {toast} from '../../../components/popup';
 import apiClient from '../../../lib/apiClient';
+import _ from 'lodash';
 
 const Component = React.createClass({
     componentDidMount () {
@@ -16,7 +17,7 @@ const Component = React.createClass({
     },
 
     render () {
-        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab, toRegInput, checkFlag, sendMessage, sendFlag, invoiceInfo} = this.props;
+        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab, toRegInput, sendMessage, sendFlag, invoiceInfo} = this.props;
         return (
             <div className={styles.invoiceInput}>
                 {/*表单组件*/}
@@ -30,7 +31,7 @@ const Component = React.createClass({
                                     <input type="text" placeholder={item.text ? item.title : '请输入'}
                                            onChange={(e) => bindData(item, e.target.value)}
                                            disabled={item.unEdit ? 'disable' : ''}
-                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + invoiceInfo[item.bindData].toFixed(1) : invoiceInfo[item.bindData])}
+                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(1) : invoiceInfo[item.bindData])}
                                            className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                                     {item.btn ? <button className={styles.yzmBtn}
                                                         onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
@@ -43,7 +44,7 @@ const Component = React.createClass({
                                 <input type="text" placeholder={item.text ? item.title : '请输入'}
                                        onChange={(e) => bindData(item, e.target.value)}
                                        disabled={item.unEdit ? 'disable' : ''}
-                                       value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + invoiceInfo[item.bindData].toFixed(1) : invoiceInfo[item.bindData])}
+                                       value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(1) : invoiceInfo[item.bindData])}
                                        className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                                 {item.btn ? <button className={styles.yzmBtn}
                                                     onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
@@ -93,9 +94,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             })
         },
         bindData: (item, value) => {
-            console.log(value);
-            item.value = value;
-            dispatch(actions.setVars('invoice' + item.id, item));
+            let cloneItem = _.cloneDeep(item);
+            cloneItem.value = value;
+            dispatch(actions.setVars('invoice' + item.id, cloneItem));
         },
         toRegInput: (cb, data, invoiceInfo) => {
             let checkFlag = false;

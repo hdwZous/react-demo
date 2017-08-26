@@ -8,7 +8,7 @@ module.exports = {
             });
             infoList.push({
                 title: '价税合计（小写）：',
-                content: '¥' + (+invoiceInfo.nprice / 100).toFixed(2)
+                content: '¥' + (+invoiceInfo.nprice).toFixed(2)
             });
             infoList.push({
                 title: '发票号码：',
@@ -33,7 +33,7 @@ module.exports = {
             });
             infoList.push({
                 title: '价税合计（小写）：',
-                content: '¥' + (+invoiceInfo.nprice / 100).toFixed(2)
+                content: '¥' + (+invoiceInfo.nprice).toFixed(2)
             });
             infoList.push({
                 title: '手机号：',
