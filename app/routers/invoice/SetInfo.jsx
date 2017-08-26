@@ -50,18 +50,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         init: (invoiceInfo) => {
             dispatch(actions.setVars('invoiceInfo', invoiceInfo));
             if (invoiceInfo && invoiceInfo.cstatus === '0') {
-                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
+                browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
             } else if (invoiceInfo && invoiceInfo.cstatus === '7') {
 
             } else if (invoiceInfo && invoiceInfo.cstatus === '8' && invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
-                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
+                browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
             } else {
-                browserHistory.push('/h5/invoice/claim')
+                browserHistory.replace('/h5/invoice/claim')
             }
         },
         getInvoice: (invoiceInfo, data) => {
             loading(apiClient.post('/My/Issue_invoice', method.getFormatData(invoiceInfo, data, ownProps.params.tab)).then((result) => {
-                console.log(result);
+                toast('开票成功');
+                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait');
+            }).catch((e)=>{
+                toast(e.message);
             }))
         }
     }

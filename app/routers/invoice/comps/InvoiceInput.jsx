@@ -17,7 +17,7 @@ const Component = React.createClass({
     },
 
     render () {
-        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab, toRegInput, sendMessage, sendFlag, invoiceInfo} = this.props;
+        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab, toRegInput, sendMessage, sendFlag, invoiceInfo, username, userLoaction} = this.props;
         return (
             <div className={styles.invoiceInput}>
                 {/*表单组件*/}
@@ -61,7 +61,9 @@ const Component = React.createClass({
                         bankNameAndAccount,
                         mobileNumber,
                         messageCode,
-                        email
+                        email,
+                        userLoaction,
+                        username
                     ], invoiceInfo)}>提交
                     </button>
                 </div>
@@ -81,6 +83,8 @@ const mapStateToProps = (state) => {
         mobileNumber: state.vars.invoiceMobileNumber,
         messageCode: state.vars.invoiceMessageCode,
         email: state.vars.invoiceEmail,
+        username: state.vars.invoiceUsername,
+        userLoaction: state.vars.invoiceUserLoaction,
         checkFlag: state.vars.invoiceFromCheckFlag,
         sendFlag: state.vars.invoiceSendFlag,
     }
@@ -102,6 +106,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             let checkFlag = false;
             let jsonData = '{';
             data && data.map((item) => {
+                console.log(item);
                 if (item) {
                     if (item.reg && item.id !== 'CompanyCode') {
                         if (item.value) {
@@ -115,7 +120,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                             checkFlag = true;
                             return false
                         }
-                    } else if(item.reg && item.id === 'CompanyCode'){
+                    } else if(item.reg && item.id === 'CompanyCode') {
                         if (invoiceInfo && invoiceInfo.isWeatherPerson === '0') {
                             if (item.value) {
                                 if (!item.reg.test(item.value)) {

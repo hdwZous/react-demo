@@ -1,3 +1,8 @@
+let getInvoiceType = {
+    normal: '007',
+    special: '007',
+    elec: '026'
+};
 module.exports = {
     getInfo: (invoiceInfo) => {
         let infoList = [];
@@ -60,10 +65,12 @@ module.exports = {
             return 1
         }
     },
+
     getFormatData: (invoiceInfo, data, flag) => {
+        console.log(data);
         let formatData = {
             cplyNo: invoiceInfo.cplyNo,
-            cinsuredNme: invoiceInfo.cinsuredNme,
+            cinsuredNme: data.CompanyName === "undefined" ? invoiceInfo.cinsuredNme : data.CompanyName,
             ccertfCls: invoiceInfo.ccertfCls,
             ccertfCde: invoiceInfo.ccertfCde,
             cappNo: invoiceInfo.cappNo,
@@ -71,20 +78,20 @@ module.exports = {
             ctrate: invoiceInfo.ctrate,
             nvat: invoiceInfo.nvat,
             nprice: invoiceInfo.nprice,
-            cappNme: invoiceInfo.cappNme,//普票必传
-            cemail: invoiceInfo.cemail,//非必传
-            cmobile: invoiceInfo.cmobile,
-            cpostAddress: invoiceInfo.cpostAddress,//邮寄地址
-            cinvoiceType: '026' || invoiceInfo.cinvoiceType,//发票类型
+            cappNme: data.Username === "undefined" ? invoiceInfo.cappNme : data.Username,//普票必传
+            cemail: data.Username === "undefined" ? invoiceInfo.cemail : data.Email,//非必传
+            cmobile: data.Username === "undefined" ? invoiceInfo.cmobile : data.MobileNumber,
+            cpostAddress: data.Username === "undefined" ? invoiceInfo.cpostAddress : data.UserLoaction,//邮寄地址
+            cinvoiceType: getInvoiceType[flag],//发票类型//
             cinvoiceBS: invoiceInfo.cinvoiceBS,
             cbuyDeptCde: invoiceInfo.cbuyDeptCde,
             cchannel: invoiceInfo.cchannel,
             NInvoicePrice: invoiceInfo.NInvoicePrice,//待查看
             CBuyDeptCnm: invoiceInfo.CBuyDeptCnm,
-            BankNameAndAccount: invoiceInfo.BankNameAndAccount,
+            BankNameAndAccount: data.BankNameAndAccount,
             CprodCnm: invoiceInfo.CprodCnm,
             TPlyCrtTm: invoiceInfo.TPlyCrtTm,
-            veri_code: ''//短信
+            veri_code: data.Username === "undefined" ? data.MessageCode : ''//短信
         };
 
         return formatData

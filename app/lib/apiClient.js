@@ -8,7 +8,6 @@ require('jquery.cookie')
 function parseResponse (jqResult, url) {
   return Promise.resolve(jqResult).then(function (result) {
     const originError = result.code != 0 && true
-    console.log(result);
     if (!originError) {
       return result.data
     }
