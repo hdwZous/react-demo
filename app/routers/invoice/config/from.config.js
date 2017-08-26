@@ -17,7 +17,6 @@ module.exports = {
             bindData: 'cbuyDeptCde',
         },
         {
-
             title: '价税合计（小写）',
             color: '#f6f6f6',
             value: true,
@@ -63,28 +62,31 @@ module.exports = {
             icon: true,
             id: 'CompanyName',
             reg: new RegExp('^[\\S]+$'),
+            unEdit: true,
+            bindData: 'cinsuredNme',
         },
         {
             title: '纳税人识别号',
-            icon: true,
             text: true,
             id: 'CompanyCode',
-            reg: new RegExp('^[\\S]+$'),
+            reg: new RegExp('^[a-zA-Z0-9]{8,15}$'),
+            unEdit: true,
+            bindData: 'cbuyDeptCde',
         },
         {
-
             title: '价税合计（小写）',
             color: '#f6f6f6',
             value: true,
             id: 'CompanyTotal',
             text: '1',
+            unEdit: true,
+            bindData: 'nprice',
         },
         {
 
             title: '地址、电话',
             icon: false,
-            id: 'AddAndPhoneNumber',
-            reg: new RegExp('^[\\S]+$'),
+            id: 'AddAndPhoneNumber'
         },
         {
 
@@ -108,14 +110,14 @@ module.exports = {
             title: '手机号',
             icon: true,
             id: 'MobileNumber',
-            reg: new RegExp('^[\\S]+$'),
+            reg: new RegExp(/^1\d{10}$/),
         },
         {
             title: '短信验证码',
-            icon: true,
             btn: true,
-            id: 'MessageCode',
+            icon: true,
             reg: new RegExp('^[\\S]+$'),
+            id: 'MessageCode'
         },
         {
             title: '邮箱',
@@ -127,52 +129,63 @@ module.exports = {
         {
             title: '单位名称',
             icon: true,
-            id: 'CompanyName'
+            id: 'CompanyName',
+            reg: new RegExp('^[\\S]+$'),
+            unEdit: true,
+            bindData: 'cinsuredNme',
         },
         {
             title: '纳税人识别号',
-            icon: true,
             text: true,
-            id: 'CompanyCode'
+            id: 'CompanyCode',
+            reg: new RegExp('^[a-zA-Z0-9]{8,15}$'),
+            unEdit: true,
+            bindData: 'cbuyDeptCde',
         },
         {
-
             title: '价税合计（小写）',
             color: '#f6f6f6',
             value: true,
             id: 'CompanyTotal',
             text: '1',
+            unEdit: true,
+            bindData: 'nprice',
         },
         {
+
             title: '地址、电话',
-            icon: true,
+            icon: false,
             id: 'AddAndPhoneNumber'
         },
         {
 
             title: '开户行及账号',
-            icon: true,
+            icon: false,
             id: 'BankNameAndAccount'
         },
         {
             title: '收件人姓名',
             icon: true,
-            id: 'Username'
+            id: 'Username',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '收件人地址',
             icon: true,
-            id: 'UserLoaction'
+            id: 'UserLoaction',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '手机号',
             icon: true,
-            id: 'MobileNumber'
+            id: 'MobileNumber',
+            reg: new RegExp(/^1\d{10}$/),
         },
         {
             title: '短信验证码',
-            icon: true,
             btn: true,
+            icon: true,
+            reg: new RegExp('^[\\S]+$'),
             id: 'MessageCode'
         },
         {

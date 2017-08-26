@@ -14,7 +14,7 @@ const Component = React.createClass({
     },
 
     render () {
-        let {infoList, changeMaskShow, maskShowFlag, messageFlag} = this.props;
+        let {infoList, changeMaskShow, maskShowFlag, messageFlag, invoiceInfo} = this.props;
         return (
             <FixedContent>
                 <div className={styles.mainBox}>
@@ -23,7 +23,9 @@ const Component = React.createClass({
                             messageFlag && method.getMessage[messageFlag]
                         }
                         {
-                            messageFlag === 2 && <span className={styles.downLoadInovice}>立即打印</span>
+                            messageFlag === 2 && <span className={styles.downLoadInovice} onClick={() => {
+                                location.href = invoiceInfo.EInvoiceURL
+                            }}>立即打印</span>
                         }
                     </div>
                     <div className={styles.detailBox}>
@@ -70,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(actions.setVars('invoiceMessageFlag', method.checkMessageStaus(invoiceInfo.cstatus)))
                 dispatch(actions.setVars('invoiceInfoList', method.getInfo(invoiceInfo)));
             } else {
-                browserHistory.push('/invoice/claim');
+                browserHistory.push('/h5/invoice/claim');
             }
         },
         changeMaskShow: (flag) => {

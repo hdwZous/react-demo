@@ -93,7 +93,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             })
         },
         bindData: (item, value) => {
-            console.log(item);
+            console.log(value);
             item.value = value;
             dispatch(actions.setVars('invoice' + item.id, item));
         },

@@ -112,7 +112,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                      console.log('跳转到下一个页面')
                      browserHistory.push('/invoice/setinfo/' + type + '/' + status)*/
                 } else {
-                    browserHistory.push('/invoice/setinfo/' + type + '/set')
+                    browserHistory.push('/h5/invoice/setinfo/' + type + '/set')
                 }
             } else {
                 alert('查询信息失败，请稍后再试')
