@@ -113,7 +113,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     browserHistory.push('/h5/invoice/setinfo/normal/set')
                 } else {
                     // browserHistory.push('/h5/invoice/setinfo/normal/set')
-                    browserHistory.push('/h5/invoice/setinfo/' + type + '/set')
+                    browserHistory.push('/h5/invoice/setinfo/elec/set')
                 }
             } else {
                 alert('查询信息失败，请稍后再试')
