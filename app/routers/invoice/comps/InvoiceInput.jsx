@@ -9,10 +9,11 @@ import actions from '../../../redux/actions';
 import fromConfig from '../config/from.config';
 import {toast} from '../../../components/popup';
 import apiClient from '../../../lib/apiClient';
+import _ from 'lodash'
 
 const Component = React.createClass({
     componentDidMount () {
-        this.props.init(this.props.tab);
+        this.props.init(this.props.tab, this.props.invoiceInfo);
     },
 
     render () {
@@ -87,20 +88,30 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        init: (tab) => {
+        init: (tab, info) => {
             fromConfig && fromConfig[tab].map((item) => {
+                if(item.id==='CompanyName'){
+                    item.value = info.cinsuredNme;
+                }
+                if(item.id==='CompanyTotal'){
+                    item.value = info.nprice;
+                }
+                // item.value=
+                console.log(item)
                 dispatch(actions.setVars('invoice' + item.id, item));
             })
         },
         bindData: (item, value) => {
-            console.log(value);
-            item.value = value;
-            dispatch(actions.setVars('invoice' + item.id, item));
+            let cloneItem = _.cloneDeep(item);
+            cloneItem.value = value
+            // item.value = value;
+            dispatch(actions.setVars('invoice' + item.id, cloneItem));
         },
         toRegInput: (cb, data, invoiceInfo) => {
             let checkFlag = false;
             let jsonData = '{';
             data && data.map((item) => {
+                // console.log(item)
                 if (item) {
                     if (item.reg && item.id !== 'CompanyCode') {
                         if (item.value) {

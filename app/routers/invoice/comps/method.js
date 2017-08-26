@@ -84,7 +84,7 @@ module.exports = {
             BankNameAndAccount: invoiceInfo.BankNameAndAccount,
             CprodCnm: invoiceInfo.CprodCnm,
             TPlyCrtTm: invoiceInfo.TPlyCrtTm,
-            veri_code: ''//短信
+            veri_code: data.MessageCode//短信
         };
 
         return formatData
