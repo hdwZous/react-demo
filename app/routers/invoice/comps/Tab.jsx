@@ -35,7 +35,7 @@ const Component = React.createClass({
                         {
                             arr.map((item, key) => {
                                 return <li key={key} className={item.key === active ? styles.active : ''}
-                                           onClick={() => toPage(item.key, flag, invoiceInfo)}><span>{item.title}</span>
+                                           onClick={() => invoiceInfo.cstatus==='0'?toPage(item.key, flag, invoiceInfo):''}><span>{item.title}</span>
                                 </li>
                             })
                         }

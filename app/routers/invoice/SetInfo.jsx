@@ -8,12 +8,12 @@ import {browserHistory} from 'react-router';
 import InvoiceInfo from './comps/InvoiceInfo';
 import styles from './SetInfo.scss';
 import apiClient from '../../lib/apiClient';
-import {loading, toast} from '../../components/popup';
+import {loading, toast, alert, confirm} from '../../components/popup';
 import method from './comps/method';
 
 const Component = React.createClass({
     mixins: [require('mixin/background')('#ffffff')],
-    componentDidMount () {
+    componentWillMount () {
         let {init, invoiceInfo} = this.props;
         init(invoiceInfo)
     },
@@ -52,16 +52,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             if (invoiceInfo && invoiceInfo.cstatus === '7') {
                 browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
             } else if (invoiceInfo && invoiceInfo.cstatus === '0') {
-                toast('发票正在生成中，请耐心等待30秒后再重新索要发票')
+                // toast('发票正在生成中，请耐心等待30秒后再重新索要发票')
             } else if (invoiceInfo && invoiceInfo.cstatus === '8' || invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
                 browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
-            } else {
-                browserHistory.push('/h5/invoice/claim')
+            } else if (invoiceInfo && invoiceInfo.cstatus !== '0') {
+              browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
+              // browserHistory.push('/h5/invoice/claim')
             }
         },
         getInvoice: (invoiceInfo, data) => {
             loading(apiClient.post('/My/Issue_invoice', method.getFormatData(invoiceInfo, data, ownProps.params.tab)).then((result) => {
-                // console.log(result);
+              console.log(result);
+              if(result.invoice.cstatus === '0'){
+                  toast('发票正在生成中，请耐心等待30秒后再重新索要发票', 5000)
+                }
             })).catch((error) => {
               toast(error.message)
             })
