@@ -13,7 +13,7 @@ import method from './comps/method';
 
 const Component = React.createClass({
     mixins: [require('mixin/background')('#ffffff')],
-    componentWillMount () {
+    componentDidMount () {
         let {init, invoiceInfo} = this.props;
         init(invoiceInfo)
     },
@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
             } else if (invoiceInfo && invoiceInfo.cstatus === '0') {
                 toast('发票正在生成中，请耐心等待30秒后再重新索要发票')
-            } else if (invoiceInfo && invoiceInfo.cstatus === '8' && invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
+            } else if (invoiceInfo && invoiceInfo.cstatus === '8' || invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
                 browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
             } else {
                 browserHistory.push('/h5/invoice/claim')
@@ -61,8 +61,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         getInvoice: (invoiceInfo, data) => {
             loading(apiClient.post('/My/Issue_invoice', method.getFormatData(invoiceInfo, data, ownProps.params.tab)).then((result) => {
-                console.log(result);
-            }))
+                // console.log(result);
+            })).catch((error) => {
+              toast(error.message)
+            })
         }
     }
 }

@@ -49,7 +49,7 @@ module.exports = {
     getMessage: {
         '1': '您提交的信息正在审核中，请耐心等待......',
         '2': '可以直接打印电子发票了噢！',
-        '3': '您的发票正在有机，请耐心等待......',
+        '3': '您的发票正在邮寄，请耐心等待......',
     },
     checkMessageStaus: (status) => {
         if (status === '7') {
@@ -61,19 +61,20 @@ module.exports = {
         }
     },
     getFormatData: (invoiceInfo, data, flag) => {
-        let formatData = {
+      // console.log(data)
+      let formatData = {
             cplyNo: invoiceInfo.cplyNo,
-            cinsuredNme: invoiceInfo.cinsuredNme,
+            cinsuredNme: data.CompanyName,
             ccertfCls: invoiceInfo.ccertfCls,
             ccertfCde: invoiceInfo.ccertfCde,
             cappNo: invoiceInfo.cappNo,
             nprm: invoiceInfo.nprm,
             ctrate: invoiceInfo.ctrate,
             nvat: invoiceInfo.nvat,
-            nprice: invoiceInfo.nprice,
+            nprice: data.CompanyTotal,
             cappNme: invoiceInfo.cappNme,//普票必传
-            cemail: invoiceInfo.cemail,//非必传
-            cmobile: invoiceInfo.cmobile,
+            cemail: data.Email,//非必传
+            cmobile: data.MobileNumber,
             cpostAddress: invoiceInfo.cpostAddress,//邮寄地址
             cinvoiceType: '026' || invoiceInfo.cinvoiceType,//发票类型
             cinvoiceBS: invoiceInfo.cinvoiceBS,
@@ -81,12 +82,11 @@ module.exports = {
             cchannel: invoiceInfo.cchannel,
             NInvoicePrice: invoiceInfo.NInvoicePrice,//待查看
             CBuyDeptCnm: invoiceInfo.CBuyDeptCnm,
-            BankNameAndAccount: invoiceInfo.BankNameAndAccount,
+            BankNameAndAccount: data.BankNameAndAccount,
             CprodCnm: invoiceInfo.CprodCnm,
             TPlyCrtTm: invoiceInfo.TPlyCrtTm,
             veri_code: data.MessageCode//短信
         };
-
         return formatData
     }
 }

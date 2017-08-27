@@ -43,8 +43,6 @@ const Component = React.createClass({
                 </div>
                 <LocalState flag={flag}/>
             </div>
-
-
         )
     }
 })
@@ -59,12 +57,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: () => {
         },
-        toPage: (key, flag) => {
-            if (key && flag === 'set') {
-                browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
-            } else {
-                toast('操作失败');
+        toPage: (key, flag, info) => {
+            // console.log(info)
+          if(info.isWeatherPerson=='1'){
+            if(key==='special'){
+                toast('自然人不能开专用发票')
+                return false
+            }else{
+              browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
             }
+          }else{
+            if (key && flag === 'set') {
+              browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
+            } else {
+              toast('操作失败')
+            }
+          }
         }
     }
 }

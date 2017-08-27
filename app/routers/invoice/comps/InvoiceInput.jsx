@@ -66,7 +66,6 @@ const Component = React.createClass({
                     </button>
                 </div>
             </div>
-
         )
     }
 })
@@ -96,21 +95,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 if(item.id==='CompanyTotal'){
                     item.value = info.nprice;
                 }
-                console.log(item)
                 dispatch(actions.setVars('invoice' + item.id, item));
             })
         },
         bindData: (item, value) => {
             let cloneItem = _.cloneDeep(item);
             cloneItem.value = value
-            // item.value = value;
             dispatch(actions.setVars('invoice' + item.id, cloneItem));
         },
         toRegInput: (cb, data, invoiceInfo) => {
             let checkFlag = false;
             let jsonData = '{';
             data && data.map((item) => {
-                // console.log(item)
                 if (item) {
                     if (item.reg && item.id !== 'CompanyCode') {
                         if (item.value) {
