@@ -9,11 +9,11 @@ import actions from '../../../redux/actions';
 import fromConfig from '../config/from.config';
 import {toast} from '../../../components/popup';
 import apiClient from '../../../lib/apiClient';
-import _ from 'lodash';
+import _ from 'lodash'
 
 const Component = React.createClass({
     componentDidMount () {
-        this.props.init(this.props.tab);
+        this.props.init(this.props.tab, this.props.invoiceInfo);
     },
 
     render () {
@@ -23,15 +23,15 @@ const Component = React.createClass({
                 {/*表单组件*/}
                 {
                     fromConfig && fromConfig[tab].map((item, key) => {
-                        if(invoiceInfo && invoiceInfo.isWeatherPerson === '1') {
-                            if(item.id !== 'CompanyCode') {
+                        if (invoiceInfo && invoiceInfo.isWeatherPerson === '1') {
+                            if (item.id !== 'CompanyCode') {
                                 return <div key={key} style={{backgroundColor: item.color ? item.color : '#fff'}}>
                                     {item.icon ? <img src={InputIcon}/> : ''}
                                     <span>{item.title}</span>
                                     <input type="text" placeholder={item.text ? item.title : '请输入'}
                                            onChange={(e) => bindData(item, e.target.value)}
                                            disabled={item.unEdit ? 'disable' : ''}
-                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(1) : invoiceInfo[item.bindData])}
+                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
                                            className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                                     {item.btn ? <button className={styles.yzmBtn}
                                                         onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
@@ -44,7 +44,7 @@ const Component = React.createClass({
                                 <input type="text" placeholder={item.text ? item.title : '请输入'}
                                        onChange={(e) => bindData(item, e.target.value)}
                                        disabled={item.unEdit ? 'disable' : ''}
-                                       value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(1) : invoiceInfo[item.bindData])}
+                                       value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
                                        className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
                                 {item.btn ? <button className={styles.yzmBtn}
                                                     onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
@@ -68,7 +68,6 @@ const Component = React.createClass({
                     </button>
                 </div>
             </div>
-
         )
     }
 })
@@ -92,8 +91,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        init: (tab) => {
+        init: (tab, info) => {
             fromConfig && fromConfig[tab].map((item) => {
+                if (item.id === 'CompanyName') {
+                    item.value = info.cinsuredNme;
+                }
+                if (item.id === 'CompanyTotal') {
+                    item.value = info.nprice;
+                }
                 dispatch(actions.setVars('invoice' + item.id, item));
             })
         },
@@ -120,7 +125,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                             checkFlag = true;
                             return false
                         }
-                    } else if(item.reg && item.id === 'CompanyCode') {
+                    } else if (item.reg && item.id === 'CompanyCode') {
                         if (invoiceInfo && invoiceInfo.isWeatherPerson === '0') {
                             if (item.value) {
                                 if (!item.reg.test(item.value)) {

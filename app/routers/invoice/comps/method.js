@@ -54,7 +54,7 @@ module.exports = {
     getMessage: {
         '1': '您提交的信息正在审核中，请耐心等待......',
         '2': '可以直接打印电子发票了噢！',
-        '3': '您的发票正在有机，请耐心等待......',
+        '3': '您的发票正在邮寄，请耐心等待......',
     },
     checkMessageStaus: (status) => {
         if (status === '7') {
@@ -67,7 +67,6 @@ module.exports = {
     },
 
     getFormatData: (invoiceInfo, data, flag) => {
-        console.log(data);
         let formatData = {
             cplyNo: invoiceInfo.cplyNo,
             cinsuredNme: data.CompanyName === "undefined" ? invoiceInfo.cinsuredNme : data.CompanyName,
@@ -93,7 +92,6 @@ module.exports = {
             TPlyCrtTm: invoiceInfo.TPlyCrtTm,
             veri_code: data.Username === "undefined" ? data.MessageCode : ''//短信
         };
-
         return formatData
     }
 }

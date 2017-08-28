@@ -114,14 +114,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 if (bs === '03') {
                   alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
                 } else {
-                  browserHistory.push('/h5/invoice/setinfo/elec/set')
+                  setTimeout(browserHistory.push('/h5/invoice/setinfo/elec/set'), 0)
                 }
               } else {
                 if (type === '000') {
                   alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
                 } else {
                   type = type === '004' ? 'special' : (type === '007' ? 'normal' : 'elec')
-                  browserHistory.push('/h5/invoice/setinfo/' + type + '/set')
+                  setTimeout(browserHistory.push('/h5/invoice/setinfo/' + type + '/set'), 0)
                 }
               }
             } else {
