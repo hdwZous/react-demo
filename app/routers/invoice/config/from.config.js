@@ -13,7 +13,7 @@ module.exports = {
             text: true,
             id: 'CompanyCode',
             reg: new RegExp('^[a-zA-Z0-9]{8,15}$'),
-            unEdit: true,
+            unEdit: false,
             bindData: 'cbuyDeptCde',
         },
         {
@@ -72,7 +72,7 @@ module.exports = {
             text: true,
             id: 'CompanyCode',
             reg: new RegExp('^[a-zA-Z0-9]{8,15}$'),
-            unEdit: true,
+            unEdit: false,
             bindData: 'cbuyDeptCde',
         },
         {
@@ -141,7 +141,7 @@ module.exports = {
             text: true,
             id: 'CompanyCode',
             reg: new RegExp('^[a-zA-Z0-9]{8,15}$'),
-            unEdit: true,
+            unEdit: false,
             bindData: 'cbuyDeptCde',
         },
         {
