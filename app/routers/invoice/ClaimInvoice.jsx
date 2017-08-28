@@ -67,9 +67,7 @@ let ClaimInvoice = React.createClass({
                     }, getTxCode)}>查询
                     </button>
                 </div>
-                <div className={styles.mask} style={{display: isHidden === 'true' ? 'none' : 'block'}}>
-                    <div className={styles.TXCode} id='TXCode'></div>
-                </div>
+                <div className={styles.TXCode} id='TXCode'></div>
             </FixedContent>
         )
     }
@@ -177,14 +175,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 if (!$('body').find('script').hasClass('captcha_lib')) {
                     $('body').append(`<script src=${result.jsUrl} class="captcha_lib" id="txcode"></script>`)
                 } else {
-                    $('body').find('script.captcha_lib').attr('src', '').attr('src', result.jsUrl)
+                    $('body').find('script.captcha_lib').attr('src', result.jsUrl)
                 }
                 let timer = setInterval(() => {
                     if (capInit) {
+                        $('#TXCode').show()
                         clearInterval(timer)
-                        let capOption = {callback: cbfn, showHeader: false}
+                        let capOption = {callback: cbfn, showHeader: false, themeColor: 'ff9a01'}
                         capInit(document.getElementById('TXCode'), capOption)
                     }
+                  $('#TXCode iframe').attr('id','myframe')
+                  console.log($('#TXCode iframe'))
+                  $('iframe').find('body').css('background','black')
                 }, 0)
                 //回调函数：验证码页面关闭时回调
                 function cbfn(retJson) {
@@ -192,9 +194,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                         dispatch(actions.setVars('isHidden', 'true'))
                         obj.ticket = retJson.ticket
                         // 用户验证成功
-                        doSearch(obj)
+                      $('#TXCode').hide()
+                      doSearch(obj)
                     } else {
-                        //用户关闭验证码页面，没有验证
+                      $('#TXCode').hide()
+                      //用户关闭验证码页面，没有验证
                         toast('验证失败，请重新验证')
                     }
                 }
