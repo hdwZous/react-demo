@@ -87,10 +87,11 @@ module.exports = {
             cchannel: invoiceInfo.cchannel,
             NInvoicePrice: invoiceInfo.NInvoicePrice,//待查看
             CBuyDeptCnm: invoiceInfo.CBuyDeptCnm,
-            BankNameAndAccount: data.BankNameAndAccount,
+            BankNameAndAccount: data.BankNameAndAccount === "undefined" ? '' : data.BankNameAndAccount,
             CprodCnm: invoiceInfo.CprodCnm,
             TPlyCrtTm: invoiceInfo.TPlyCrtTm,
-            veri_code: data.Username === "undefined" ? data.MessageCode : ''//短信
+            veri_code: data.Username === "undefined" ? '' : data.MessageCode,//短信
+            isWeatherPerson: invoiceInfo.isWeatherPerson
         };
         return formatData
     }

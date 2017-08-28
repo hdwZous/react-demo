@@ -35,7 +35,7 @@ const Component = React.createClass({
                         {
                             arr.map((item, key) => {
                                 return <li key={key} className={item.key === active ? styles.active : ''}
-                                           onClick={() => invoiceInfo.cstatus==='0'?toPage(item.key, flag, invoiceInfo):''}><span>{item.title}</span>
+                                           onClick={() => toPage(item.key, flag, invoiceInfo)}><span>{item.title}</span>
                                 </li>
                             })
                         }
@@ -58,21 +58,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         init: () => {
         },
         toPage: (key, flag, info) => {
-            // console.log(info)
-          if(info.isWeatherPerson=='1'){
-            if(key==='special'){
-                toast('自然人不能开专用发票')
-                return false
-            }else{
-              browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
-            }
-          }else{
             if (key && flag === 'set') {
-              browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
-            } else {
-              toast('操作失败')
+                if (info.isWeatherPerson == '1') {
+                    if (key === 'special') {
+                        toast('自然人不能开专用发票')
+                        return false
+                    } else {
+                        browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
+                    }
+                } else {
+                    browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
+                }
             }
-          }
         }
     }
 }

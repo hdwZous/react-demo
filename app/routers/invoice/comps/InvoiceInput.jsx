@@ -17,12 +17,13 @@ const Component = React.createClass({
     },
 
     render () {
-        let {bindData, callBack, companyName, companyCode, companyTotal, addAndPhoneNumber, bankNameAndAccount, mobileNumber, messageCode, email, tab, toRegInput, sendMessage, sendFlag, invoiceInfo, username, userLoaction} = this.props;
+        let {bindData, callBack, CompanyName, CompanyCode, CompanyTotal, AddAndPhoneNumber, BankNameAndAccount, MobileNumber, MessageCode, Email, tab, toRegInput, sendMessage, SendFlag, invoiceInfo, Username, UserLoaction} = this.props;
         return (
             <div className={styles.invoiceInput}>
                 {/*表单组件*/}
                 {
                     fromConfig && fromConfig[tab].map((item, key) => {
+                        console.log(this.props[item.id]);
                         if (invoiceInfo && invoiceInfo.isWeatherPerson === '1') {
                             if (item.id !== 'CompanyCode') {
                                 return <div key={key} style={{backgroundColor: item.color ? item.color : '#fff'}}>
@@ -32,9 +33,9 @@ const Component = React.createClass({
                                            onChange={(e) => bindData(item, e.target.value)}
                                            disabled={item.unEdit ? 'disable' : ''}
                                            value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
-                                           className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
+                                           className={`${item.id == 'MessageCode' ? styles.yzmInput : ''} ${item.bindData ? '' : 'removeInput'}`}/>
                                     {item.btn ? <button className={styles.yzmBtn}
-                                                        onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
+                                                        onClick={() => sendMessage(MobileNumber, SendFlag)}>{SendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
                                 </div>
                             }
                         } else {
@@ -45,25 +46,25 @@ const Component = React.createClass({
                                        onChange={(e) => bindData(item, e.target.value)}
                                        disabled={item.unEdit ? 'disable' : ''}
                                        value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
-                                       className={ item.id == 'MessageCode' ? styles.yzmInput : styles.input}/>
+                                       className={`${item.id == 'MessageCode' ? styles.yzmInput : ''} ${item.bindData ? '' : 'removeInput'}`}/>
                                 {item.btn ? <button className={styles.yzmBtn}
-                                                    onClick={() => sendMessage(mobileNumber, sendFlag)}>{sendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
+                                                    onClick={() => sendMessage(MobileNumber, SendFlag)}>{SendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
                             </div>
                         }
                     })
                 }
                 <div className={styles.submitBtn}>
                     <button onClick={() => toRegInput(callBack, [
-                        companyName,
-                        companyCode,
-                        companyTotal,
-                        addAndPhoneNumber,
-                        bankNameAndAccount,
-                        mobileNumber,
-                        messageCode,
-                        email,
-                        userLoaction,
-                        username
+                        CompanyName,
+                        CompanyCode,
+                        CompanyTotal,
+                        AddAndPhoneNumber,
+                        BankNameAndAccount,
+                        MobileNumber,
+                        MessageCode,
+                        Email,
+                        UserLoaction,
+                        Username
                     ], invoiceInfo)}>提交
                     </button>
                 </div>
@@ -74,18 +75,18 @@ const Component = React.createClass({
 
 const mapStateToProps = (state) => {
     return {
-        companyName: state.vars.invoiceCompanyName,
-        companyCode: state.vars.invoiceCompanyCode,
-        companyTotal: state.vars.invoiceCompanyTotal,
-        addAndPhoneNumber: state.vars.invoiceAddAndPhoneNumber,
-        bankNameAndAccount: state.vars.invoiceBankNameAndAccount,
-        mobileNumber: state.vars.invoiceMobileNumber,
-        messageCode: state.vars.invoiceMessageCode,
-        email: state.vars.invoiceEmail,
-        username: state.vars.invoiceUsername,
-        userLoaction: state.vars.invoiceUserLoaction,
-        checkFlag: state.vars.invoiceFromCheckFlag,
-        sendFlag: state.vars.invoiceSendFlag,
+        CompanyName: state.vars.invoiceCompanyName,
+        CompanyCode: state.vars.invoiceCompanyCode,
+        CompanyTotal: state.vars.invoiceCompanyTotal,
+        AddAndPhoneNumber: state.vars.invoiceAddAndPhoneNumber,
+        BankNameAndAccount: state.vars.invoiceBankNameAndAccount,
+        MobileNumber: state.vars.invoiceMobileNumber,
+        MessageCode: state.vars.invoiceMessageCode,
+        Email: state.vars.invoiceEmail,
+        Username: state.vars.invoiceUsername,
+        UserLoaction: state.vars.invoiceUserLoaction,
+        CheckFlag: state.vars.invoiceFromCheckFlag,
+        SendFlag: state.vars.invoiceSendFlag,
     }
 }
 
@@ -111,7 +112,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             let checkFlag = false;
             let jsonData = '{';
             data && data.map((item) => {
-                console.log(item);
                 if (item) {
                     if (item.reg && item.id !== 'CompanyCode') {
                         if (item.value) {

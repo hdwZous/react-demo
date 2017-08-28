@@ -48,15 +48,19 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: (invoiceInfo) => {
+            if (!invoiceInfo) {
+                location.reload();
+                browserHistory.replace('/h5/invoice/claim')
+            }
             dispatch(actions.setVars('invoiceInfo', invoiceInfo));
             if (invoiceInfo && invoiceInfo.cstatus === '7') {
-                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
+                browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
             } else if (invoiceInfo && invoiceInfo.cstatus === '0') {
                 // toast('发票正在生成中，请耐心等待30秒后再重新索要发票')
-            } else if (invoiceInfo && invoiceInfo.cstatus === '8' || invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
-                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
+            } else if (invoiceInfo && invoiceInfo.cstatus === '8' || invoiceInfo && invoiceInfo.cstatus === '-1' || invoiceInfo && invoiceInfo.cstatus === '6' || invoiceInfo && invoiceInfo.cstatus === '1' || invoiceInfo && invoiceInfo.cstatus === '2' || invoiceInfo && invoiceInfo.cstatus === '3' || invoiceInfo && invoiceInfo.cstatus === '4') {
+                browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
             } else if (invoiceInfo && invoiceInfo.cstatus !== '0') {
-                browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
+                browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
                 // browserHistory.push('/h5/invoice/claim')
             }
         },

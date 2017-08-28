@@ -9,11 +9,11 @@ module.exports = {
         },
         {
             title: '纳税人识别号',
+            icon: true,
             text: true,
             id: 'CompanyCode',
-            reg: new RegExp('^[a-zA-Z0-9]{8,15}$'),
+            reg: new RegExp(/^[a-zA-Z0-9]{15,18}$/),
             unEdit: false,
-            bindData: 'cbuyDeptCde',
         },
         {
             title: '价税合计（小写）',
@@ -51,7 +51,6 @@ module.exports = {
         },
         {
             title: '邮箱',
-            icon: false,
             id: 'Email',
             icon: true,
             reg: new RegExp('^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$')
@@ -69,9 +68,8 @@ module.exports = {
             title: '纳税人识别号',
             text: true,
             id: 'CompanyCode',
-            reg: new RegExp('^[a-zA-Z0-9]{8,15}$'),
+            reg: new RegExp(/^[a-zA-Z0-9]{15,18}$/),
             unEdit: false,
-            bindData: 'cbuyDeptCde',
         },
         {
             title: '价税合计（小写）',
@@ -137,9 +135,8 @@ module.exports = {
             title: '纳税人识别号',
             text: true,
             id: 'CompanyCode',
-            reg: new RegExp('^[a-zA-Z0-9]{8,15}$'),
+            reg: new RegExp(/^[a-zA-Z0-9]{15,18}$/),
             unEdit: false,
-            bindData: 'cbuyDeptCde',
         },
         {
             title: '价税合计（小写）',
