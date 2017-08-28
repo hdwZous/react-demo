@@ -184,9 +184,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                         let capOption = {callback: cbfn, showHeader: false, themeColor: 'ff9a01'}
                         capInit(document.getElementById('TXCode'), capOption)
                     }
-                  $('#TXCode iframe').attr('id','myframe')
-                  console.log($('#TXCode iframe'))
-                  $('iframe').find('body').css('background','black')
                 }, 0)
                 //回调函数：验证码页面关闭时回调
                 function cbfn(retJson) {

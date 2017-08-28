@@ -1,3 +1,8 @@
+let getInvoiceType = {
+    normal: '007',
+    special: '007',
+    elec: '026'
+};
 module.exports = {
     getInfo: (invoiceInfo) => {
         let infoList = [];
@@ -8,7 +13,7 @@ module.exports = {
             });
             infoList.push({
                 title: '价税合计（小写）：',
-                content: '¥' + (+invoiceInfo.nprice / 100).toFixed(2)
+                content: '¥' + (+invoiceInfo.nprice).toFixed(2)
             });
             infoList.push({
                 title: '发票号码：',
@@ -33,7 +38,7 @@ module.exports = {
             });
             infoList.push({
                 title: '价税合计（小写）：',
-                content: '¥' + (+invoiceInfo.nprice / 100).toFixed(2)
+                content: '¥' + (+invoiceInfo.nprice).toFixed(2)
             });
             infoList.push({
                 title: '手机号：',
@@ -60,33 +65,33 @@ module.exports = {
             return 1
         }
     },
+
     getFormatData: (invoiceInfo, data, flag) => {
-      // console.log(data)
-      let formatData = {
+        let formatData = {
             cplyNo: invoiceInfo.cplyNo,
-            cinsuredNme: data.CompanyName,
+            cinsuredNme: data.CompanyName === "undefined" ? invoiceInfo.cinsuredNme : data.CompanyName,
             ccertfCls: invoiceInfo.ccertfCls,
             ccertfCde: invoiceInfo.ccertfCde,
             cappNo: invoiceInfo.cappNo,
             nprm: invoiceInfo.nprm,
             ctrate: invoiceInfo.ctrate,
             nvat: invoiceInfo.nvat,
-            nprice: data.CompanyTotal,
-            cappNme: invoiceInfo.cappNme,//普票必传
-            cemail: data.Email,//非必传
-            cmobile: data.MobileNumber,
-            cpostAddress: invoiceInfo.cpostAddress,//邮寄地址
-            cinvoiceType: '026' || invoiceInfo.cinvoiceType,//发票类型
+            nprice: invoiceInfo.nprice,
+            cappNme: data.Username === "undefined" ? invoiceInfo.cappNme : data.Username,//普票必传
+            cemail: data.Username === "undefined" ? invoiceInfo.cemail : data.Email,//非必传
+            cmobile: data.Username === "undefined" ? invoiceInfo.cmobile : data.MobileNumber,
+            cpostAddress: data.Username === "undefined" ? invoiceInfo.cpostAddress : data.UserLoaction,//邮寄地址
+            cinvoiceType: getInvoiceType[flag],//发票类型//
             cinvoiceBS: invoiceInfo.cinvoiceBS,
             cbuyDeptCde: invoiceInfo.cbuyDeptCde,
             cchannel: invoiceInfo.cchannel,
             NInvoicePrice: invoiceInfo.NInvoicePrice,//待查看
             CBuyDeptCnm: invoiceInfo.CBuyDeptCnm,
-            BankNameAndAccount: !!data.BankNameAndAccount ? data.BankNameAndAccount : '',
+            BankNameAndAccount: data.BankNameAndAccount === "undefined" ? '' : data.BankNameAndAccount,
             CprodCnm: invoiceInfo.CprodCnm,
             TPlyCrtTm: invoiceInfo.TPlyCrtTm,
-            isWeatherPerson: invoiceInfo.isWeatherPerson,
-            veri_code: data.MessageCode//短信
+            veri_code: data.Username === "undefined" ? '' : data.MessageCode,//短信
+            isWeatherPerson: invoiceInfo.isWeatherPerson
         };
         return formatData
     }
