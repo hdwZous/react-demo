@@ -91,7 +91,11 @@ module.exports = {
             CprodCnm: invoiceInfo.CprodCnm,
             TPlyCrtTm: invoiceInfo.TPlyCrtTm,
             veri_code: data.Username === "undefined" ? '' : data.MessageCode,//短信
-            isWeatherPerson: invoiceInfo.isWeatherPerson
+            isWeatherPerson: invoiceInfo.isWeatherPerson,
+            cstatus: invoiceInfo.cstatus,
+            cpostNo: invoiceInfo.cpostNo,
+            csheets: invoiceInfo.csheets,
+            cbuyDeptAdr: invoiceInfo.cbuyDeptAdr,
         };
         return formatData
     }

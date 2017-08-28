@@ -15,41 +15,41 @@ const Component = React.createClass({
     componentDidMount () {
         this.props.init(this.props.tab, this.props.invoiceInfo);
     },
-
     render () {
-        let {bindData, callBack, CompanyName, CompanyCode, CompanyTotal, AddAndPhoneNumber, BankNameAndAccount, MobileNumber, MessageCode, Email, tab, toRegInput, sendMessage, SendFlag, invoiceInfo, Username, UserLoaction} = this.props;
+        let {bindData, callBack, CompanyName, CompanyCode, CompanyTotal, AddAndPhoneNumber, BankNameAndAccount, MobileNumber, MessageCode, Email, tab, toRegInput, sendMessage, SendFlag, invoiceInfo, Username, UserLoaction, sendWord} = this.props;
         return (
             <div className={styles.invoiceInput}>
                 {/*表单组件*/}
                 {
                     fromConfig && fromConfig[tab].map((item, key) => {
-                        console.log(this.props[item.id]);
-                        if (invoiceInfo && invoiceInfo.isWeatherPerson === '1') {
-                            if (item.id !== 'CompanyCode') {
+                        if(this.props[item.id]) {
+                            if (invoiceInfo && invoiceInfo.isWeatherPerson === '1') {
+                                if (item.id !== 'CompanyCode') {
+                                    return <div key={key} style={{backgroundColor: item.color ? item.color : '#fff'}}>
+                                        {item.icon ? <img src={InputIcon}/> : ''}
+                                        <span>{item.title}</span>
+                                        <input type="text" placeholder={item.text ? item.title : '请输入'}
+                                               onChange={(e) => bindData(item, e.target.value)}
+                                               disabled={item.unEdit ? 'disable' : ''}
+                                               value={!item.bindData ? this.props[item.id].value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
+                                               className={`${item.id == 'MessageCode' ? styles.yzmInput : ''} ${item.bindData ? '' : 'removeInput'}`}/>
+                                        {item.btn ? <button className={styles.yzmBtn}
+                                                            onClick={() => sendMessage(MobileNumber, SendFlag)}>{SendFlag ? '请稍后(' + SendFlag + ')' : sendWord}</button> : ''}
+                                    </div>
+                                }
+                            } else {
                                 return <div key={key} style={{backgroundColor: item.color ? item.color : '#fff'}}>
                                     {item.icon ? <img src={InputIcon}/> : ''}
                                     <span>{item.title}</span>
                                     <input type="text" placeholder={item.text ? item.title : '请输入'}
                                            onChange={(e) => bindData(item, e.target.value)}
                                            disabled={item.unEdit ? 'disable' : ''}
-                                           value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
+                                           value={!item.bindData ? this.props[item.id].value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
                                            className={`${item.id == 'MessageCode' ? styles.yzmInput : ''} ${item.bindData ? '' : 'removeInput'}`}/>
                                     {item.btn ? <button className={styles.yzmBtn}
-                                                        onClick={() => sendMessage(MobileNumber, SendFlag)}>{SendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
+                                                        onClick={() => sendMessage(MobileNumber, SendFlag)}>{SendFlag ? '请稍后(' + SendFlag + ')' : sendWord}</button> : ''}
                                 </div>
                             }
-                        } else {
-                            return <div key={key} style={{backgroundColor: item.color ? item.color : '#fff'}}>
-                                {item.icon ? <img src={InputIcon}/> : ''}
-                                <span>{item.title}</span>
-                                <input type="text" placeholder={item.text ? item.title : '请输入'}
-                                       onChange={(e) => bindData(item, e.target.value)}
-                                       disabled={item.unEdit ? 'disable' : ''}
-                                       value={!item.bindData ? item.value : invoiceInfo && (item.id === 'CompanyTotal' ? '¥' + (+invoiceInfo[item.bindData]).toFixed(2) : invoiceInfo[item.bindData])}
-                                       className={`${item.id == 'MessageCode' ? styles.yzmInput : ''} ${item.bindData ? '' : 'removeInput'}`}/>
-                                {item.btn ? <button className={styles.yzmBtn}
-                                                    onClick={() => sendMessage(MobileNumber, SendFlag)}>{SendFlag ? '请稍后(' + sendFlag + ')' : '点击获取'}</button> : ''}
-                            </div>
                         }
                     })
                 }
@@ -87,18 +87,28 @@ const mapStateToProps = (state) => {
         UserLoaction: state.vars.invoiceUserLoaction,
         CheckFlag: state.vars.invoiceFromCheckFlag,
         SendFlag: state.vars.invoiceSendFlag,
+        sendWord: state.vars.invoiceSendWord
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: (tab, info) => {
+            dispatch(actions.setVars('invoiceSendWord', '点击获取'));
             fromConfig && fromConfig[tab].map((item) => {
-                if (item.id === 'CompanyName') {
-                    item.value = info.cinsuredNme;
-                }
-                if (item.id === 'CompanyTotal') {
-                    item.value = info.nprice;
+                if(info) {
+                    if (item.id === 'CompanyName') {
+                        item.value = info.cinsuredNme;
+                    }
+                    if (item.id === 'CompanyTotal') {
+                        item.value = info.nprice;
+                    }
+                    if (item.id === 'MobileNumber') {
+                        item.value = info.cmobile;
+                    }
+                    if (item.id === "CompanyCode") {
+                        item.value = info.cbuyDeptCde;
+                    }
                 }
                 dispatch(actions.setVars('invoice' + item.id, item));
             })
@@ -113,20 +123,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             let jsonData = '{';
             data && data.map((item) => {
                 if (item) {
-                    if (item.reg && item.id !== 'CompanyCode') {
-                        if (item.value) {
-                            if (!item.reg.test(item.value)) {
-                                toast('请输入正确的' + item.title);
-                                checkFlag = true;
-                                return false
-                            }
-                        } else {
-                            toast('请输入正确的' + item.title);
-                            checkFlag = true;
-                            return false
-                        }
-                    } else if (item.reg && item.id === 'CompanyCode') {
-                        if (invoiceInfo && invoiceInfo.isWeatherPerson === '0') {
+                    if (!item.callNull) {
+                        if (item.reg && item.id !== 'CompanyCode') {
                             if (item.value) {
                                 if (!item.reg.test(item.value)) {
                                     toast('请输入正确的' + item.title);
@@ -134,6 +132,28 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                                     return false
                                 }
                             } else {
+                                toast('请输入正确的' + item.title);
+                                checkFlag = true;
+                                return false
+                            }
+                        } else if (item.reg && item.id === 'CompanyCode') {
+                            if (invoiceInfo && invoiceInfo.isWeatherPerson === '0') {
+                                if (item.value) {
+                                    if (!item.reg.test(item.value)) {
+                                        toast('请输入正确的' + item.title);
+                                        checkFlag = true;
+                                        return false
+                                    }
+                                } else {
+                                    toast('请输入正确的' + item.title);
+                                    checkFlag = true;
+                                    return false
+                                }
+                            }
+                        }
+                    } else {
+                        if (item.reg && item.value) {
+                            if (!item.reg.test(item.value)) {
                                 toast('请输入正确的' + item.title);
                                 checkFlag = true;
                                 return false
@@ -162,6 +182,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                             dispatch(actions.setVars('invoiceSendFlag', i--));
                         } else {
                             clearInterval(timmer);
+                            dispatch(actions.setVars('invoiceSendWord', '再次获取'));
                             dispatch(actions.setVars('invoiceSendFlag', 0));
                         }
                     }, 1000);
