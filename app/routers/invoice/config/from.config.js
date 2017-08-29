@@ -66,6 +66,7 @@ module.exports = {
         },
         {
             title: '纳税人识别号',
+            icon: true,
             text: true,
             id: 'CompanyCode',
             reg: new RegExp(/^[a-zA-Z0-9]{15,18}$/),
@@ -120,7 +121,9 @@ module.exports = {
         {
             title: '邮箱',
             icon: false,
-            id: 'Email'
+            id: 'Email',
+            reg: new RegExp('^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$'),
+            callNull: true,
         },
     ],
     special: [
@@ -133,6 +136,7 @@ module.exports = {
         },
         {
             title: '纳税人识别号',
+            icon: true,
             text: true,
             id: 'CompanyCode',
             reg: new RegExp(/^[a-zA-Z0-9]{15,18}$/),
@@ -148,16 +152,16 @@ module.exports = {
             bindData: 'nprice',
         },
         {
-
+            icon: true,
             title: '地址、电话',
-            icon: false,
-            id: 'AddAndPhoneNumber'
+            id: 'AddAndPhoneNumber',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
-
+            icon: true,
             title: '开户行及账号',
-            icon: false,
-            id: 'BankNameAndAccount'
+            id: 'BankNameAndAccount',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '收件人姓名',
@@ -187,7 +191,9 @@ module.exports = {
         {
             title: '邮箱',
             icon: false,
-            id: 'Email'
+            id: 'Email',
+            callNull: true,
+            reg: new RegExp('^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\\.)+([a-zA-Z0-9]{2,4})+$')
         },
     ]
 }

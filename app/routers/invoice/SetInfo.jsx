@@ -61,12 +61,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
             } else if (invoiceInfo && invoiceInfo.cstatus !== '0') {
                 browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait')
-                // browserHistory.push('/h5/invoice/claim')
             }
         },
         getInvoice: (invoiceInfo, data) => {
             loading(apiClient.post('/My/Issue_invoice', method.getFormatData(invoiceInfo, data, ownProps.params.tab)).then((result) => {
-                toast('开票成功');
+                if(result.cstatus === 8 && ownProps.params.tab === 'elec') {
+                    confirm('当前页面提示“自动审核失败，请联系客服人员电话：95303或者发送邮件到4008845678@95303.com进行人工审核！！');
+                } else {
+                    toast('开票成功');
+                }
                 browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait');
             }).catch((e) => {
                 toast(e.message);

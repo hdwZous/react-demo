@@ -101,27 +101,27 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             ticket: obj.ticket
         }
         loading(apiClient.post('/My/Query_invoice', data).then((result) => {
-          console.log(result)
+            console.log(result)
             if (result) {
-              let invoiceInfo = result.invoice
-              let status = invoiceInfo.cstatus
-              let type = invoiceInfo.cinvoiceType
-              let bs = invoiceInfo.cinvoiceBS
-              dispatch(actions.setVars('invoiceInfo', invoiceInfo))
-              if (status === '0') {
-                if (bs === '03') {
-                  alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
+                let invoiceInfo = result.invoice
+                let status = invoiceInfo.cstatus
+                let type = invoiceInfo.cinvoiceType
+                let bs = invoiceInfo.cinvoiceBS
+                dispatch(actions.setVars('invoiceInfo', invoiceInfo))
+                if (status === '0') {
+                    if (bs === '03') {
+                        alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
+                    } else {
+                        setTimeout(browserHistory.push('/h5/invoice/setinfo/elec/set'), 0)
+                    }
                 } else {
-                  setTimeout(browserHistory.push('/h5/invoice/setinfo/elec/set'), 0)
+                    if (type === '000') {
+                        alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
+                    } else {
+                        type = type === '004' ? 'special' : (type === '007' ? 'normal' : 'elec')
+                        setTimeout(browserHistory.push('/h5/invoice/setinfo/' + type + '/set'), 0)
+                    }
                 }
-              } else {
-                if (type === '000') {
-                  alert('我公司为本保险产品提供定额发票，您无需填写发票信息！')
-                } else {
-                  type = type === '004' ? 'special' : (type === '007' ? 'normal' : 'elec')
-                  setTimeout(browserHistory.push('/h5/invoice/setinfo/' + type + '/set'), 0)
-                }
-              }
             } else {
                 alert('查询信息失败，请稍后再试')
             }
@@ -178,13 +178,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     $('body').find('script.captcha_lib').attr('src', result.jsUrl)
                 }
                 let timer = setInterval(() => {
-                    if (capInit) {
-                        $('#TXCode').show()
+                    if (typeof capInit === 'function') {
                         clearInterval(timer)
                         let capOption = {callback: cbfn, showHeader: false, themeColor: 'ff9a01'}
                         capInit(document.getElementById('TXCode'), capOption)
                     }
-                }, 0)
+                }, 10);
                 //回调函数：验证码页面关闭时回调
                 function cbfn(retJson) {
                     if (retJson.ret === 0) {
