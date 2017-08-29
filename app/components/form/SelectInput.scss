@@ -80,18 +80,21 @@
 
   }
   .chooseBox {
-    animation: moveUp 0.3s ease-in-out forwards;
+    -webkit-animation: _35kq9um8mNc8uCxc30Xde1 .3s ease-in-out forwards;
+    animation: _35kq9um8mNc8uCxc30Xde1 .3s ease-in-out forwards;
     position: fixed;
     bottom: 0;
     width: 7.5rem;
-    margin-left:-0.6rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     overflow: hidden;
     background-color: #f5f5f5;
     height: 0;
     z-index: 100;
     transition: height .3s;
     -webkit-transition: height .3s;
-    color: #999999;
+    color: #999;
   }
   .chooseContainer {
     //height: 3rem;
