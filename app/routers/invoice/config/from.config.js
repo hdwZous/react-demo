@@ -154,12 +154,14 @@ module.exports = {
         {
             icon: true,
             title: '地址、电话',
-            id: 'AddAndPhoneNumber'
+            id: 'AddAndPhoneNumber',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             icon: true,
             title: '开户行及账号',
-            id: 'BankNameAndAccount'
+            id: 'BankNameAndAccount',
+            reg: new RegExp('^[\\S]+$'),
         },
         {
             title: '收件人姓名',

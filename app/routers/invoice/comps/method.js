@@ -31,7 +31,7 @@ module.exports = {
                 title: '邮箱：',
                 content: invoiceInfo.cemail
             });
-        } else if (invoiceInfo.cstatus === '8') {
+        } else if (invoiceInfo.cstatus === '1' || invoiceInfo.cstatus === '2' || invoiceInfo.cstatus === '3' || invoiceInfo.cstatus === '4' || invoiceInfo.cstatus === '5' || invoiceInfo.cstatus === '6' || invoiceInfo.cstatus === '8' || invoiceInfo.cstatus === '99') {
             infoList.push({
                 title: '单位名称：',
                 content: invoiceInfo.cinsuredNme
@@ -39,6 +39,35 @@ module.exports = {
             infoList.push({
                 title: '价税合计（小写）：',
                 content: '¥' + (+invoiceInfo.nprice).toFixed(2)
+            });
+            infoList.push({
+                title: '手机号：',
+                content: invoiceInfo.cmobile
+            });
+            infoList.push({
+                title: '邮箱：',
+                content: invoiceInfo.cemail
+            });
+        } else if (invoiceInfo.cstatus === '9') {
+            infoList.push({
+                title: '单位名称：',
+                content: invoiceInfo.cinsuredNme
+            });
+            infoList.push({
+                title: '价税合计（小写）：',
+                content: '¥' + (+invoiceInfo.nprice).toFixed(2)
+            });
+            infoList.push({
+                title: '快递单号：',
+                content: invoiceInfo.cpostNo
+            });
+            infoList.push({
+                title: '收件人姓名：',
+                content: invoiceInfo.cappNme
+            });
+            infoList.push({
+                title: '收件人地址：',
+                content: invoiceInfo.cpostAddress
             });
             infoList.push({
                 title: '手机号：',
@@ -86,7 +115,7 @@ module.exports = {
             cbuyDeptCde: invoiceInfo.cbuyDeptCde,
             cchannel: invoiceInfo.cchannel,
             NInvoicePrice: invoiceInfo.NInvoicePrice,//待查看
-            CBuyDeptCnm: invoiceInfo.CBuyDeptCnm,
+            CBuyDeptCnm: invoiceInfo.CBuyDeptCnm || invoiceInfo.cappNme,
             BankNameAndAccount: data.BankNameAndAccount === "undefined" ? '' : data.BankNameAndAccount,
             CprodCnm: invoiceInfo.CprodCnm,
             TPlyCrtTm: invoiceInfo.TPlyCrtTm,

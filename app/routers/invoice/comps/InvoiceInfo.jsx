@@ -34,7 +34,9 @@ const Component = React.createClass({
                                 return (
                                     <div className={styles.item} key={key}>
                                         <div className={styles.title}>{value.title}</div>
-                                        <div className={styles.content}>{value.content}</div>
+                                        <div className={styles.content}>
+                                            <div>{value.content}</div>
+                                        </div>
                                     </div>
                                 )
                             })

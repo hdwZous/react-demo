@@ -56,6 +56,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+    let clearRedux = function () {
+        fromConfig['special'].map((item) => {
+            dispatch(actions.setVars('invoice' + item.id, false));
+        });
+    };
     return {
         init: () => {
         },
@@ -70,6 +75,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                         if (key !== 'elec' && (+info.nprice < 300)) {
                             confirm('因您购买的保险产品发票金额小于300元，请考虑索取电子发票。如必须索要纸质发票，需您承担到付快递费用，并向快递员索要快递费发票。由此给您带来的不便，我们深表歉意。')
                         }
+                        clearRedux();
                         browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
                         fromConfig && fromConfig[key].map((item) => {
                             if (item.id === 'CompanyName') {
@@ -81,7 +87,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                             if (item.id === 'MobileNumber') {
                                 item.value = info.cmobile;
                             }
-                            if (item.id === "CompanyCode") {
+                            if (item.id === "CompanyCode" && (info.ccertfCls === '100111' || info.ccertfCls === '100112')) {
                                 item.value = info.cbuyDeptCde;
                             }
                             dispatch(actions.setVars('invoice' + item.id, item));
@@ -92,6 +98,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     if (key !== 'elec' && (+info.nprice < 300)) {
                         confirm('因您购买的保险产品发票金额小于300元，请考虑索取电子发票。如必须索要纸质发票，需您承担到付快递费用，并向快递员索要快递费发票。由此给您带来的不便，我们深表歉意。')
                     }
+                    clearRedux();
                     browserHistory.push('/h5/invoice/setinfo/' + key + '/set');
                     fromConfig && fromConfig[key].map((item) => {
                         if (item.id === 'CompanyName') {
@@ -103,7 +110,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                         if (item.id === 'MobileNumber') {
                             item.value = info.cmobile;
                         }
-                        if (item.id === "CompanyCode") {
+                        if (item.id === "CompanyCode" && (info.ccertfCls === '100111' || info.ccertfCls === '100112')) {
                             item.value = info.cbuyDeptCde;
                         }
                         dispatch(actions.setVars('invoice' + item.id, item));

@@ -106,7 +106,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     if (item.id === 'MobileNumber') {
                         item.value = info.cmobile;
                     }
-                    if (item.id === "CompanyCode") {
+                    if (item.id === "CompanyCode" && (info.ccertfCls === '100111' || info.ccertfCls === '100112')) {
                         item.value = info.cbuyDeptCde;
                     }
                 }

@@ -33,6 +33,11 @@
       .content {
         float: left;
         width: 4.3rem;
+        div {
+          display: block;
+          word-wrap: break-word;
+          padding-right: 0.3rem;
+        }
       }
     }
   }
