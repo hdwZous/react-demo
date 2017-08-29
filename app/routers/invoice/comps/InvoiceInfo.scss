@@ -1,10 +1,11 @@
 .mainBox {
   .invoiceStatus {
-    text-align: center;
-    height: 1.08rem;
     font-size: 0.28rem;
-    line-height: 1.08rem;
     color: #333333;
+    line-height: 150%;
+    padding: 0.1rem 0.3rem;
+    text-align: left;
+    position: relative;
     .downLoadInovice {
       line-height: 0.72rem;
       display: inline-block;
@@ -12,9 +13,16 @@
       font-size: 0.24rem;
       color: #ffbe23;
       width: 1.8rem;
-      margin-left: 0.8rem;
       border-radius: 0.36rem;
+      text-align: center;
+      position: absolute;
+      right: 0.3rem;
+      top: 50%;
+      margin-top: -0.36rem;
     }
+  }
+  .invoiceStatusElec {
+    padding-right: 2.5rem;
   }
   .detailBox {
     background-color: #ffffff;

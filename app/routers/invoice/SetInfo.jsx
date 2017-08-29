@@ -54,12 +54,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
             dispatch(actions.setVars('invoiceInfo', invoiceInfo));
             if (invoiceInfo && (invoiceInfo.cstatus === '7' || invoiceInfo.cstatus === '9')) {
-                if(invoiceInfo.cstatus === '7') {
-                    confirm('尊敬的安心客户，您的发票申请已通过审核，现已可以直接打印或查看，感谢您购买安心产品，祝您生活安心！')
-                }
-                if(invoiceInfo.cstatus === '9') {
-                    confirm('尊敬的安心客户，您的发票申请已通过审核，工作人员会在两个工作日内将发票快递给您，请近期查收，感谢您购买安心产品，祝您生活安心！')
-                }
                 browserHistory.replace('/h5/invoice/setinfo/' + ownProps.params.tab + '/finish')
             } else if (invoiceInfo && invoiceInfo.cstatus === '0') {
                 // toast('发票正在生成中，请耐心等待30秒后再重新索要发票')
@@ -71,13 +65,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         getInvoice: (invoiceInfo, data) => {
             loading(apiClient.post('/My/Issue_invoice', method.getFormatData(invoiceInfo, data, ownProps.params.tab)).then((result) => {
-                if(result.invoice.cstatus === 8 && ownProps.params.tab === 'elec') {
+                if (result.invoice.cstatus === '8' && ownProps.params.tab === 'elec') {
                     confirm('当前页面提示“自动审核失败，请联系客服人员电话：95303或者发送邮件到4008845678@95303.com进行人工审核！！');
                 } else {
                     toast('开票成功');
                 }
                 dispatch(actions.setVars('invoiceInfo', result.invoice));
-                if (result.invoice.cstatus === 0) {
+                if (result.invoice.cstatus === '0') {
                     confirm('发票正在生成中，请耐心等待30秒后再重新索要发票')
                 } else {
                     browserHistory.push('/h5/invoice/setinfo/' + ownProps.params.tab + '/wait');

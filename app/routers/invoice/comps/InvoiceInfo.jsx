@@ -18,7 +18,7 @@ const Component = React.createClass({
         return (
             <FixedContent>
                 <div className={styles.mainBox}>
-                    <div className={styles.invoiceStatus}>
+                    <div className={`${styles.invoiceStatus} ${messageFlag === 2 ? styles.invoiceStatusElec : ''}`}>
                         {
                             messageFlag && method.getMessage[messageFlag]
                         }

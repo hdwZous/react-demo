@@ -134,9 +134,9 @@ module.exports = {
         return infoList;
     },
     getMessage: {
-        '1': '您提交的信息正在审核中，请耐心等待......',
-        '2': '可以直接打印电子发票了噢！',
-        '3': '您的发票正在邮寄，请耐心等待......',
+        '1': '尊敬的安心客户，我们已收到您的发票申请，工作人员将会在24小时内尽快审核，审核通过后会以短信或邮件方式通知您，祝您生活安心！',
+        '2': '尊敬的安心客户，您的发票申请已通过审核，现已可以直接打印或查看，感谢您购买安心产品，祝您生活安心！',
+        '3': '尊敬的安心客户，您的发票申请已通过审核，工作人员会在两个工作日内将发票快递给您，请近期查收，感谢您购买安心产品，祝您生活安心！',
     },
     checkMessageStaus: (status) => {
         if (status === '7') {
@@ -165,7 +165,7 @@ module.exports = {
             cpostAddress: (!data.UserLoaction || data.UserLoaction === "undefined") ? invoiceInfo.cpostAddress : data.UserLoaction,//邮寄地址
             cinvoiceType: getInvoiceType[flag],//发票类型//
             cinvoiceBS: invoiceInfo.cinvoiceBS,
-            cbuyDeptCde: invoiceInfo.cbuyDeptCde,
+            cbuyDeptCde: (!data.CompanyCode || data.CompanyCode === "undefined") ? invoiceInfo.cbuyDeptCde : data.CompanyCode,
             cchannel: invoiceInfo.cchannel,
             NInvoicePrice: invoiceInfo.NInvoicePrice,//待查看
             CBuyDeptCnm: invoiceInfo.CBuyDeptCnm,
