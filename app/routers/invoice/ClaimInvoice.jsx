@@ -24,7 +24,7 @@ let ClaimInvoice = React.createClass({
             isHidden,
             isCarInsure
         } = this.props
-        // console.log(isHidden)
+        console.log(isHidden==='true')
         return (
             <FixedContent>
                 <div className={styles.content}>
@@ -67,7 +67,7 @@ let ClaimInvoice = React.createClass({
                     }, getTxCode)}>查询
                     </button>
                 </div>
-                <div className={styles.TXCode} id='TXCode'></div>
+                <div className={styles.TXCode} style={{display: isHidden === 'true' ? 'none' : 'block'}} id='TXCode'></div>
             </FixedContent>
         )
     }
@@ -79,7 +79,7 @@ const mapStateToProps = (state) => {
         insureName: state.vars.insureName,
         cardNumber: state.vars.cardNumber,
         cardType: state.vars.cardType,
-        isHidden: state.vars.isHidden,
+        isHidden: state.vars.isHidden || 'true',
         isCarInsure: state.vars.isCarInsure
     }
 }
@@ -170,7 +170,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
         },
         getTxCode: (obj) => {
-            dispatch(actions.setVars('isHidden', 'false'))
             loading(apiClient.post('/Sms/Get_slider_captcha_h5').then((result) => {
                 if (!$('body').find('script').hasClass('captcha_lib')) {
                     $('body').append(`<script src=${result.jsUrl} class="captcha_lib" id="txcode"></script>`)
@@ -179,6 +178,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 }
                 let timer = setInterval(() => {
                     if (typeof capInit === 'function') {
+                        dispatch(actions.setVars('isHidden', 'false'))
                         clearInterval(timer)
                         let capOption = {callback: cbfn, showHeader: false, themeColor: 'ff9a01'}
                         capInit(document.getElementById('TXCode'), capOption)
@@ -189,11 +189,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     if (retJson.ret === 0) {
                         dispatch(actions.setVars('isHidden', 'true'))
                         obj.ticket = retJson.ticket
-                        // 用户验证成功
-                      $('#TXCode').hide()
+                      // 用户验证成功
                       doSearch(obj)
                     } else {
-                      $('#TXCode').hide()
+                      dispatch(actions.setVars('isHidden', 'true'))
                       //用户关闭验证码页面，没有验证
                         toast('验证失败，请重新验证')
                     }
