@@ -14,6 +14,7 @@
     }
     input{
       -webkit-appearance: none;
+      border-radius: 0;
     }
     input::-webkit-input-placeholder {
       color: #999999;
@@ -51,23 +52,17 @@
     border: none;
   }
 }
-/*.mask{
-  position: absolute;
+.TXCode {
+  position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0,0,0,0.5);
-  .TXCode {
-    position: fixed;
-    height: 4rem;
-    width: 7.5rem;
-    top: 40%;
-    //margin-top: -1.5rem;
-    background-color: red;
-    .iframe{
-      height: 3rem !important;
-      width: 3.75rem;
-    }
+  bottom: 0;
+  display: none;
+  background: rgba(0,0,0,0.5);
+  iframe{
+    height: 6.15rem !important;
+    width: 7.5rem !important;
+    margin-top: 30% !important;
   }
-}*/
+}
