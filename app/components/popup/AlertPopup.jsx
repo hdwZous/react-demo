@@ -27,8 +27,7 @@ const Component = React.createClass({
               dangerousHtml ? <div dangerouslySetInnerHTML={{__html: dangerousHtml}} /> : message
             }
           </div>
-          <div className={styles.button}
-            style={{padding: '10px 0', fontSize: '0.36rem'}}>
+          <div className={styles.button}>
             {cancelText &&
             <div onClick={cancelClick}
               className={styles.cancel}>{cancelText}<i /></div>}

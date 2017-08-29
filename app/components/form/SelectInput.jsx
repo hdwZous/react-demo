@@ -45,7 +45,6 @@ let BottomPopup = React.createClass({
     let {isShowSelect} = this.state
     let {list, value} = this.props
     let optionMap = _.mapValues(_.indexBy(list, 'value'), obj => obj.text)
-
     return (
       <div className={styles.this}>
 
@@ -56,7 +55,7 @@ let BottomPopup = React.createClass({
 
         {isShowSelect &&
         <div className={styles.chooseBox}
-          style={{height: this.setHeight(list.length) + 0.5 + 'rem'}}>
+          style={{height: this.setHeight(list.length) + 0.3 + 'rem'}}>
           <div className={styles.chooseTop}>
             <div className={styles.titleCenter}>
               {'请选择'}
