@@ -151,7 +151,7 @@ module.exports = {
     getFormatData: (invoiceInfo, data, flag) => {
         let formatData = {
             cplyNo: invoiceInfo.cplyNo,
-            cinsuredNme: data.CompanyName === "undefined" ? invoiceInfo.cinsuredNme : data.CompanyName,
+            cinsuredNme: (!data.CompanyName || data.CompanyName === "undefined") ? invoiceInfo.cinsuredNme : data.CompanyName,
             ccertfCls: invoiceInfo.ccertfCls,
             ccertfCde: invoiceInfo.ccertfCde,
             cappNo: invoiceInfo.cappNo,
@@ -159,25 +159,25 @@ module.exports = {
             ctrate: invoiceInfo.ctrate,
             nvat: invoiceInfo.nvat,
             nprice: invoiceInfo.nprice,
-            cappNme: data.Username === "undefined" ? invoiceInfo.cappNme : data.Username,//普票必传
-            cemail: data.Email === "undefined" ? invoiceInfo.cemail : data.Email,//非必传
-            cmobile: data.MobileNumber === "undefined" ? invoiceInfo.cmobile : data.MobileNumber,
-            cpostAddress: data.UserLoaction === "undefined" ? invoiceInfo.cpostAddress : data.UserLoaction,//邮寄地址
+            cappNme: (!data.Username || data.Username === "undefined") ? invoiceInfo.cappNme : data.Username,//普票必传
+            cemail: (!data.Email || data.Email === "undefined") ? invoiceInfo.cemail : data.Email,//非必传
+            cmobile: (!data.MobileNumber || data.MobileNumber === "undefined") ? invoiceInfo.cmobile : data.MobileNumber,
+            cpostAddress: (!data.UserLoaction || data.UserLoaction === "undefined") ? invoiceInfo.cpostAddress : data.UserLoaction,//邮寄地址
             cinvoiceType: getInvoiceType[flag],//发票类型//
             cinvoiceBS: invoiceInfo.cinvoiceBS,
             cbuyDeptCde: invoiceInfo.cbuyDeptCde,
             cchannel: invoiceInfo.cchannel,
             NInvoicePrice: invoiceInfo.NInvoicePrice,//待查看
             CBuyDeptCnm: invoiceInfo.CBuyDeptCnm,
-            BankNameAndAccount: data.BankNameAndAccount === "undefined" ? '' : data.BankNameAndAccount,
+            BankNameAndAccount: (!data.BankNameAndAccount || data.BankNameAndAccount === "undefined") ? '' : data.BankNameAndAccount,
             CprodCnm: invoiceInfo.CprodCnm,
             TPlyCrtTm: invoiceInfo.TPlyCrtTm,
-            veri_code: data.MessageCode === "undefined" ? '' : data.MessageCode,//短信
+            veri_code: (!data.MessageCode || data.MessageCode === "undefined") ? '' : data.MessageCode,//短信
             isWeatherPerson: invoiceInfo.isWeatherPerson,
             cstatus: invoiceInfo.cstatus,
             cpostNo: invoiceInfo.cpostNo,
             csheets: invoiceInfo.csheets,
-            cbuyDeptAdr: invoiceInfo.cbuyDeptAdr,
+            cbuyDeptAdr: (!data.AddAndPhoneNumber || data.AddAndPhoneNumber === 'undefined') ? invoiceInfo.cbuyDeptAdr : data.AddAndPhoneNumber,
         };
         return formatData
     }
