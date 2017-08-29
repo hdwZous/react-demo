@@ -5,26 +5,21 @@ module.exports = {
     path: 'invoice/',
     childRoutes: [
         {
-            path: 'setelecinfo/:tab',
+            path: 'setinfo/:tab/:flag',
             getComponent (nextState, cb) {
                 require.ensure([], (require) => {
-                    cb(null, require('./SetElecInfo.jsx'))
-                })
-            }
-        }, {
-            path: 'setnormalinfo',
-            getComponent (nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('./SetNormalInfo.jsx'))
-                })
-            }
-        }, {
-            path: 'sy',
-            getComponent (nextState, cb) {
-                require.ensure([], (require) => {
-                    cb(null, require('./Sy.jsx'))
+                    cb(null, require('./SetInfo.jsx'))
                 })
             }
         },
-    ],
+        {
+            path: 'claim',
+            getComponent(nextState, cb)
+            {
+                require.ensure([], (require) => {
+                    cb(null, require('./ClaimInvoice.jsx'))
+                })
+            }
+        }
+    ]
 }

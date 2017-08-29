@@ -3,6 +3,6 @@ module.exports = [
         longTermCaching: true,
         minimize: true,
         buildPath: 'build/react',
-        pathLink: 'http://uatm.95303.com/react/public/'
+        pathLink: 'http://uat.95303.com/h5/public/'
     })
 ]

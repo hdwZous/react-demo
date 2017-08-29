@@ -10,11 +10,8 @@ const Component = React.createClass({
     },
 
     render () {
-        console.log(1);
         return (
             <select name="" id="">
-                <option value="" className={SySelectStyle.syxl}></option>
-                <option value="" className={SySelectStyle.syxl}></option>
                 <option value="" className={SySelectStyle.syxl}></option>
             </select>
         )

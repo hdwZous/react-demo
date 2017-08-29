@@ -1,0 +1,280 @@
+.this {
+  padding: 0 0.55rem;
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+
+    //50% {
+    //  transform: translateY(8%);
+    //}
+    //
+    //65% {
+    //  transform: translateY(-4%);
+    //}
+    //
+    //80% {
+    //  transform: translateY(4%);
+    //}
+    //
+    //95% {
+    //  transform: translateY(-2%);
+    //}
+
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+  @-webkit-keyframes slideDown {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(-100%);
+    }
+
+    //50% {
+    //  -webkit-transform: translateY(8%);
+    //}
+    //
+    //65% {
+    //  -webkit-transform: translateY(-4%);
+    //}
+    //
+    //80% {
+    //  -webkit-transform: translateY(4%);
+    //}
+    //
+    //95% {
+    //  -webkit-transform: translateY(-2%);
+    //}
+
+    100% {
+      opacity: 1;
+      -webkit-transform: translateY(0%);
+    }
+  }
+
+  @-webkit-keyframes flipInX {
+    0% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in;
+      opacity: 0
+    }
+
+    40% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in
+    }
+
+    60% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+      opacity: 1
+    }
+
+    80% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, -5deg)
+    }
+
+    100% {
+      -webkit-transform: perspective(400px);
+      transform: perspective(400px)
+    }
+  }
+  @keyframes flipInX {
+    0% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in;
+      opacity: 0
+    }
+
+    40% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in
+    }
+
+    60% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+      opacity: 1
+    }
+
+    80% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, -5deg)
+    }
+
+    100% {
+      -webkit-transform: perspective(400px);
+      transform: perspective(400px)
+    }
+  }
+  .flipInX {
+    //-webkit-backface-visibility: visible !important;
+    //backface-visibility: visible !important;
+    -webkit-animation-name: flipInX;
+    animation-name: flipInX
+  }
+  @keyframes fadeInNormal {
+    0% {
+      transform: scale(1);
+      opacity: 0.0;
+    }
+
+    60% {
+      transform: scale(1);
+    }
+
+    80% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadeInNormal {
+    0% {
+      -webkit-transform: scale(1);
+      opacity: 0.0;
+    }
+
+    60% {
+      -webkit-transform: scale(1);
+    }
+
+    80% {
+      -webkit-transform: scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      -webkit-transform: scale(1);
+      opacity: 1;
+    }
+  }
+  .toast {
+    background: rgba(0, 0, 0, 0.5);
+    height: 25.4rem;
+    z-index: 9998;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    animation: fadeInNormal 0.3s ease-in-out forwards;
+    -webkit-animation: fadeInNormal 0.3s ease-in-out forwards;
+    .popupLogo {
+      width: 1.08rem;
+      margin-bottom: 0.24rem;
+    }
+  }
+  .main {
+    z-index: 9999;
+    //background: #fff;
+    text-align: center;
+    border-radius: 0.1rem;
+    //padding-top: 0.6rem;
+    max-width: 5.4rem;
+    margin: 0 auto;
+    position: fixed;
+    right: 0.55rem;
+    left: 0.55rem;
+    top: 4.08rem;
+    animation: slideDown 0.5s ease-in-out forwards;
+    -webkit-animation: slideDown 0.5s ease-in-out forwards;
+    .title {
+      //margin-top: .28rem;
+      font-size: 0.36rem;
+      //margin-bottom: 0.3rem;
+      padding: 0 0.3rem;
+    }
+
+    .content {
+      //margin-top: .28rem;
+      //font-size: 0.24rem;
+      font-size: .32rem;
+      color: #333;
+      //margin-bottom: 0.3rem;
+      padding: 0 0.7rem;
+      //margin-top: .28rem;
+      font-size: .32rem;
+      color: #333;
+      //margin-bottom: 0.3rem;
+      padding: 0 0.7rem;
+      background: rgba(246, 246, 246, 0.90);
+      padding-top: 0.7rem;
+      padding-bottom: 0.57rem;
+      color: #000000;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      letter-spacing: -0.82px;
+      padding-left: 0.7rem;
+      padding-right: 0.7rem;
+      padding-left: 0.7rem;
+      padding-right: 0.7rem;
+    }
+    .button {
+      //height: 1rem;
+      //line-height: 1rem;
+      //color: #666;
+      //border-top: 1px solid;
+      //font-size: 0.24rem;
+      //border-bottom-left-radius: 10px;
+      //border-bottom-right-radius: 10px;
+      //border-color: #ddd;
+      width: 100%;
+      border-radius: 0;
+      font-size: 0.34rem;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      color: #007AFF;
+      padding-top: 0.28rem;
+      padding-bottom: 0.23rem;
+      background: rgba(246, 246, 246, 0.90);
+      .cancel {
+        position: relative;
+        i {
+          position: absolute;
+          right: 0;
+          top: -0.2rem;
+          bottom: -0.2rem;
+          width: 1px;
+          background: #ddd;
+        }
+      }
+      div {
+        width: 50%;
+        text-align: center;
+        display: inline-block;
+      }
+      button {
+        width: 50%;
+        background: #fff;
+        height: 100%;
+        border: 0;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        padding: 0;
+      }
+      button:nth-child(1) {
+        border-bottom-right-radius: 0;
+        border-right: 1px solid #ddd;
+      }
+    }
+  }
+}

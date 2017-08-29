@@ -1,0 +1,108 @@
+.this {
+  @keyframes mint-spinner-rotate {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg)
+    }
+
+    to {
+      -webkit-transform: rotate(1turn);
+      transform: rotate(1turn)
+    }
+  }
+  .mintIndicatorWrapper {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, .7);
+    color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 15px;
+
+  }
+  .mintIndicatorSpin {
+    display: inline-block;
+
+  }
+  .mintSpinnerSnake {
+    height: 32px;
+    width: 32px;
+    -webkit-animation: mint-spinner-rotate .8s infinite linear;
+    animation: mint-spinner-rotate .8s infinite linear;
+    border: 4px solid transparent;
+    border-radius: 50%;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-bottom-color: #fff;
+  }
+  .mintIndicatorText {
+    display: block;
+    color: #fff;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 16px
+
+  }
+  .shade {
+    background: rgba(0, 0, 0, 0);
+    height: 100%;
+    z-index: 1;
+    width: 100%;
+    max-width: 450px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+  @-webkit-keyframes zoomIn {
+    0% {
+      opacity: 0;
+      -webkit-transform: scale3d(.3, .3, .3);
+      transform: scale3d(.3, .3, .3)
+    }
+    100% {
+      opacity: 1
+    }
+  }
+
+  @-webkit-keyframes flipInX {
+    0% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in;
+      opacity: 0
+    }
+
+    40% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in
+    }
+
+    60% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+      opacity: 1
+    }
+
+    80% {
+      -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, -5deg)
+    }
+
+    100% {
+      -webkit-transform: perspective(400px);
+      transform: perspective(400px)
+    }
+  }
+  .flipInX {
+    animation: flipInX 1s ease-in-out forwards;
+    -webkit-animation: flipInX 1s ease-in-out forwards;
+  }
+}

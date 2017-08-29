@@ -9,33 +9,31 @@
       text-align: center;
       margin: 0.6rem 0;
       float: left;
-      width: 33.33333333% ;
-      height:1.2rem;
-      position:relative;
+      width: 33.33333333%;
+      height: 1.2rem;
+      position: relative;
       img.stateLine {
-        width:1.3rem;
-        height:0.1rem;
-        position:absolute;
+        width: 1.3rem;
+        height: 0.1rem;
+        position: absolute;
         top: 0.38rem;
-        left: 1.8rem;
+        left: 100%;
+        margin-left: -0.65rem;
       }
-      img{
+      img {
         width: 0.76rem;
         height: 0.76rem;
       }
       span {
         display: block;
         font-size: 0.24rem;
-        margin-top:0.2rem;
-        height:0.24rem;
-        color:#ccc;
+        margin-top: 0.2rem;
+        height: 0.24rem;
+        color: #ccc;
       }
-      .currentColor{
-        color:#ffbe23;
+      .currentColor {
+        color: #ffbe23;
       }
-    }
-
-
-
     }
   }
+}

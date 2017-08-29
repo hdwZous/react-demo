@@ -4,6 +4,7 @@ import ReactDom from 'react-dom'
 
 let store = require('../app/redux/store')
 import {Router, browserHistory} from 'react-router'
+
 let routes = require('../app/routers')
 
 var FastClick = require('fastclick')
@@ -11,7 +12,7 @@ var FastClick = require('fastclick')
 FastClick.attach(document.body)
 var win = window
 
-function flex (baseFontSize, fontscale) {
+function flex(baseFontSize, fontscale) {
   var _baseFontSize = baseFontSize || 100
   var _fontscale = fontscale || 1
 
@@ -37,9 +38,9 @@ function flex (baseFontSize, fontscale) {
   doc.documentElement.style.fontSize = _baseFontSize / 2 * dpr * _fontscale + 'px'
 };
 
-flex(100, 1)
+// flex(100, 1)
 ReactDom.render((
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
+    <Router history={browserHistory} routes={routes}/>
   </Provider>
 ), document.getElementById('react'))
