@@ -5,9 +5,7 @@ let wx = require('weixin-js-sdk')
 import apiClient from './apiClient'
 
 function shareInit(opts) {
-    var data = {
-        pageUrl: getUrlWithoutHash()
-    }
+    let pageUrl = getUrlWithoutHash();
     if (!opts) {
         opts = {
             title: '',
@@ -18,10 +16,10 @@ function shareInit(opts) {
     opts.title = opts.title || document.title;
     opts.imgUrl = opts.imgUrl || 'http://newweb-10004517.image.myqcloud.com/sample1504077016';
     opts.desc = opts.desc || '保险套路深？！No，是你选错啦！ 安心互联网保险，不热门不推荐！';
-    opts.link = opts.link;
+    opts.link = opts.link || location.href;
 
     apiClient.post('/weixin/Share', {
-        data
+        pageUrl
     }).then((result) => {
         if (result.code == 0) {
             result = result.data.body
