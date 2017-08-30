@@ -50,7 +50,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: (invoiceInfo) => {
             share({
-                link: 'https://h5.95303.com/h5/invoice/claim'
+                link: 'https://weixin.95303.com/h5/invoice/claim'
             });
             if (!invoiceInfo) {
                 location.reload();

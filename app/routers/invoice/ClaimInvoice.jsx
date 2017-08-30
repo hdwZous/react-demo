@@ -133,7 +133,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: () => {
             share({
-                link: 'https://h5.95303.com/h5/invoice/claim'
+                link: 'https://weixin.95303.com/h5/invoice/claim'
             });
         },
         bindData: (item, value) => {
