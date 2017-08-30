@@ -58,7 +58,7 @@
     height: 1.6rem;
   }
   .butnMask {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -67,7 +67,7 @@
     opacity: 0.8;
   }
   .butnList {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     background-color: #ffffff;
     width: 6.5rem;

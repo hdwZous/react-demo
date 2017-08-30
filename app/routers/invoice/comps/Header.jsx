@@ -12,12 +12,16 @@ const Component = React.createClass({
 
     render () {
         let {title, back} = this.props;
-        return (
-            <div className={styles.header}>
-                <img src={backIcon} onClick={() => back()}/>
-                {title}
-            </div>
-        )
+        if (!browserEnv.isInApp() && !browserEnv.isInWeixin()) {
+            return (
+                <div className={styles.header}>
+                    <img src={backIcon} onClick={() => back()}/>
+                    {title}
+                </div>
+            )
+        } else {
+            return <div/>
+        }
     }
 })
 
