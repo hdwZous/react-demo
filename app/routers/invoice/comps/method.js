@@ -11,10 +11,12 @@ module.exports = {
                 title: '单位名称：',
                 content: invoiceInfo.cinsuredNme
             });
-            infoList.push({
-                title: '纳税人识别号：',
-                content: invoiceInfo.cbuyDeptCde
-            });
+            if(invoiceInfo.isWeatherPerson !== '1') {
+                infoList.push({
+                    title: '纳税人识别号：',
+                    content: invoiceInfo.cbuyDeptCde
+                });
+            }
             infoList.push({
                 title: '价税合计（小写）：',
                 content: '¥' + (+invoiceInfo.nprice).toFixed(2)
@@ -36,16 +38,17 @@ module.exports = {
                 content: invoiceInfo.cemail
             });
         } else if (invoiceInfo.cstatus === '1' || invoiceInfo.cstatus === '2' || invoiceInfo.cstatus === '3' || invoiceInfo.cstatus === '4' || invoiceInfo.cstatus === '5' || invoiceInfo.cstatus === '6' || invoiceInfo.cstatus === '8' || invoiceInfo.cstatus === '99') {
-            console.log(1);
             if (invoiceInfo.cinvoiceType === '007' || invoiceInfo.cinvoiceType === '004') {
                 infoList.push({
                     title: '单位名称：',
                     content: invoiceInfo.cinsuredNme
                 });
-                infoList.push({
-                    title: '纳税人识别号：',
-                    content: invoiceInfo.cbuyDeptCde
-                });
+                if(invoiceInfo.isWeatherPerson !== '1') {
+                    infoList.push({
+                        title: '纳税人识别号：',
+                        content: invoiceInfo.cbuyDeptCde
+                    });
+                }
                 infoList.push({
                     title: '价税合计（小写）：',
                     content: '¥' + (+invoiceInfo.nprice).toFixed(2)
@@ -67,10 +70,12 @@ module.exports = {
                     title: '单位名称：',
                     content: invoiceInfo.cinsuredNme
                 });
-                infoList.push({
-                    title: '纳税人识别号：',
-                    content: invoiceInfo.cbuyDeptCde
-                });
+                if(invoiceInfo.isWeatherPerson !== '1') {
+                    infoList.push({
+                        title: '纳税人识别号：',
+                        content: invoiceInfo.cbuyDeptCde
+                    });
+                }
                 infoList.push({
                     title: '价税合计（小写）：',
                     content: '¥' + (+invoiceInfo.nprice).toFixed(2)
@@ -88,10 +93,12 @@ module.exports = {
                     title: '单位名称：',
                     content: invoiceInfo.cinsuredNme
                 });
-                infoList.push({
-                    title: '纳税人识别号：',
-                    content: invoiceInfo.cbuyDeptCde
-                });
+                if(invoiceInfo.isWeatherPerson !== '1') {
+                    infoList.push({
+                        title: '纳税人识别号：',
+                        content: invoiceInfo.cbuyDeptCde
+                    });
+                }
                 infoList.push({
                     title: '价税合计（小写）：',
                     content: '¥' + (+invoiceInfo.nprice).toFixed(2)
@@ -106,10 +113,12 @@ module.exports = {
                 title: '单位名称：',
                 content: invoiceInfo.cinsuredNme
             });
-            infoList.push({
-                title: '纳税人识别号：',
-                content: invoiceInfo.cbuyDeptCde
-            });
+            if(invoiceInfo.isWeatherPerson !== '1') {
+                infoList.push({
+                    title: '纳税人识别号：',
+                    content: invoiceInfo.cbuyDeptCde
+                });
+            }
             infoList.push({
                 title: '价税合计（小写）：',
                 content: '¥' + (+invoiceInfo.nprice).toFixed(2)
