@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {AlertPopup, Toast} from '../../components/popup';
-import Loading from 'fengui/component/popup/Loading';
+import {AlertPopup, Toast, Loading} from '../../components/popup';
+// import Loading from 'fengui/component/popup/Loading';
 import actions from '../../redux/actions';
 let {dispatch} = require('../../redux/store');
 

@@ -7,6 +7,7 @@ export {default as AlertPopup} from './AlertPopup'
 export {default as DownLoadPopup} from './DownLoadPopup'
 export {default as CustomPopup} from './CustomPopup'
 export {default as FullAlertPopup} from './FullAlertPopup'
+export {default as Loading} from './Loading'
 
 export function alert(opt, okTextParam = '确定', titleParam) {
     let {message, okText, title, isModal = true} = (typeof opt === 'object') ? opt : {

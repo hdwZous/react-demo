@@ -24,7 +24,6 @@ let ClaimInvoice = React.createClass({
             isHidden,
             isCarInsure
         } = this.props
-        console.log(isHidden==='true')
         return (
             <FixedContent>
                 <div className={styles.content}>
