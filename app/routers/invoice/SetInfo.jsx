@@ -10,6 +10,7 @@ import styles from './SetInfo.scss';
 import apiClient from '../../lib/apiClient';
 import {loading, toast, alert, confirm} from '../../components/popup';
 import method from './comps/method';
+import share from '../../lib/share';
 
 const Component = React.createClass({
     mixins: [require('mixin/background')('#ffffff')],
@@ -48,6 +49,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: (invoiceInfo) => {
+            share({
+                link: 'https://h5.95303.com/h5/invoice/claim'
+            });
             if (!invoiceInfo) {
                 location.reload();
                 browserHistory.replace('/h5/invoice/claim')

@@ -9,6 +9,7 @@ import apiClient from '../../lib/apiClient'
 import {browserHistory} from 'react-router'
 import inputConfig from './config/input.config'
 import {toast, alert, loading} from '../../components/popup'
+import share from '../../lib/share'
 
 let ClaimInvoice = React.createClass({
     mixins: [require('mixin/background')('#fff')],
@@ -24,7 +25,6 @@ let ClaimInvoice = React.createClass({
             isHidden,
             isCarInsure
         } = this.props
-        console.log(isHidden==='true')
         return (
             <FixedContent>
                 <div className={styles.content}>
@@ -67,7 +67,8 @@ let ClaimInvoice = React.createClass({
                     }, getTxCode)}>查询
                     </button>
                 </div>
-                <div className={styles.TXCode} style={{display: isHidden === 'true' ? 'none' : 'block'}} id='TXCode'></div>
+                <div className={styles.TXCode} style={{display: isHidden === 'true' ? 'none' : 'block'}}
+                     id='TXCode'></div>
             </FixedContent>
         )
     }
@@ -101,7 +102,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             ticket: obj.ticket
         }
         loading(apiClient.post('/My/Query_invoice', data).then((result) => {
-            console.log(result)
             if (result) {
                 let invoiceInfo = result.invoice
                 let status = invoiceInfo.cstatus
@@ -132,7 +132,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
     return {
         init: () => {
-            // dispatch(actions.setObjs('values', {cardType: ''}))
+            share({
+                link: 'https://h5.95303.com/h5/invoice/claim'
+            });
         },
         bindData: (item, value) => {
             const isCarInsure = value.substring(9, 11) === '03' ? 'true' : 'false'
@@ -189,11 +191,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     if (retJson.ret === 0) {
                         dispatch(actions.setVars('isHidden', 'true'))
                         obj.ticket = retJson.ticket
-                      // 用户验证成功
-                      doSearch(obj)
+                        // 用户验证成功
+                        doSearch(obj)
                     } else {
-                      dispatch(actions.setVars('isHidden', 'true'))
-                      //用户关闭验证码页面，没有验证
+                        dispatch(actions.setVars('isHidden', 'true'))
+                        //用户关闭验证码页面，没有验证
                         toast('验证失败，请重新验证')
                     }
                 }
