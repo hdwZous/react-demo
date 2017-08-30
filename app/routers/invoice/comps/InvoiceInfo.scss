@@ -1,10 +1,15 @@
 .mainBox {
   .invoiceStatus {
-    text-align: center;
-    height: 1.08rem;
     font-size: 0.28rem;
-    line-height: 1.08rem;
     color: #333333;
+    line-height: 150%;
+    padding: 0.4rem 0.52rem;
+    position: relative;
+    display: block;
+    text-align: center;
+    div {
+      text-align: left;
+    }
     .downLoadInovice {
       line-height: 0.72rem;
       display: inline-block;
@@ -12,8 +17,11 @@
       font-size: 0.24rem;
       color: #ffbe23;
       width: 1.8rem;
-      margin-left: 0.8rem;
       border-radius: 0.36rem;
+      text-align: center;
+      right: 0.3rem;
+      top: 50%;
+      margin-top: 0.3rem;
     }
   }
   .detailBox {
@@ -44,8 +52,8 @@
   .iconPhone {
     position: fixed;
     z-index: 999;
-    bottom: 0.02rem;
-    right: 0.02rem;
+    bottom: 0.2rem;
+    right: 0.2rem;
     width: 1.6rem;
     height: 1.6rem;
   }

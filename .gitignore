@@ -4,3 +4,4 @@ logs
 node_modules
 build
 *.log
+.DS_Store

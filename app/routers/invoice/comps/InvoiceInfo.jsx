@@ -18,10 +18,12 @@ const Component = React.createClass({
         return (
             <FixedContent>
                 <div className={styles.mainBox}>
-                    <div className={styles.invoiceStatus}>
-                        {
-                            messageFlag && method.getMessage[messageFlag]
-                        }
+                    <div className={`${styles.invoiceStatus}`}>
+                        <div>
+                            {
+                                messageFlag && method.getMessage[messageFlag]
+                            }
+                        </div>
                         {
                             messageFlag === 2 && <span className={styles.downLoadInovice} onClick={() => {
                                 location.href = invoiceInfo.EInvoiceURL
@@ -42,9 +44,11 @@ const Component = React.createClass({
                             })
                         }
                     </div>
-                    <img src={iconPhone} className={styles.iconPhone} onClick={() => changeMaskShow(maskShowFlag)}/>
+                    <img src={iconPhone} className={styles.iconPhone}
+                         onClick={() => changeMaskShow(maskShowFlag)}/>
                     {
-                        maskShowFlag && <div className={styles.butnMask} onClick={() => changeMaskShow(maskShowFlag)}/>
+                        maskShowFlag &&
+                        <div className={styles.butnMask} onClick={() => changeMaskShow(maskShowFlag)}/>
                     }
                     {
                         maskShowFlag && <div className={styles.butnList}>
