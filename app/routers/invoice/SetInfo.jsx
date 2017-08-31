@@ -53,7 +53,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 link: 'https://weixin.95303.com/h5/invoice/claim'
             });
             if (!invoiceInfo) {
-                location.reload();
                 browserHistory.replace('/h5/invoice/claim')
             }
             dispatch(actions.setVars('invoiceInfo', invoiceInfo));
