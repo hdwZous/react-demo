@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {AlertPopup, Toast, Loading} from '../../components/popup';
 // import Loading from 'fengui/component/popup/Loading';
+import apiClient from "../../lib/apiClient";
 import actions from '../../redux/actions';
 let {dispatch} = require('../../redux/store');
 
@@ -11,6 +12,14 @@ class Application extends React.Component {
     constructor(props) {
         super(props)
         dispatch(actions.setVars('landingUrl', location.href))
+
+        apiClient.post("/User/Get_userinfo", (result) => {
+            result.data.isLogin=true;
+            dispatch(actions.setVisitor(result.data));
+        }).catch(() => {
+            dispatch(actions.setVisitor({isLogin:false}));
+        });
+
     }
 
     render() {
