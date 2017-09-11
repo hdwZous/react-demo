@@ -17,6 +17,7 @@ class Application extends React.Component {
             result.data.isLogin=true;
             dispatch(actions.setVisitor(result.data));
         }).catch(() => {
+
             dispatch(actions.setVisitor({isLogin:false}));
         });
 
