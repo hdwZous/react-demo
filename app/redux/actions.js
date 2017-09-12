@@ -1,7 +1,7 @@
 /**
  * Created by chaiqing on 2017/7/26.
  */
-// export const SET_VISITOR = 'SET_VISITOR';
+export const SET_VISITOR = 'SET_VISITOR';
 
 export const SET_VARS = 'SET_VARS'
 
@@ -15,21 +15,21 @@ export const SET_VARS = 'SET_VARS'
 export const SET_OBJS = 'SET_OBJS';
 export const APPEND_OBJS = 'APPEND_OBJS';
 
-// export function setVisitor(visitor) {
-//   return {
-//     type: SET_VISITOR,
-//     visitor: visitor
-//   };
-// }
+export function setVisitor(visitor) {
+  return {
+    type: SET_VISITOR,
+    visitor: visitor
+  };
+}
 
-// export function logout() {
-//   return {
-//     type: SET_VISITOR,
-//     visitor: {
-//       isLogin: false,
-//     }
-//   };
-// }
+export function logout() {
+  return {
+    type: SET_VISITOR,
+    visitor: {
+      isLogin: false,
+    }
+  };
+}
 
 export function setVars (key, value) {
   return {

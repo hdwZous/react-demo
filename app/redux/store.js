@@ -4,7 +4,7 @@
 'use strict'
 
 var {createStore, combineReducers} = require('redux')
-// var visitor = require('./reducers/visitor');
+var visitor = require('./reducers/visitor');
 var vars = require('./reducers/vars')
 var objs = require('./reducers/objs');
 // var lists = require('./reducers/lists');
@@ -12,7 +12,7 @@ var objs = require('./reducers/objs');
 var map = require('./reducers/map')
 
 var mainReducer = combineReducers({
-  // visitor,
+  visitor,
   vars,
   // banners,
   // lists,
