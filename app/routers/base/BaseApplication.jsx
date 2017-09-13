@@ -14,10 +14,9 @@ class Application extends React.Component {
         dispatch(actions.setVars('landingUrl', location.href))
 
         apiClient.post("/User/Get_userinfo", (result) => {
-            result.data.isLogin=true;
+            result.isLogin=true;
             dispatch(actions.setVisitor(result.data));
         }).catch(() => {
-
             dispatch(actions.setVisitor({isLogin:false}));
         });
 
