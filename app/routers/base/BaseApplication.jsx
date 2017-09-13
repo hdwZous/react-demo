@@ -13,12 +13,12 @@ class Application extends React.Component {
         super(props)
         dispatch(actions.setVars('landingUrl', location.href))
 
-        apiClient.post("/User/Get_userinfo", (result) => {
+        apiClient.post("/User/Get_userinfo").then((result)=>{
             result.isLogin=true;
             dispatch(actions.setVisitor(result.data));
-        }).catch(() => {
+        }).catch(()=>{
             dispatch(actions.setVisitor({isLogin:false}));
-        });
+        })
 
     }
 
