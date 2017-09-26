@@ -1,0 +1,105 @@
+.this {
+  position: relative;
+  background-color: #000000;
+  font-size: 18px;
+  &.white {
+    background-color: white;
+    color: #333333;
+    .left {
+      background: url("./img/back_origin.png") no-repeat 8px 10px;
+      background-size: 24px 24px;
+    }
+
+    .right {
+      color: #333;
+    }
+  }
+  &.orange {
+    background-image: linear-gradient(24deg, #ffcc33 0%, #ff9900 100%);
+    color: #ffffff;
+    div{
+      color: #fff;
+    }
+  }
+  &.danger {
+    background-color: #e83829;
+    color: white;
+  }
+  &.red {
+    background-color: #d43c33;
+    color: #fff;
+  }
+  height: 44px;
+  color: white;
+  text-align: center;
+
+  a {
+    color: white;
+  }
+
+  .center {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    margin: 0 10px;
+    min-width: 30px;
+    height: 44px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.32rem;
+    line-height: 44px;
+    color:#646464;
+  }
+
+  .left {
+    position: absolute;
+    background: url("./img/back_origin.png") no-repeat 8px 10px;
+    background-size: 24px 24px;
+    width: 42px;
+    height: 42px;
+    z-index: 11;
+    left: 0.2rem;
+  }
+
+  .right {
+    position: absolute;
+    padding: 12px 0 0 12px;
+    height: 44px;
+    z-index: 11;
+    right: 16px;
+    font-size: 14px;
+  }
+
+  .rightIcon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 10;
+    width: 0.44rem;
+  }
+
+  .leftIcon {
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    height: 24px;
+    z-index: 10;
+  }
+
+  .leftText {
+    position: absolute;
+    padding: 16px 0;
+    z-index: 11;
+    left: 16px;
+    font-size: 0.24rem;
+    color: #646464;
+    .arrowdown{
+      width: 0.18rem;
+      height: 0.18rem;
+      margin-left: 0.05rem;
+    }
+  }
+}

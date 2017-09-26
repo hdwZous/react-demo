@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import FixedContent from '../../components/common/FixedContent'
+import Header from '../../components/common/Header'
 import {connect} from 'react-redux'
 import actions from '../../redux/actions'
 import {SelectInput} from '../../components/form'
