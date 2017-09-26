@@ -5909,6 +5909,10 @@ react-mixin@^3.0.5:
     object-assign "^4.0.1"
     smart-mixin "^2.0.0"
 
+react-mobile-datepicker@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/react-mobile-datepicker/-/react-mobile-datepicker-3.0.6.tgz#075fa6f89c977b353d44b6ce66f51627053c0496"
+
 react-mobiscroll@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/react-mobiscroll/-/react-mobiscroll-0.4.0.tgz#59ace77e7f5788fdbe0c853bccf4b05f2a6b7c49"
