@@ -7,7 +7,6 @@
     "hot-dev-server": "webpack-dev-server --config webpack-hot-development-server.config.js --hot --progress --colors --host 0.0.0.0 --port 1818 --inline",
     "hot-local": "webpack-dev-server --config webpack-hot-local.config.js --hot --progress --colors --host 0.0.0.0 --port 1818 --inline",
     "build": "node --max-old-space-size=4076 node_modules/.bin/webpack --config webpack-production.config.js --progress --profile --colors",
-    "freeze": "node --max-old-space-size=4076 node_modules/.bin/webpack --config webpack-freeze.config.js --progress --profile --colors",
     "start-dev": "node lib/server-development",
     "test": "node --max-old-space-size=4076 node_modules/.bin/webpack --config webpack-development.config.js --progress --profile --colors"
   },
@@ -54,6 +53,7 @@
     "md5": "2.2.1",
     "mkdirp": "^0.5.1",
     "moment": "^2.10.6",
+    "node-sass": "^4.5.1",
     "null-loader": "^0.1.0",
     "odometer": "^0.4.7",
     "postcss-loader": "^0.9.1",
